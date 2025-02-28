@@ -24,28 +24,14 @@ class WikiConfig:
     """Configuration for Wikipedia parallel data extraction"""
     languages: List[str] = field(default_factory=lambda: ["en", "fr", "de", "ja", "ru"])
     num_documents: int = 10000
-    output_dir: str = "data/raw"
+    output_dir: str = "/Data/shash/mul/raw"
     # Categories to extract from (will try these in order until we have enough documents)
     categories: List[str] = field(default_factory=lambda: [
         "Featured_articles", 
         "Good_articles",
-        "Science",
-        "Philosophy",
-        "Culture",
-        "Politics",
-        "History",
-        "Geography",
-        "Religion",
-        "Mathematics",
-        "Biology",
-        "Chemistry",
-        "Physics",
-        "Astronomy",
-        "Psychology",
-        "Technology",
     ])
     # How many articles to get from each category
-    articles_per_category: int = 30000
+    articles_per_category: int = 100000
     # Min content length to consider (to filter out stubs)
     min_content_length: int = 1000
     # Delay between requests to avoid hitting rate limits (in seconds)
@@ -291,8 +277,8 @@ def main():
                         help="Languages to extract (default: en fr de ja ru)")
     parser.add_argument("--num-documents", type=int, default=10000,
                         help="Number of documents to extract (default: 10000)")
-    parser.add_argument("--output-dir", default="data/raw",
-                        help="Output directory (default: data/raw)")
+    parser.add_argument("--output-dir", default="/Data/shash/mul/raw",
+                        help="Output directory (default: /Data/shash/mul/raw)")
     parser.add_argument("--min-content-length", type=int, default=1000,
                         help="Minimum content length to consider (default: 1000)")
     
