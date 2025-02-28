@@ -23,21 +23,29 @@ import pandas as pd
 class WikiConfig:
     """Configuration for Wikipedia parallel data extraction"""
     languages: List[str] = field(default_factory=lambda: ["en", "fr", "de", "ja", "ru"])
-    num_documents: int = 20000
+    num_documents: int = 10000
     output_dir: str = "data/raw"
     # Categories to extract from (will try these in order until we have enough documents)
     categories: List[str] = field(default_factory=lambda: [
-        "Science",
         "Featured_articles", 
+        "Good_articles",
+        "Science",
+        "Philosophy",
+        "Culture",
         "Politics",
         "History",
         "Geography",
+        "Religion",
+        "Mathematics",
+        "Biology",
+        "Chemistry",
+        "Physics",
+        "Astronomy",
+        "Psychology",
         "Technology",
-        "Culture",
-
     ])
     # How many articles to get from each category
-    articles_per_category: int = 2000
+    articles_per_category: int = 30000
     # Min content length to consider (to filter out stubs)
     min_content_length: int = 1000
     # Delay between requests to avoid hitting rate limits (in seconds)
@@ -281,8 +289,8 @@ def main():
     
     parser.add_argument("--languages", nargs="+", default=["en", "fr", "de", "ja", "ru"],
                         help="Languages to extract (default: en fr de ja ru)")
-    parser.add_argument("--num-documents", type=int, default=20000,
-                        help="Number of documents to extract (default: 20000)")
+    parser.add_argument("--num-documents", type=int, default=10000,
+                        help="Number of documents to extract (default: 10000)")
     parser.add_argument("--output-dir", default="data/raw",
                         help="Output directory (default: data/raw)")
     parser.add_argument("--min-content-length", type=int, default=1000,
