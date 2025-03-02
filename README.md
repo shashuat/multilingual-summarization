@@ -1,205 +1,190 @@
-# multilingual-summarization
+# Multilingual Summarization Fine-Tuning Project
+
+This project implements a modular pipeline for fine-tuning Small Language Models (SLMs) on multilingual summarization tasks using parallel Wikipedia articles.
+
+## Project Structure
+
+The codebase is organized into modular components:
+
+### Data Processing
+- `dataset.py` - Extract Wikipedia articles (in all 5 languages parallel)
+- `generate_summaries.py` - Generate summaries using a large language model
+- `convert_to_hf_dataset.py` - Create HuggingFace datasets from raw data and summaries
+
+### Model Training and Evaluation
+- `finetune_model.py` - Fine-tune a model on the summarization task
+- `evaluate_model.py` - Evaluate model performance
+- `compare_baselines.py` - Compare multiple models
+
+### Utility Modules
+- `model_utils.py` - Model loading/saving utilities
+- `data_utils.py` - Data processing utilities
+- `metrics_utils.py` - Metrics computation and visualization
 
 ## Installation
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
 ```
-git lfs install
-git lfs track "data/*"
-git lfs track "outputs/*"
+
+## Usage Workflow
+
+### 1. Data Extraction and Preparation
+
+First, extract parallel Wikipedia articles:
+
+```bash
+python dataset.py --languages fr de ja ru --num-documents 5000 --output-dir Data/directory/raw
 ```
 
-### 1. Configuration Management (`config.py`)
+Next, generate summaries for each language:
 
-#### DataConfig
-- `languages`: List[str] - Target languages for parallel corpus creation
-- `wiki_category`: str - Source Wikipedia category for data extraction
-- `num_documents`: int - Number of documents to extract (default: 5000)
-- `train_ratio`: float - Train/test split ratio
-- `max_input_length`: int - Maximum token length for input text
-- `max_summary_length`: int - Maximum token length for generated summaries
+```bash
+python generate_summaries.py \
+  --raw-data-dir Data/directory/raw \
+  --summaries-dir Data/directory/summaries \
+  --languages fr de ja ru \
+  --model-name Qwen/Qwen2.5-7B-Instruct
+```
 
-#### ModelConfig
-- Base Model Parameters:
-  - `base_model_name`: str - Name of the base mT5 model
-  - `summary_model_name`: str - Name of the synthetic summary generation model
-  - `use_quantization`: bool - Toggle for model quantization
-  - `quantization_bits`: int - Bits for quantization (default: 4)
+Finally, convert the raw data and summaries to a HuggingFace dataset:
 
-- LoRA Hyperparameters:
-  - `lora_r`: int - LoRA rank (default: 16)
-  - `lora_alpha`: int - LoRA alpha scaling factor (default: 32)
-  - `lora_dropout`: float - Dropout probability
-  - `target_modules`: List[str] - Target modules for LoRA adaptation
+```bash
+python convert_to_hf_dataset.py \
+  --raw-data-dir Data/directory/raw \
+  --summaries-dir Data/directory/summaries \
+  --hf-dataset-dir Data/directory/hf_dataset \
+  --languages fr de ja ru
+```
 
-- Training Hyperparameters:
-  - `learning_rate`: float - Initial learning rate
-  - `num_epochs`: int - Number of training epochs
-  - `train_batch_size`: int - Training batch size
-  - `gradient_accumulation_steps`: int - Steps for gradient accumulation
-  - Generation parameters (temperature, top_p, etc.)
+### 2. Model Fine-tuning
 
-### 2. Model Architecture (`models.py`)
+Fine-tune a small language model on a specific language:
 
-#### BaseSummarizer
-Abstract base class defining the summarizer interface:
+```bash
+python finetune_model.py \
+  --model-name google/mt5-base \
+  --dataset-path Data/directory/hf_dataset \
+  --language fr \
+  --output-dir models \
+  --batch-size 4 \
+  --num-epochs 3
+```
+
+Options:
+- Use `--no-lora` to disable LoRA (use full fine-tuning)
+- Use `--lora-r` and `--lora-alpha` to configure LoRA parameters
+- Use `--learning-rate` to adjust the learning rate
+
+### 3. Model Evaluation
+
+Evaluate the fine-tuned model:
+
+```bash
+python evaluate_model.py \
+  --model-path models/fr_mt5-base_20250302_123456/final_model \
+  --dataset-path Data/directory/hf_dataset \
+  --language fr
+```
+
+For LoRA models, use:
+```bash
+python evaluate_model.py \
+  --model-path models/fr_mt5-base_lora_20250302_123456/final_model \
+  --dataset-path Data/directory/hf_dataset \
+  --language fr \
+  --lora \
+  --base-model google/mt5-base
+```
+
+### 4. Model Comparison
+
+Compare your fine-tuned model against baselines:
+
+```bash
+python compare_baselines.py \
+  --config model_config.json \
+  --dataset-path Data/directory/hf_dataset \
+  --language fr \
+  --output-dir model_comparison
+```
+
+Where `model_config.json` defines the models to compare:
+
+```json
+{
+  "models": [
+    {
+      "name": "google/mt5-base",
+      "type": "huggingface",
+      "display_name": "mT5-Base (Baseline)"
+    },
+    {
+      "name": "./models/fr_mt5-base_20250302_123456/final_model",
+      "type": "finetuned",
+      "display_name": "Fine-tuned mT5-Base"
+    }
+  ]
+}
+```
+
+## Running on Google Colab
+
+For Colab compatibility:
+1. Keep batch sizes small (2-4) to fit in GPU memory
+2. Use LoRA fine-tuning (enabled by default)
+3. For large models, reduce `max_input_length` and `max_target_length`
+
+Example Colab setup:
 ```python
-def generate_summary(self, text: str) -> str:
-    """Generate summary for input text"""
-    raise NotImplementedError
+# Install requirements
+!pip install -r requirements.txt
+
+!git clone https://github.com/shashuat/multilingual-summarization.git
+%cd multilingual-summarization
+
+# Run the fine-tuning
+!python finetune_model.py \
+  --model-name google/mt5-base \
+  --dataset-path ./Data/directory/hf_dataset \
+  --language fr \
+  --batch-size 2 \
+  --num-epochs 3
 ```
 
-#### MT5Summarizer
-Implements the base summarizer using mT5:
-- Initialization:
-  ```python
-  def __init__(self, config: ModelConfig):
-      self.tokenizer = AutoTokenizer.from_pretrained(config.base_model_name)
-      self.model = AutoModelForSeq2SeqGeneration.from_pretrained(...)
-  ```
-- LoRA Integration:
-  - Uses PEFT library for parameter-efficient fine-tuning
-  - Targets query and value matrices in transformer blocks
-  - Reduces trainable parameters by ~99%
+## Recommended Small Language Models
 
-#### QuantizedQwenSummarizer
-Implements quantized Qwen model for synthetic summary generation:
-- Uses AutoGPTQ for 4-bit quantization
-- Implements efficient inference with quantized weights
-- Custom prompt template for summary generation
+Models that work well on Google Colab (16GB GPU):
+- `google/mt5-base` (580M parameters, multilingual)
 
-### 3. Dataset Processing (`dataset.py`)
 
-#### WikiParallelExtractor
-Handles parallel corpus creation:
-```python
-def extract_parallel_documents(self) -> List[Dict]:
-    """Extract aligned documents across languages"""
+## Evaluation Metrics
+
+Models are evaluated using:
+- ROUGE scores (ROUGE-1, ROUGE-2, ROUGE-L)
+- BERTScore (precision, recall, F1)
+- Length statistics and correlation
+- Visualizations of performance patterns
+
+## Project Structure
+
 ```
-- Uses mwclient for efficient Wikipedia API access
-- Implements parallel processing for extraction
-- Maintains language alignment through langlinks
-
-#### DatasetCreator
-Manages dataset preparation:
-- Synthetic summary generation using quantized model
-- Dataset splitting and preprocessing
-- HuggingFace Dataset integration
-
-### 4. Training Pipeline (`train.py`)
-
-#### SummaryTrainer
-Implements training loop and evaluation:
-```python
-def train(self, train_dataset, eval_dataset):
-    """Train model with specified datasets"""
+├── data/
+│   ├── raw/               # Raw Wikipedia articles
+│   ├── summaries/         # Generated summaries
+│   └── hf_dataset/        # Processed HuggingFace datasets
+├── models/                # Fine-tuned models
+├── model_comparison/      # Model comparison results
+├── dataset.py             # Wikipedia data extraction script
+├── generate_summaries.py  # Summary generation script
+├── convert_to_hf_dataset.py # Dataset conversion script
+├── model_utils.py         # Model utilities
+├── data_utils.py          # Data processing utilities
+├── metrics_utils.py       # Metrics computation utilities
+├── finetune_model.py      # Fine-tuning script
+├── evaluate_model.py      # Evaluation script
+├── compare_baselines.py   # Model comparison script
+└── requirements.txt       # Project dependencies
 ```
-
-Key Features:
-- Gradient accumulation for memory efficiency
-- Mixed precision training (FP16)
-- Progressive learning rate scheduling
-- Evaluation metrics computation (ROUGE, BERTScore)
-
-### 5. Generation Interface (`generate.py`)
-
-Provides inference interface:
-```python
-def generate_summaries(
-    texts: List[str],
-    model_config: ModelConfig,
-    checkpoint_path: str = None
-) -> List[str]
-```
-
-## Technical Implementation Details
-
-### Memory Optimization
-1. Gradient Accumulation:
-   ```python
-   gradient_accumulation_steps = batch_size // micro_batch_size
-   ```
-
-2. Mixed Precision Training:
-   - Uses torch.amp for automatic mixed precision
-   - FP16 for computation, FP32 for accumulation
-
-### Model Quantization
-1. AutoGPTQ Implementation:
-   ```python
-   model = AutoGPTQForCausalLM.from_quantized(
-       model_name,
-       use_safetensors=True,
-       device_map="auto"
-   )
-   ```
-
-2. LoRA Configuration:
-   ```python
-   lora_config = LoraConfig(
-       r=16,              # Low-rank approximation dimension
-       lora_alpha=32,     # Scaling factor
-       target_modules=["q", "v"]  # Target attention matrices
-   )
-   ```
-
-### Dataset Processing Pipeline
-
-1. Parallel Document Extraction:
-   ```python
-   parallel_set = {
-       lang: self._extract_content(page)
-       for lang, page in self._get_parallel_pages(base_page)
-   }
-   ```
-
-2. Content Cleaning:
-   - Removes Wiki markup
-   - Handles special characters
-   - Normalizes whitespace
-
-### Evaluation Metrics
-
-1. ROUGE Score Implementation:
-   ```python
-   rouge = evaluate.load('rouge')
-   metrics = rouge.compute(
-       predictions=predictions,
-       references=references
-   )
-   ```
-
-2. BERTScore for Semantic Similarity:
-   - Cross-lingual evaluation capability
-   - Contextual embeddings for better semantic matching
-
-## Performance Considerations
-
-### GPU Memory Usage
-- Base mT5 model: ~2GB
-- Quantized Qwen: ~4GB
-- Total pipeline: ~8GB peak memory
-
-### Training Time Estimates
-- Data extraction: ~2-3 hours
-- Training (per language): ~4-6 hours on T4 GPU
-- Inference: ~100ms per summary
-
-## Future Improvements
-
-1. Model Architecture:
-   - Implement model distillation
-   - Explore more efficient attention mechanisms
-
-2. Training Optimization:
-   - Implementation of 8-bit training
-   - Dynamic batch sizing
-   - Curriculum learning strategy
-
-3. Dataset Enhancement:
-   - Quality filtering based on article metrics
-   - Cross-lingual consistency checking
-   - Data augmentation techniques
-
-4. LLM as a Judge:
-   - Use LLM to judge the quality of the summaries
-   - Use the LLM to generate summaries for the data
-
