@@ -59,7 +59,7 @@ def setup_llm(model_name: str):
     if torch.cuda.is_available():
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.float16,
+            bnb_4bit_compute_dtype=torch.bfloat16,
             bnb_4bit_quant_type="nf4",
             bnb_4bit_use_double_quant=True
         )
@@ -72,7 +72,7 @@ def setup_llm(model_name: str):
         model_name,
         device_map="auto",
         quantization_config=quantization_config,
-        torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+        torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
         trust_remote_code=True
     )
     
@@ -239,7 +239,7 @@ def main():
     parser.add_argument("--languages", nargs="+", default=["en", "fr", "de", "ja", "ru"],
                         help="Languages to process (default: en fr de ja ru)")
     parser.add_argument("--model-name", required=True,
-                        help="LLM model to use for summary generation (e.g., Qwen/Qwen2.5-7B-Instruct)")
+                        help="LLM model to use for summary generation (e.g., Qwen/Qwen2.5-7B-Instruct, mistralai/Mistral-Small-24B-Instruct-2501)")
     parser.add_argument("--max-input-length", type=int, default=4096,
                         help="Maximum input length for the LLM")
     parser.add_argument("--max-summary-length", type=int, default=512,
