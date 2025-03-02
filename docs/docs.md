@@ -18,7 +18,7 @@ python -m src.generate_summaries \
   --raw-data-dir /Data/shash/mul/raw \
   --summaries-dir /Data/shash/mul/summaries_test \
   --languages fr de ja ru \
-  --model-name Qwen/Qwen2.5-14B-Instruct
+  --model-name Qwen/Qwen2.5-32B-Instruct
 ```
 python convert_to_hf_dataset.py \
   --raw-data-dir data/raw \
