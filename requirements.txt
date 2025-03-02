@@ -1,0 +1,11 @@
+torch
+transformers
+datasets
+numpy
+bitsandbytes
+accelerate
+wandb
+dotenv
+ipykernel
+jupyter
+ipywidgets
