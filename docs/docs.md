@@ -11,7 +11,7 @@ HF_TOKEN=hf_something
 WANDB_TOKEN=e58_something
 
 # To run the generate_summaries.py file for a model 
-(example Qwen2.5-7B-Instruct)
+(example Qwen2.5-32B-Instruct)
 
 ```
 python -m src.generate_summaries \
@@ -33,3 +33,18 @@ python -m src.generate_summaries_batch \
   --model-name Qwen/Qwen2.5-32B-Instruct \
   --batch-size 8 \
   --precision 4bit
+
+python -m src.generate_summaries \
+  --raw-data-dir /Data/shash/mul/raw \
+  --summaries-dir /Data/shash/mul/summaries_test \
+  --languages fr \
+  --model-name mistralai/Mistral-Small-24B-Instruct-2501
+
+## finetune
+
+python -m src.finetune_llama \
+  --model_name meta-llama/Llama-3.2-1B-Instruct \
+  --dataset_path /Data/shash/mul/hf_dataset \
+  --language fr \
+  --output_dir /Data/shash/mul/finetuned_models
+

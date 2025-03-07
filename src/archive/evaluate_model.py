@@ -12,9 +12,9 @@ from typing import Optional
 from transformers import pipeline
 
 # Import custom modules
-from model_utils import load_finetuned_model
-from data_utils import load_dataset_split
-from metrics_utils import (
+from src.archive.model_utils import load_finetuned_model
+from src.archive.data_utils import load_dataset_split
+from src.archive.metrics_utils import (
     generate_summaries,
     compute_metrics,
     analyze_examples,

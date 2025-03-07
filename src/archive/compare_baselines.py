@@ -14,9 +14,9 @@ from typing import Dict, List, Optional
 from transformers import pipeline, AutoModelForSeq2SeqLM, AutoTokenizer
 
 # Import custom modules
-from model_utils import load_base_model, load_finetuned_model
-from data_utils import load_dataset_split
-from metrics_utils import generate_summaries, compute_metrics, plot_model_comparison
+from src.archive.model_utils import load_base_model, load_finetuned_model
+from src.archive.data_utils import load_dataset_split
+from src.archive.metrics_utils import generate_summaries, compute_metrics, plot_model_comparison
 
 
 def load_model_from_spec(model_spec: Dict) -> tuple:
