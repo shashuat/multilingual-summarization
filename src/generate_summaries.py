@@ -81,6 +81,44 @@ def setup_llm(model_name: str):
     
     return model, tokenizer
 
+# old generate summary with english prompt
+# def generate_summary(model, tokenizer, text: str, language: str, 
+#                      max_input_length: int = 4096, 
+#                      max_summary_length: int = 512) -> str:
+#     """Generate a summary for a single article using the LLM"""
+#     # Truncate input if needed
+#     if len(text) > max_input_length:
+#         text = text[:max_input_length]
+    
+#     # Create appropriate prompt based on language
+#     prompt = f"""Please provide a concise summary of the following article in {language}. 
+# The summary should be comprehensive, capturing all key points and main arguments, 
+# but avoid unnecessary details.
+
+# Article:
+# {text}
+
+# Summary:"""
+    
+#     # Tokenize input
+#     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    
+#     # Generate summary
+#     with torch.no_grad():
+#         outputs = model.generate(
+#             inputs.input_ids,
+#             max_new_tokens=max_summary_length,
+#             do_sample=True,
+#             temperature=0.7,
+#             top_p=0.9,
+#             attention_mask=inputs.attention_mask
+#         )
+    
+#     # Decode and extract only the summary part (removing the prompt)
+#     full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
+#     summary = full_output[len(prompt):].strip()
+    
+#     return summary
 
 def generate_summary(model, tokenizer, text: str, language: str, 
                      max_input_length: int = 4096, 
@@ -91,14 +129,66 @@ def generate_summary(model, tokenizer, text: str, language: str,
         text = text[:max_input_length]
     
     # Create appropriate prompt based on language
-    prompt = f"""Please provide a concise summary of the following article in {language}. 
-The summary should be comprehensive, capturing all key points and main arguments, 
-but avoid unnecessary details.
+    if language == "en":
+        prompt = f"""Please provide a concise summary of the following article in English. 
+        The summary should be comprehensive, capturing all key points and main arguments, 
+        but avoid unnecessary details. Output only the summary.
 
-Article:
-{text}
+        Article:
+        {text}
 
-Summary:"""
+        Summary:"""
+
+    elif language == "fr":
+        prompt = f"""Veuillez fournir un résumé concis de l'article suivant en français. 
+        Le résumé doit être complet, capturant tous les points clés et les arguments principaux, 
+        mais évitant les détails inutiles. Ne produisez que le résumé.
+
+        Article:
+        {text}
+
+        Résumé:"""
+
+    elif language == "de":
+        prompt = f"""Bitte erstellen Sie eine prägnante Zusammenfassung des folgenden Artikels auf Deutsch. 
+        Die Zusammenfassung sollte umfassend sein, alle Hauptpunkte und Hauptargumente erfassen, 
+        aber unnötige Details vermeiden. Geben Sie nur die Zusammenfassung aus.
+
+        Artikel:
+        {text}
+
+Zusammenfassung:"""
+        
+    elif language == "ja":
+        prompt = f"""以下の記事を日本語で簡潔に要約してください。
+        要約は包括的であり、すべての重要なポイントと主な議論を捉える必要がありますが、
+        不必要な詳細は避けてください。要約のみを出力してください。
+
+        記事:
+        {text}
+
+        要約:"""
+
+    elif language == "ru":
+        prompt = f"""Пожалуйста, предоставьте краткое изложение следующей статьи на русском языке. 
+        Резюме должно быть всеобъемлющим, охватывающим все ключевые моменты и основные аргументы, 
+        но избегающим ненужных деталей. Выводите только резюме.
+
+        Статья:
+        {text}
+
+        Резюме:"""
+
+    else:
+        # English for other languages, shouldn't happen becasue we only use fr de en ja ru, but for completeness
+        prompt = f"""Please provide a concise summary of the following article in {language}. 
+        The summary should be comprehensive, capturing all key points and main arguments, 
+        but avoid unnecessary details. Output only the summary.
+
+        Article:
+        {text}
+
+        Summary:"""
     
     # Tokenize input
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
