@@ -11,3 +11,5 @@ jupyter
 ipywidgets
 tiktoken
 blobfile
+rich
+nltk

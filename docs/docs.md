@@ -48,3 +48,21 @@ python -m src.finetune_llama \
   --language fr \
   --output_dir /Data/shash/mul/finetuned_models
 
+## evaluate
+
+python -m src.eval_llama \
+  --base_model meta-llama/Llama-3.2-1B-Instruct \
+  --dataset_path /Data/shash/mul/hf_dataset \
+  --language fr \
+  --model_path /Data/shash/mul/finetuned_models
+
+## compare
+
+python -m src.compare_llama \
+    --base_model meta-llama/Llama-3.2-1B-Instruct \
+    --finetuned_model /Data/shash/mul/finetuned_models \
+    --dataset_path /Data/shash/mul/hf_dataset \
+    --language fr \
+    --num_samples 5 \
+    --output_file comparison_results.json
+
