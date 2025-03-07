@@ -17,19 +17,19 @@ WANDB_TOKEN=e58_something
 python -m src.generate_summaries \
   --raw-data-dir /Data/shash/mul/raw \
   --summaries-dir /Data/shash/mul/summaries_test \
-  --languages fr de ja ru \
+  --languages de \
   --model-name Qwen/Qwen2.5-32B-Instruct
 ```
-python convert_to_hf_dataset.py \
+python -m convert_to_hf_dataset \
   --raw-data-dir data/raw \
   --summaries-dir data/summaries \
   --hf-dataset-dir /Users/shash/hub/mult_test \
   --languages fr de ja ru
 
-python -m src.convert_to_hf_dataset \
+python -m src.generate_summaries_batch \
   --raw-data-dir /Data/shash/mul/raw \
   --summaries-dir /Data/shash/mul/summaries_test \
-  --hf-dataset-dir /Data/shash/mul/mult_test \
-  --languages fr
-
-Mistral-Small-24B-Instruct-2501
+  --languages fr de \
+  --model-name Qwen/Qwen2.5-32B-Instruct \
+  --batch-size 8 \
+  --precision 4bit

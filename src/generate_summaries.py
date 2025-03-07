@@ -75,6 +75,9 @@ def setup_llm(model_name: str):
         torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
         trust_remote_code=True
     )
+
+    memory_used = torch.cuda.max_memory_allocated() / 1024**3
+    print(f"GPU memory used: {memory_used:.2f} GB")
     
     return model, tokenizer
 
