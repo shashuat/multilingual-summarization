@@ -9,3 +9,5 @@ dotenv
 ipykernel
 jupyter
 ipywidgets
+tiktoken
+blobfile
