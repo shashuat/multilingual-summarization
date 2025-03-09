@@ -131,8 +131,8 @@ def generate_summary(model, tokenizer, text: str, language: str,
     # Create appropriate prompt based on language
     if language == "en":
         prompt = f"""Please provide a concise summary of the following article in English. 
-        The summary should be comprehensive, capturing all key points and main arguments, 
-        but avoid unnecessary details. Output only the summary.
+        You are a professional text summariser with expertise in capturing the essence of content in an engaging tone. 
+        Focus on distilling the core message while maintaining the author's intent and key insights. Output only the summary.
 
         Article:
         {text}
@@ -141,8 +141,8 @@ def generate_summary(model, tokenizer, text: str, language: str,
 
     elif language == "fr":
         prompt = f"""Veuillez fournir un résumé concis de l'article suivant en français. 
-        Le résumé doit être complet, capturant tous les points clés et les arguments principaux, 
-        mais évitant les détails inutiles. Ne produisez que le résumé.
+        Vous êtes un résumeur de texte professionnel avec une expertise dans la capture de l'essence du contenu dans un ton engageant. 
+        Concentrez-vous sur la distillation du message principal tout en préservant l'intention de l'auteur et les idées essentielles. Ne produisez que le résumé.
 
         Article:
         {text}
@@ -151,18 +151,18 @@ def generate_summary(model, tokenizer, text: str, language: str,
 
     elif language == "de":
         prompt = f"""Bitte erstellen Sie eine prägnante Zusammenfassung des folgenden Artikels auf Deutsch. 
-        Die Zusammenfassung sollte umfassend sein, alle Hauptpunkte und Hauptargumente erfassen, 
-        aber unnötige Details vermeiden. Geben Sie nur die Zusammenfassung aus.
+        Sie sind ein professioneller Textzusammenfasser mit Expertise darin, die Essenz des Inhalts in einem ansprechenden Ton zu erfassen. 
+        Konzentrieren Sie sich darauf, die Kernbotschaft zu destillieren und dabei die Absicht des Autors und die wichtigsten Erkenntnisse beizubehalten. Geben Sie nur die Zusammenfassung aus.
 
         Artikel:
         {text}
 
-Zusammenfassung:"""
+        Zusammenfassung:"""
         
     elif language == "ja":
         prompt = f"""以下の記事を日本語で簡潔に要約してください。
-        要約は包括的であり、すべての重要なポイントと主な議論を捉える必要がありますが、
-        不必要な詳細は避けてください。要約のみを出力してください。
+        あなたは魅力的な文体で内容の本質を捉えることに熟練したプロのテキスト要約者です。
+        著者の意図と重要な洞察を維持しながら、核心的なメッセージを抽出することに焦点を当ててください。要約のみを出力してください。
 
         記事:
         {text}
@@ -171,8 +171,8 @@ Zusammenfassung:"""
 
     elif language == "ru":
         prompt = f"""Пожалуйста, предоставьте краткое изложение следующей статьи на русском языке. 
-        Резюме должно быть всеобъемлющим, охватывающим все ключевые моменты и основные аргументы, 
-        но избегающим ненужных деталей. Выводите только резюме.
+        Вы - профессиональный составитель резюме с опытом передачи сути содержания в увлекательной манере. 
+        Сосредоточьтесь на выделении основного сообщения, сохраняя при этом намерение автора и ключевые идеи. Выводите только резюме.
 
         Статья:
         {text}
@@ -180,15 +180,16 @@ Zusammenfassung:"""
         Резюме:"""
 
     else:
-        # English for other languages, shouldn't happen becasue we only use fr de en ja ru, but for completeness
+        # English for other languages, shouldn't happen because we only use fr de en ja ru, but for completeness
         prompt = f"""Please provide a concise summary of the following article in {language}. 
-        The summary should be comprehensive, capturing all key points and main arguments, 
-        but avoid unnecessary details. Output only the summary.
+        You are a professional text summariser with expertise in capturing the essence of content in an engaging tone. 
+        Focus on distilling the core message while maintaining the author's intent and key insights. Output only the summary.
 
         Article:
         {text}
 
         Summary:"""
+
     
     # Tokenize input
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)

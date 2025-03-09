@@ -26,20 +26,16 @@ python -m convert_to_hf_dataset \
   --hf-dataset-dir /Users/shash/hub/mult_test \
   --languages fr de ja ru
 
-python -m src.generate_summaries_batch \
-  --raw-data-dir /Data/shash/mul/raw \
-  --summaries-dir /Data/shash/mul/summaries_test \
-  --languages fr de \
-  --model-name Qwen/Qwen2.5-32B-Instruct \
-  --batch-size 8 \
-  --precision 4bit
-
 python -m src.generate_summaries \
   --raw-data-dir /Data/shash/mul/raw \
   --summaries-dir /Data/shash/mul/summaries_test \
-  --languages fr \
-  --model-name mistralai/Mistral-Small-24B-Instruct-2501
+  --languages en de fr \
+  --model-name mistralai/Mistral-Small-24B-Instruct-2501 \
+  --max-articles 5000
 
+  
+mistralai/Mistral-Small-24B-Instruct-2501
+CohereForAI/aya-23-35B
 ## finetune
 
 python -m src.finetune_llama \
