@@ -81,45 +81,6 @@ def setup_llm(model_name: str):
     
     return model, tokenizer
 
-# old generate summary with english prompt
-# def generate_summary(model, tokenizer, text: str, language: str, 
-#                      max_input_length: int = 4096, 
-#                      max_summary_length: int = 512) -> str:
-#     """Generate a summary for a single article using the LLM"""
-#     # Truncate input if needed
-#     if len(text) > max_input_length:
-#         text = text[:max_input_length]
-    
-#     # Create appropriate prompt based on language
-#     prompt = f"""Please provide a concise summary of the following article in {language}. 
-# The summary should be comprehensive, capturing all key points and main arguments, 
-# but avoid unnecessary details.
-
-# Article:
-# {text}
-
-# Summary:"""
-    
-#     # Tokenize input
-#     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-    
-#     # Generate summary
-#     with torch.no_grad():
-#         outputs = model.generate(
-#             inputs.input_ids,
-#             max_new_tokens=max_summary_length,
-#             do_sample=True,
-#             temperature=0.7,
-#             top_p=0.9,
-#             attention_mask=inputs.attention_mask
-#         )
-    
-#     # Decode and extract only the summary part (removing the prompt)
-#     full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
-#     summary = full_output[len(prompt):].strip()
-    
-#     return summary
-
 def generate_summary(model, tokenizer, text: str, language: str, 
                      max_input_length: int = 4096, 
                      max_summary_length: int = 512) -> str:

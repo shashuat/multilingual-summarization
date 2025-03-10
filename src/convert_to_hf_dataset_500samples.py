@@ -192,8 +192,8 @@ def main():
     raw_data_dir = "/Data/shash/mul/raw"
     summaries_dir = "/Data/shash/mul/summaries_test"
     hf_dataset_dir = "/Data/shash/mul/hf_dataset"
-    languages = ["en", "fr", "de", "ja", "ru"]
-    samples_per_language = 500
+    languages = ["en", "fr", "de", "ja"]
+    samples_per_language = 5000
     
     # Standard split ratios
     train_size = 0.8

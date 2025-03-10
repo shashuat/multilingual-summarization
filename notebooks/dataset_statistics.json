@@ -1,0 +1,490 @@
+{
+  "en": {
+    "train": {
+      "count": 3999.0,
+      "text_tokens": {
+        "mean": 23979.99024756189,
+        "median": 19402.0,
+        "std": 16425.247554154626,
+        "min": 1813.0,
+        "max": 124110.0,
+        "p95": 57512.59999999999,
+        "p99": 78114.28
+      },
+      "summary_tokens": {
+        "mean": 187.81345336334084,
+        "median": 166.0,
+        "std": 89.05716590174812,
+        "min": 50.0,
+        "max": 515.0,
+        "p95": 400.0,
+        "p99": 505.0
+      },
+      "text_words": {
+        "mean": 9053.813703425856,
+        "median": 7873.0,
+        "min": 738.0,
+        "max": 39519.0
+      },
+      "summary_words": {
+        "mean": 133.7311827956989,
+        "median": 118.0,
+        "min": 37.0,
+        "max": 420.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 148.0069278930969,
+        "median_tokens": 110.50136239782016,
+        "mean_words": 77.33727911393368,
+        "median_words": 62.339285714285715
+      },
+      "copy_first_part_ratio": 0.0
+    },
+    "validation": {
+      "count": 501.0,
+      "text_tokens": {
+        "mean": 23657.690618762474,
+        "median": 20810.0,
+        "std": 15270.748821000621,
+        "min": 2241.0,
+        "max": 119684.0,
+        "p95": 51834.0,
+        "p99": 69898.0
+      },
+      "summary_tokens": {
+        "mean": 178.50898203592814,
+        "median": 158.0,
+        "std": 79.5939345626391,
+        "min": 61.0,
+        "max": 509.0,
+        "p95": 345.0,
+        "p99": 496.0
+      },
+      "text_words": {
+        "mean": 8983.221556886228,
+        "median": 7976.0,
+        "min": 799.0,
+        "max": 30940.0
+      },
+      "summary_words": {
+        "mean": 127.72255489021956,
+        "median": 114.0,
+        "min": 46.0,
+        "max": 414.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 151.2696583500549,
+        "median_tokens": 118.59633027522936,
+        "mean_words": 79.2299369956101,
+        "median_words": 65.50467289719626
+      },
+      "copy_first_part_ratio": 0.0
+    },
+    "test": {
+      "count": 500.0,
+      "text_tokens": {
+        "mean": 24832.764,
+        "median": 20264.0,
+        "std": 17280.955677002505,
+        "min": 2854.0,
+        "max": 103628.0,
+        "p95": 57116.19999999996,
+        "p99": 87093.63999999997
+      },
+      "summary_tokens": {
+        "mean": 185.064,
+        "median": 166.0,
+        "std": 85.07796674139374,
+        "min": 68.0,
+        "max": 510.0,
+        "p95": 380.2999999999997,
+        "p99": 499.05999999999995
+      },
+      "text_words": {
+        "mean": 9225.278,
+        "median": 7840.5,
+        "min": 997.0,
+        "max": 35022.0
+      },
+      "summary_words": {
+        "mean": 132.102,
+        "median": 119.0,
+        "min": 48.0,
+        "max": 406.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 153.67851984137158,
+        "median_tokens": 120.98885322311142,
+        "mean_words": 78.710913857679,
+        "median_words": 63.04075500770416
+      },
+      "copy_first_part_ratio": 0.0
+    }
+  },
+  "fr": {
+    "train": {
+      "count": 3999.0,
+      "text_tokens": {
+        "mean": 12927.07551887972,
+        "median": 7292.0,
+        "std": 15499.232982129002,
+        "min": 312.0,
+        "max": 150736.0,
+        "p95": 43654.499999999935,
+        "p99": 78289.34
+      },
+      "summary_tokens": {
+        "mean": 229.86396599149788,
+        "median": 212.0,
+        "std": 85.86587490739059,
+        "min": 2.0,
+        "max": 794.0,
+        "p95": 479.0,
+        "p99": 512.0
+      },
+      "text_words": {
+        "mean": 4977.625406351588,
+        "median": 2834.0,
+        "min": 110.0,
+        "max": 61226.0
+      },
+      "summary_words": {
+        "mean": 130.72368092023007,
+        "median": 120.0,
+        "min": 1.0,
+        "max": 386.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 59.877202593206704,
+        "median_tokens": 32.93607305936073,
+        "mean_words": 40.95266423428134,
+        "median_words": 23.093220338983052
+      },
+      "copy_first_part_ratio": 0.0
+    },
+    "validation": {
+      "count": 501.0,
+      "text_tokens": {
+        "mean": 12582.768463073853,
+        "median": 7179.0,
+        "std": 14602.745366207117,
+        "min": 316.0,
+        "max": 144252.0,
+        "p95": 40068.0,
+        "p99": 65619.0
+      },
+      "summary_tokens": {
+        "mean": 230.02794411177643,
+        "median": 213.0,
+        "std": 84.19486455577247,
+        "min": 84.0,
+        "max": 547.0,
+        "p95": 468.0,
+        "p99": 513.0
+      },
+      "text_words": {
+        "mean": 4862.922155688623,
+        "median": 2740.0,
+        "min": 146.0,
+        "max": 51919.0
+      },
+      "summary_words": {
+        "mean": 130.93013972055888,
+        "median": 121.0,
+        "min": 44.0,
+        "max": 357.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 57.15754410051124,
+        "median_tokens": 33.50340136054422,
+        "mean_words": 38.868569158943444,
+        "median_words": 23.043478260869566
+      },
+      "copy_first_part_ratio": 0.0
+    },
+    "test": {
+      "count": 500.0,
+      "text_tokens": {
+        "mean": 11151.778,
+        "median": 6966.0,
+        "std": 11554.69896626988,
+        "min": 361.0,
+        "max": 78432.0,
+        "p95": 34506.69999999998,
+        "p99": 48981.7199999999
+      },
+      "summary_tokens": {
+        "mean": 231.926,
+        "median": 212.5,
+        "std": 85.19556968638908,
+        "min": 48.0,
+        "max": 518.0,
+        "p95": 473.14999999999986,
+        "p99": 512.01
+      },
+      "text_words": {
+        "mean": 4378.256,
+        "median": 2831.0,
+        "min": 138.0,
+        "max": 31986.0
+      },
+      "summary_words": {
+        "mean": 133.282,
+        "median": 121.5,
+        "min": 26.0,
+        "max": 372.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 50.91229486755375,
+        "median_tokens": 32.877501340003576,
+        "mean_words": 35.139973029479236,
+        "median_words": 22.04739370995923
+      },
+      "copy_first_part_ratio": 0.0
+    }
+  },
+  "de": {
+    "train": {
+      "count": 3999.0,
+      "text_tokens": {
+        "mean": 8253.60815203801,
+        "median": 4755.0,
+        "std": 10239.496847066466,
+        "min": 350.0,
+        "max": 128471.0,
+        "p95": 27293.69999999999,
+        "p99": 52941.06
+      },
+      "summary_tokens": {
+        "mean": 250.4558639659915,
+        "median": 215.0,
+        "std": 111.32888012448696,
+        "min": 68.0,
+        "max": 589.0,
+        "p95": 502.0,
+        "p99": 515.0
+      },
+      "text_words": {
+        "mean": 3080.997249312328,
+        "median": 1768.0,
+        "min": 107.0,
+        "max": 43288.0
+      },
+      "summary_words": {
+        "mean": 125.8987246811703,
+        "median": 106.0,
+        "min": 35.0,
+        "max": 356.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 37.34726056999635,
+        "median_tokens": 20.96062992125984,
+        "mean_words": 28.071664741895937,
+        "median_words": 15.503401360544217
+      },
+      "copy_first_part_ratio": 0.0
+    },
+    "validation": {
+      "count": 501.0,
+      "text_tokens": {
+        "mean": 7906.395209580838,
+        "median": 4675.0,
+        "std": 9968.098238054088,
+        "min": 400.0,
+        "max": 90363.0,
+        "p95": 24318.0,
+        "p99": 51600.0
+      },
+      "summary_tokens": {
+        "mean": 250.37325349301398,
+        "median": 215.0,
+        "std": 113.50338498561888,
+        "min": 63.0,
+        "max": 520.0,
+        "p95": 505.0,
+        "p99": 514.0
+      },
+      "text_words": {
+        "mean": 2944.5848303393213,
+        "median": 1763.0,
+        "min": 111.0,
+        "max": 32440.0
+      },
+      "summary_words": {
+        "mean": 126.39121756487026,
+        "median": 107.0,
+        "min": 34.0,
+        "max": 357.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 35.07026131685302,
+        "median_tokens": 20.181102362204726,
+        "mean_words": 26.392183667320463,
+        "median_words": 14.295238095238096
+      },
+      "copy_first_part_ratio": 0.0
+    },
+    "test": {
+      "count": 500.0,
+      "text_tokens": {
+        "mean": 8035.902,
+        "median": 4719.5,
+        "std": 9783.885446859573,
+        "min": 529.0,
+        "max": 88751.0,
+        "p95": 25860.099999999966,
+        "p99": 51711.74
+      },
+      "summary_tokens": {
+        "mean": 254.086,
+        "median": 212.5,
+        "std": 115.12280888795453,
+        "min": 96.0,
+        "max": 521.0,
+        "p95": 504.0,
+        "p99": 514.0
+      },
+      "text_words": {
+        "mean": 2990.444,
+        "median": 1807.5,
+        "min": 159.0,
+        "max": 33285.0
+      },
+      "summary_words": {
+        "mean": 128.52,
+        "median": 105.0,
+        "min": 45.0,
+        "max": 340.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 37.315432581344766,
+        "median_tokens": 19.83407019267507,
+        "mean_words": 27.793398071277494,
+        "median_words": 14.57011385199241
+      },
+      "copy_first_part_ratio": 0.0
+    }
+  },
+  "ja": {
+    "train": {
+      "count": 3999.0,
+      "text_tokens": {
+        "mean": 9772.601650412604,
+        "median": 5167.0,
+        "std": 12314.719347183973,
+        "min": 502.0,
+        "max": 145838.0,
+        "p95": 34750.59999999998,
+        "p99": 56196.52
+      },
+      "summary_tokens": {
+        "mean": 283.61190297574393,
+        "median": 242.0,
+        "std": 130.18962742053813,
+        "min": 65.0,
+        "max": 619.0,
+        "p95": 515.0,
+        "p99": 538.0
+      },
+      "text_words": {
+        "mean": 983.2188047011753,
+        "median": 560.0,
+        "min": 22.0,
+        "max": 15254.0
+      },
+      "summary_words": {
+        "mean": 27.7854463615904,
+        "median": 2.0,
+        "min": 1.0,
+        "max": 325.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 39.82363771017838,
+        "median_tokens": 20.647679324894515,
+        "mean_words": 564.2122081698166,
+        "median_words": 225.35714285714286
+      },
+      "copy_first_part_ratio": 0.0
+    },
+    "validation": {
+      "count": 501.0,
+      "text_tokens": {
+        "mean": 10172.650698602794,
+        "median": 5415.0,
+        "std": 13002.118003761714,
+        "min": 533.0,
+        "max": 106354.0,
+        "p95": 33755.0,
+        "p99": 66951.0
+      },
+      "summary_tokens": {
+        "mean": 287.7544910179641,
+        "median": 243.0,
+        "std": 134.45016030035225,
+        "min": 57.0,
+        "max": 593.0,
+        "p95": 516.0,
+        "p99": 533.0
+      },
+      "text_words": {
+        "mean": 982.9461077844311,
+        "median": 560.0,
+        "min": 23.0,
+        "max": 12566.0
+      },
+      "summary_words": {
+        "mean": 30.211576846307384,
+        "median": 2.0,
+        "min": 1.0,
+        "max": 299.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 40.73237621035199,
+        "median_tokens": 21.965753424657535,
+        "mean_words": 569.8426654993118,
+        "median_words": 205.0
+      },
+      "copy_first_part_ratio": 0.0
+    },
+    "test": {
+      "count": 500.0,
+      "text_tokens": {
+        "mean": 9485.486,
+        "median": 4887.0,
+        "std": 12017.581341034507,
+        "min": 555.0,
+        "max": 85989.0,
+        "p95": 35216.899999999994,
+        "p99": 53604.65999999994
+      },
+      "summary_tokens": {
+        "mean": 285.366,
+        "median": 246.0,
+        "std": 131.8161866316737,
+        "min": 72.0,
+        "max": 567.0,
+        "p95": 518.05,
+        "p99": 544.06
+      },
+      "text_words": {
+        "mean": 944.71,
+        "median": 545.5,
+        "min": 45.0,
+        "max": 8426.0
+      },
+      "summary_words": {
+        "mean": 30.992,
+        "median": 2.0,
+        "min": 1.0,
+        "max": 305.0
+      },
+      "compression_ratio": {
+        "mean_tokens": 38.8115371129059,
+        "median_tokens": 18.93792600008343,
+        "mean_words": 535.7242366649934,
+        "median_words": 208.66666666666669
+      },
+      "copy_first_part_ratio": 0.0
+    }
+  }
+}
