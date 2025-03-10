@@ -43,7 +43,10 @@ python -m src.finetune_phi \
   --dataset_path /Data/shash/mul/hf_dataset \
   --language fr \
   --output_dir /Data/shash/mul/finetuned_models
+  --wandb_project mulsum-phi
 
+python finetune_phi4.py --dataset_path /Data/shash/mul/hf_dataset --language fr \
+  --output_dir ./phi4-summarization-fr --wandb_project mulsum-phi
 ## evaluate
 
 python -m src.eval_llama \

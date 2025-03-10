@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
 finetune_phi4.py - Fine-tune Microsoft Phi-4-mini-instruct for multilingual summarization using LoRA
-with proper Phi-4 chat format and optimized parameters
+with proper Phi-4 chat format, optimized parameters, and wandb logging
 """
 
 import os
 import argparse
 import torch
+import wandb
+import json
 from datasets import load_from_disk
 from peft import get_peft_model, LoraConfig, TaskType, prepare_model_for_kbit_training
 from transformers import (
@@ -15,7 +17,8 @@ from transformers import (
     BitsAndBytesConfig,
     TrainingArguments,
     Trainer,
-    DataCollatorForSeq2Seq
+    DataCollatorForSeq2Seq,
+    TrainerCallback
 )
 from tqdm import tqdm
 
@@ -143,6 +146,18 @@ def preprocess_dataset(dataset, tokenizer, language="en", max_length=3072, max_t
     return processed_dataset
 
 
+# Custom callback to log more data to W&B
+class WandbMetricsCallback(TrainerCallback):
+    def on_evaluate(self, args, state, control, metrics=None, **kwargs):
+        if metrics is not None and wandb.run is not None:
+            # Log detailed metrics
+            wandb.log(metrics, step=state.global_step)
+            
+            # Log example count
+            wandb.log({"train/example_count": state.global_step * args.train_batch_size * args.gradient_accumulation_steps}, 
+                      step=state.global_step)
+
+
 def main():
     # Parse arguments
     parser = argparse.ArgumentParser(description="Fine-tune Phi-4-mini-instruct for multilingual summarization")
@@ -176,11 +191,41 @@ def main():
                         help="Warmup ratio for learning rate scheduler (default: 0.1)")
     parser.add_argument("--weight_decay", type=float, default=0.01,
                         help="Weight decay for AdamW optimizer (default: 0.01)")
+    parser.add_argument("--wandb_project", type=str, default="mulsum-phi",
+                        help="Weights & Biases project name (default: mulsum-phi)")
+    parser.add_argument("--wandb_run_name", type=str, default=None,
+                        help="Weights & Biases run name (default: None)")
+    parser.add_argument("--wandb_entity", type=str, default=None,
+                        help="Weights & Biases entity (default: None)")
     
     args = parser.parse_args()
     
     # Create output directory
     os.makedirs(args.output_dir, exist_ok=True)
+    
+    # Initialize wandb for experiment tracking
+    run_name = args.wandb_run_name or f"phi4-{args.language}-r{args.lora_r}-lr{args.learning_rate}"
+    wandb.init(
+        project=args.wandb_project,
+        name=run_name,
+        entity=args.wandb_entity,
+        config={
+            "model_name": args.model_name,
+            "language": args.language,
+            "train_batch_size": args.train_batch_size,
+            "gradient_accumulation_steps": args.gradient_accumulation_steps, 
+            "effective_batch_size": args.train_batch_size * args.gradient_accumulation_steps,
+            "learning_rate": args.learning_rate,
+            "num_epochs": args.num_epochs,
+            "max_length": args.max_length,
+            "max_target_length": args.max_target_length,
+            "lora_r": args.lora_r,
+            "lora_alpha": args.lora_alpha,
+            "lora_dropout": args.lora_dropout,
+            "warmup_ratio": args.warmup_ratio,
+            "weight_decay": args.weight_decay,
+        }
+    )
     
     # Step 1: Load model and tokenizer
     logger.info(f"Loading model and tokenizer: {args.model_name}")
@@ -192,6 +237,9 @@ def main():
         bnb_4bit_quant_type="nf4",
         bnb_4bit_compute_dtype=torch.bfloat16
     )
+    
+    # Log BnB config to wandb
+    wandb.config.update({"quantization": "4-bit", "bnb_compute_dtype": "bfloat16"})
     
     # Load tokenizer with special tokens for Phi-4
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
@@ -223,6 +271,9 @@ def main():
         "up_proj", "down_proj"  # Phi-4 MLP modules
     ]
     
+    # Log target modules to wandb
+    wandb.config.update({"target_modules": target_modules})
+    
     peft_config = LoraConfig(
         task_type=TaskType.CAUSAL_LM,
         inference_mode=False,
@@ -234,7 +285,15 @@ def main():
     )
     
     model = get_peft_model(model, peft_config)
-    model.print_trainable_parameters()
+    trainable_params, all_params = model.get_nb_trainable_parameters()
+    
+    # Log trainable parameters info
+    logger.info(f"trainable params: {trainable_params:,} || all params: {all_params:,} || trainable%: {100 * trainable_params / all_params:.4f}")
+    wandb.config.update({
+        "trainable_params": trainable_params,
+        "all_params": all_params,
+        "trainable_percentage": 100 * trainable_params / all_params
+    })
     
     # Enable gradient checkpointing for memory efficiency
     model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
@@ -246,6 +305,10 @@ def main():
     val_dataset = dataset["validation"]
     
     logger.info(f"Loaded {len(train_dataset)} training examples and {len(val_dataset)} validation examples")
+    wandb.config.update({
+        "train_examples": len(train_dataset),
+        "validation_examples": len(val_dataset)
+    })
     
     # Step 4: Preprocess dataset
     logger.info("Preprocessing datasets")
@@ -282,13 +345,13 @@ def main():
         learning_rate=args.learning_rate,
         num_train_epochs=args.num_epochs,
         logging_dir=os.path.join(args.output_dir, "logs"),
-        logging_steps=100,
+        logging_steps=50,  # Log more frequently for better wandb plots
         eval_strategy="epoch",  
         save_strategy="epoch",
         save_total_limit=2,
         bf16=True,
         load_best_model_at_end=True,
-        report_to="none",  # Disable wandb reporting
+        report_to="wandb",  # Enable wandb reporting
         remove_unused_columns=False,  # Required for custom datasets
         ddp_find_unused_parameters=False,
         lr_scheduler_type="cosine",
@@ -305,16 +368,24 @@ def main():
         optim="adamw_torch_fused",
         dataloader_num_workers=4,
         dataloader_pin_memory=True,
+        # Add a run name for wandb
+        run_name=run_name,
     )
     
-    # Step 7: Create trainer
+    # Step 7: Create trainer with WandB callback
     trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         data_collator=data_collator,
+        callbacks=[WandbMetricsCallback()],
     )
+    
+    # Log a sample prompt for reference
+    sample_text = train_dataset[0]["input_ids"]
+    sample_text_decoded = tokenizer.decode(sample_text)
+    wandb.config.update({"sample_prompt": sample_text_decoded[:500] + "..."})  # First 500 chars
     
     # Step 8: Train and save model
     logger.info("Starting training")
@@ -324,6 +395,70 @@ def main():
     logger.info(f"Saving model to {args.output_dir}")
     model.save_pretrained(args.output_dir)
     tokenizer.save_pretrained(args.output_dir)
+    
+    # Log model size after training
+    model_size_mb = sum(p.numel() * p.element_size() for p in model.parameters()) / (1024 * 1024)
+    wandb.log({"model_size_mb": model_size_mb})
+    
+    # Save example predictions for the validation set
+    logger.info("Generating example predictions for logging")
+    try:
+        example_predictions = []
+        # Generate predictions for a few examples
+        for i in range(min(5, len(val_dataset))):
+            # Get example input
+            example_input = val_dataset[i]["input_ids"]
+            # Find the assistant token position
+            assistant_start = None
+            for j, token_id in enumerate(example_input):
+                if tokenizer.decode([token_id]) == "<|assistant|>":
+                    assistant_start = j
+                    break
+            
+            if assistant_start:
+                # Create input for generation (just up to the assistant token)
+                gen_input = example_input[:assistant_start+1]
+                # Generate continuation
+                with torch.no_grad():
+                    # Move input to model device
+                    input_tensor = torch.tensor([gen_input]).to(model.device)
+                    outputs = model.generate(
+                        input_tensor,
+                        max_new_tokens=args.max_target_length,
+                        num_return_sequences=1,
+                        temperature=0.7,
+                        do_sample=True,
+                        top_p=0.9,
+                    )
+                    
+                # Decode the output
+                generated_text = tokenizer.decode(outputs[0][assistant_start+1:], skip_special_tokens=True)
+                
+                # Get the expected text (ground truth)
+                expected_text = ""
+                for j, token_id in enumerate(example_input[assistant_start+1:]):
+                    if token_id != -100:  # Skip masked tokens
+                        expected_text += tokenizer.decode([token_id])
+                
+                # Add to examples
+                example_predictions.append({
+                    "input": tokenizer.decode(example_input[:assistant_start]),
+                    "generated": generated_text,
+                    "expected": expected_text
+                })
+        
+        # Log examples as a table in wandb
+        if example_predictions:
+            prediction_table = wandb.Table(columns=["input", "generated", "expected"])
+            for ex in example_predictions:
+                prediction_table.add_data(ex["input"], ex["generated"], ex["expected"])
+            wandb.log({"prediction_examples": prediction_table})
+            
+    except Exception as e:
+        logger.warning(f"Error generating example predictions: {e}")
+    
+    # Finish wandb run
+    wandb.finish()
     
     logger.info("Training complete!")
 
