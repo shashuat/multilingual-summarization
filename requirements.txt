@@ -13,3 +13,4 @@ tiktoken
 blobfile
 rich
 nltk
+weave

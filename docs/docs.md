@@ -38,8 +38,8 @@ mistralai/Mistral-Small-24B-Instruct-2501
 CohereForAI/aya-23-35B
 ## finetune
 
-python -m src.finetune_llama \
-  --model_name meta-llama/Llama-3.2-1B-Instruct \
+python -m src.finetune_phi \
+  --model_name microsoft/Phi-4-mini-instruct \
   --dataset_path /Data/shash/mul/hf_dataset \
   --language fr \
   --output_dir /Data/shash/mul/finetuned_models
