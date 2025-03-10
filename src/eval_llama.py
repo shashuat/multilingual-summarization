@@ -120,6 +120,7 @@ def main():
             padding=True,
             truncation=True,
             max_length=args.max_input_length,
+            padding_side="left"
         ).to(model.device)
         
         # Generate summaries
@@ -154,14 +155,15 @@ def main():
         references=reference_summaries,
         use_stemmer=True,
     )
+
+    # breakpoint()
     
     # Format ROUGE scores
     metrics = {
-        "rouge1": round(rouge_results["rouge1"].mid.fmeasure * 100, 2),
-        "rouge2": round(rouge_results["rouge2"].mid.fmeasure * 100, 2),
-        "rougeL": round(rouge_results["rougeL"].mid.fmeasure * 100, 2),
-        "rouge1_precision": round(rouge_results["rouge1"].mid.precision * 100, 2),
-        "rouge1_recall": round(rouge_results["rouge1"].mid.recall * 100, 2),
+        "rouge1": round(rouge_results["rouge1"], 2),
+        "rouge2": round(rouge_results["rouge2"], 2),
+        "rougeL": round(rouge_results["rougeL"], 2),
+        "rougeLsum": round(rouge_results["rougeLsum"], 2)
     }
     
     # Length statistics
