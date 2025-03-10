@@ -130,9 +130,10 @@ def generate_summary(model, tokenizer, text: str, language: str,
     
     # Create appropriate prompt based on language
     if language == "en":
-        prompt = f"""Please provide a concise summary of the following article in English. 
-        You are a professional text summariser with expertise in capturing the essence of content in an engaging tone. 
-        Focus on distilling the core message while maintaining the author's intent and key insights. Output only the summary.
+        prompt = f"""Extract the essential information from this article and create a clear, focused summary in English.
+        As an expert content analyst, identify the main arguments, key points, and significant conclusions.
+        Present the information in a straightforward, objective manner that respects the original perspective.
+        Output only the summary.
 
         Article:
         {text}
@@ -140,9 +141,10 @@ def generate_summary(model, tokenizer, text: str, language: str,
         Summary:"""
 
     elif language == "fr":
-        prompt = f"""Veuillez fournir un résumé concis de l'article suivant en français. 
-        Vous êtes un résumeur de texte professionnel avec une expertise dans la capture de l'essence du contenu dans un ton engageant. 
-        Concentrez-vous sur la distillation du message principal tout en préservant l'intention de l'auteur et les idées essentielles. Ne produisez que le résumé.
+        prompt = f"""Extrayez les informations essentielles de cet article et créez un résumé clair et ciblé en français.
+        En tant qu'analyste de contenu expert, identifiez les arguments principaux, les points clés et les conclusions importantes.
+        Présentez l'information de manière directe et objective qui respecte la perspective originale.
+        Ne produisez que le résumé.
 
         Article:
         {text}
@@ -150,9 +152,10 @@ def generate_summary(model, tokenizer, text: str, language: str,
         Résumé:"""
 
     elif language == "de":
-        prompt = f"""Bitte erstellen Sie eine prägnante Zusammenfassung des folgenden Artikels auf Deutsch. 
-        Sie sind ein professioneller Textzusammenfasser mit Expertise darin, die Essenz des Inhalts in einem ansprechenden Ton zu erfassen. 
-        Konzentrieren Sie sich darauf, die Kernbotschaft zu destillieren und dabei die Absicht des Autors und die wichtigsten Erkenntnisse beizubehalten. Geben Sie nur die Zusammenfassung aus.
+        prompt = f"""Extrahieren Sie die wesentlichen Informationen aus diesem Artikel und erstellen Sie eine klare, fokussierte Zusammenfassung auf Deutsch.
+        Als Experte für Inhaltsanalyse identifizieren Sie die Hauptargumente, Schlüsselpunkte und wichtigen Schlussfolgerungen.
+        Präsentieren Sie die Informationen in einer direkten, objektiven Weise, die die ursprüngliche Perspektive respektiert.
+        Geben Sie nur die Zusammenfassung aus.
 
         Artikel:
         {text}
@@ -160,9 +163,10 @@ def generate_summary(model, tokenizer, text: str, language: str,
         Zusammenfassung:"""
         
     elif language == "ja":
-        prompt = f"""以下の記事を日本語で簡潔に要約してください。
-        あなたは魅力的な文体で内容の本質を捉えることに熟練したプロのテキスト要約者です。
-        著者の意図と重要な洞察を維持しながら、核心的なメッセージを抽出することに焦点を当ててください。要約のみを出力してください。
+        prompt = f"""この記事から重要な情報を抽出し、日本語で明確で焦点を絞った要約を作成してください。
+        コンテンツ分析の専門家として、主な議論、重要なポイント、重要な結論を特定してください。
+        元の視点を尊重する、直接的で客観的な方法で情報を提示してください。
+        要約のみを出力してください。
 
         記事:
         {text}
@@ -170,9 +174,10 @@ def generate_summary(model, tokenizer, text: str, language: str,
         要約:"""
 
     elif language == "ru":
-        prompt = f"""Пожалуйста, предоставьте краткое изложение следующей статьи на русском языке. 
-        Вы - профессиональный составитель резюме с опытом передачи сути содержания в увлекательной манере. 
-        Сосредоточьтесь на выделении основного сообщения, сохраняя при этом намерение автора и ключевые идеи. Выводите только резюме.
+        prompt = f"""Извлеките существенную информацию из этой статьи и создайте четкое, целенаправленное резюме на русском языке.
+        Как эксперт по анализу контента, определите основные аргументы, ключевые моменты и важные выводы.
+        Представьте информацию прямым, объективным способом, который уважает исходную перспективу.
+        Выводите только резюме.
 
         Статья:
         {text}
@@ -180,10 +185,10 @@ def generate_summary(model, tokenizer, text: str, language: str,
         Резюме:"""
 
     else:
-        # English for other languages, shouldn't happen because we only use fr de en ja ru, but for completeness
-        prompt = f"""Please provide a concise summary of the following article in {language}. 
-        You are a professional text summariser with expertise in capturing the essence of content in an engaging tone. 
-        Focus on distilling the core message while maintaining the author's intent and key insights. Output only the summary.
+        prompt = f"""Extract the essential information from this article and create a clear, focused summary in {language}.
+        As an expert content analyst, identify the main arguments, key points, and significant conclusions.
+        Present the information in a straightforward, objective manner that respects the original perspective.
+        Output only the summary.
 
         Article:
         {text}

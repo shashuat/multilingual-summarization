@@ -29,9 +29,9 @@ python -m convert_to_hf_dataset \
 python -m src.generate_summaries \
   --raw-data-dir /Data/shash/mul/raw \
   --summaries-dir /Data/shash/mul/summaries_test \
-  --languages en de fr \
+  --languages fr de en \
   --model-name mistralai/Mistral-Small-24B-Instruct-2501 \
-  --max-articles 5000
+  --max-articles 6000
 
   
 mistralai/Mistral-Small-24B-Instruct-2501
