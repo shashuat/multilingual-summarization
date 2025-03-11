@@ -239,8 +239,10 @@ def generate_model_summary(model, tokenizer, text, language, max_length=4096, ma
 
 
 # Custom callback to calculate and log ROUGE metrics
+# Fixed RougeEvaluationCallback Class
+
 class RougeEvaluationCallback(TrainerCallback):
-    def __init__(self, model, tokenizer, eval_dataset, raw_dataset, language, max_samples=50):
+    def __init__(self, model, tokenizer, eval_dataset, raw_dataset, language, max_samples=5):
         self.model = model
         self.tokenizer = tokenizer
         self.eval_dataset = eval_dataset
@@ -257,9 +259,10 @@ class RougeEvaluationCallback(TrainerCallback):
         
         logger.info("Calculating ROUGE metrics on validation set...")
         
-        # Take a sample of validation examples
+        # Take a sample of validation examples - FIXED: Convert to Python int
+        indices = list(range(len(self.raw_dataset)))
         sample_indices = np.random.choice(
-            range(len(self.raw_dataset)), 
+            indices, 
             min(self.max_samples, len(self.raw_dataset)), 
             replace=False
         )
@@ -272,7 +275,8 @@ class RougeEvaluationCallback(TrainerCallback):
         self.model.eval()
         
         for idx in sample_indices:
-            example = self.raw_dataset[idx]
+            # FIXED: Convert numpy.int64 to Python int
+            example = self.raw_dataset[int(idx)]
             reference_summary = example["summary"]
             
             # Generate summary
@@ -360,7 +364,6 @@ class RougeEvaluationCallback(TrainerCallback):
             
             logger.info("New best ROUGE scores!")
 
-
 # Custom callback to log more data to W&B
 class WandbMetricsCallback(TrainerCallback):
     def on_evaluate(self, args, state, control, metrics=None, **kwargs):
@@ -413,8 +416,8 @@ def main():
                         help="Weights & Biases run name (default: None)")
     parser.add_argument("--wandb_entity", type=str, default=None,
                         help="Weights & Biases entity (default: None)")
-    parser.add_argument("--rouge_eval_samples", type=int, default=50,
-                        help="Number of samples to use for ROUGE evaluation (default: 50)")
+    parser.add_argument("--rouge_eval_samples", type=int, default=5,
+                        help="Number of samples to use for ROUGE evaluation (default: 5)")
     parser.add_argument("--no_rouge", action="store_true",
                         help="Disable ROUGE evaluation during training")
     
@@ -614,7 +617,8 @@ def main():
         logger.info("ROUGE evaluation disabled by user")
     elif not ROUGE_AVAILABLE:
         logger.warning("ROUGE package not available - skipping ROUGE evaluation")
-    
+
+
     trainer = Trainer(
         model=model,
         args=training_args,
