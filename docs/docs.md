@@ -44,19 +44,71 @@ mistralai/Mistral-Small-24B-Instruct-2501
 CohereForAI/aya-23-35B
 ## finetune
 
+### japanese
 python -m src.finetune_phi \
   --model_name microsoft/Phi-4-mini-instruct \
   --dataset_path /Data/shash/mul/hf_dataset \
   --language ja \
-  --output_dir /Data/shash/mul/finetuned_models_ja4_phi_32_ep5
+  --output_dir /Data/shash/mul/finetuned_models_ja4_phi_32_ep5 \
   --wandb_project mulsum-phi
 
+output: INFO:__main__:Loading model and tokenizer: microsoft/Phi-4-mini-instruct
+INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards: 100%|███████████████████████████████████████████████████████████████████| 2/2 [00:01<00:00,  1.29it/s]
+INFO:__main__:Setting up LoRA with r=32, alpha=64
+INFO:__main__:trainable params: 11,534,336 || all params: 3,847,556,096 || trainable%: 0.2998
+INFO:__main__:Loading dataset from /Data/shash/mul/hf_dataset/ja
+INFO:__main__:Loaded 3999 training examples and 501 validation examples
+INFO:__main__:Preprocessing datasets
+INFO:__main__:Adding ROUGE evaluation callback with 10 samples
+INFO:__main__:Starting training
+
+### french
 python -m src.finetune_phi \
   --model_name microsoft/Phi-4-mini-instruct \
   --dataset_path /Data/shash/mul/hf_dataset \
   --language fr \
   --output_dir /Data/shash/mul/finetuned_models_fr4_phi_32_ep5 \
   --wandb_project mulsum-phi
+
+output: INFO:__main__:Loading model and tokenizer: microsoft/Phi-4-mini-instruct
+INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████| 2/2 [00:01<00:00,  1.44it/s]
+INFO:__main__:Setting up LoRA with r=32, alpha=64
+INFO:__main__:trainable params: 11,534,336 || all params: 3,847,556,096 || trainable%: 0.2998
+INFO:__main__:Loading dataset from /Data/shash/mul/hf_dataset/fr
+INFO:__main__:Loaded 3999 training examples and 501 validation examples
+INFO:__main__:Preprocessing datasets
+INFO:__main__:Adding ROUGE evaluation callback with 10 samples
+INFO:__main__:Starting training 
+
+12678MiB
+
+### german
+python -m src.finetune_phi \
+  --model_name microsoft/Phi-4-mini-instruct \
+  --dataset_path /Data/shash/mul/hf_dataset \
+  --language de \
+  --output_dir /Data/shash/mul/finetuned_models_de4_phi_32_ep5 \
+  --wandb_project mulsum-phi \
+  --max_length 4096 \
+  --lora_r 32 \
+  --lora_alpha 64
+output: INFO:__main__:Loading model and tokenizer: microsoft/Phi-4-mini-instruct
+INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards: 100%|██████████████████████████████████████| 2/2 [00:01<00:00,  1.27it/s]
+INFO:__main__:Setting up LoRA with r=32, alpha=64
+INFO:__main__:trainable params: 11,534,336 || all params: 3,847,556,096 || trainable%: 0.2998
+INFO:__main__:Loading dataset from /Data/shash/mul/hf_dataset/de
+INFO:__main__:Loaded 3999 training examples and 501 validation examples
+INFO:__main__:Preprocessing datasets
+Preprocessing dataset: 100%|██████████████████████████████| 501/501 [00:02<00:00, 238.52 examples/s]
+INFO:__main__:Adding ROUGE evaluation callback with 10 samples
+INFO:__main__:Starting training
+
+10gb for 1024 length, 12 gb for 4096 length lora_2 = 8
+
+12890MiB for 4096 and lora_r = 32
 
 ## evaluate
 
