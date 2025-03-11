@@ -14,3 +14,7 @@ blobfile
 rich
 nltk
 weave
+datasets
+peft
+evaluate
+rouge

@@ -416,8 +416,8 @@ def main():
                         help="Weights & Biases run name (default: None)")
     parser.add_argument("--wandb_entity", type=str, default=None,
                         help="Weights & Biases entity (default: None)")
-    parser.add_argument("--rouge_eval_samples", type=int, default=5,
-                        help="Number of samples to use for ROUGE evaluation (default: 5)")
+    parser.add_argument("--rouge_eval_samples", type=int, default=10,
+                        help="Number of samples to use for ROUGE evaluation (default: 10)")
     parser.add_argument("--no_rouge", action="store_true",
                         help="Disable ROUGE evaluation during training")
     
