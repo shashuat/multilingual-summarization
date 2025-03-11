@@ -9,6 +9,7 @@ import argparse
 import torch
 import wandb
 import json
+import numpy as np
 from datasets import load_from_disk
 from peft import get_peft_model, LoraConfig, TaskType, prepare_model_for_kbit_training
 from transformers import (
@@ -26,6 +27,14 @@ from tqdm import tqdm
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Import rouge for metrics calculation
+try:
+    from rouge import Rouge
+    ROUGE_AVAILABLE = True
+except ImportError:
+    logger.warning("Rouge package not found. Install with 'pip install rouge' for ROUGE metrics.")
+    ROUGE_AVAILABLE = False
 
 
 def create_summary_prompt(text: str, language: str, summary: str = "") -> str:
@@ -170,6 +179,188 @@ def preprocess_dataset(dataset, tokenizer, language="en", max_length=4096, max_t
     return processed_dataset
 
 
+def calculate_rouge_scores(reference, generated):
+    """Calculate ROUGE scores between reference and generated text"""
+    if not ROUGE_AVAILABLE:
+        return {"rouge-1": 0.0, "rouge-2": 0.0, "rouge-l": 0.0}
+    
+    try:
+        rouge = Rouge()
+        scores = rouge.get_scores(generated, reference)[0]
+        
+        return {
+            "rouge-1": scores["rouge-1"]["f"],
+            "rouge-2": scores["rouge-2"]["f"],
+            "rouge-l": scores["rouge-l"]["f"],
+        }
+    except Exception as e:
+        logger.warning(f"Error calculating ROUGE scores: {e}")
+        return {
+            "rouge-1": 0.0,
+            "rouge-2": 0.0,
+            "rouge-l": 0.0,
+        }
+
+
+def generate_model_summary(model, tokenizer, text, language, max_length=4096, max_new_tokens=512):
+    """Generate a summary using the model"""
+    try:
+        # Create prompt
+        prompt = create_summary_prompt(text, language)
+        
+        # Tokenize
+        inputs = tokenizer(
+            prompt,
+            return_tensors="pt",
+            padding=True,
+            truncation=True,
+            max_length=max_length,
+        ).to(model.device)
+        
+        # Generate
+        with torch.no_grad():
+            outputs = model.generate(
+                inputs.input_ids,
+                max_new_tokens=max_new_tokens,
+                do_sample=True,
+                temperature=0.7,
+                top_p=0.9,
+                attention_mask=inputs.attention_mask
+            )
+            
+        # Decode the output - extract just the generated part
+        full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        generated_text = full_output[len(prompt):].strip()
+        
+        return generated_text
+    except Exception as e:
+        logger.error(f"Error in summary generation: {e}")
+        return ""
+
+
+# Custom callback to calculate and log ROUGE metrics
+class RougeEvaluationCallback(TrainerCallback):
+    def __init__(self, model, tokenizer, eval_dataset, raw_dataset, language, max_samples=50):
+        self.model = model
+        self.tokenizer = tokenizer
+        self.eval_dataset = eval_dataset
+        self.raw_dataset = raw_dataset
+        self.language = language
+        self.max_samples = min(max_samples, len(raw_dataset))
+        self.best_rouge = {"rouge-1": 0.0, "rouge-2": 0.0, "rouge-l": 0.0}
+    
+    def on_evaluate(self, args, state, control, **kwargs):
+        """Calculate ROUGE scores on validation set after each evaluation"""
+        if not ROUGE_AVAILABLE:
+            logger.warning("Rouge package not available. Skipping ROUGE evaluation.")
+            return
+        
+        logger.info("Calculating ROUGE metrics on validation set...")
+        
+        # Take a sample of validation examples
+        sample_indices = np.random.choice(
+            range(len(self.raw_dataset)), 
+            min(self.max_samples, len(self.raw_dataset)), 
+            replace=False
+        )
+        
+        rouge_scores = []
+        examples = []
+        
+        # Temporarily set model to eval mode
+        training = self.model.training
+        self.model.eval()
+        
+        for idx in sample_indices:
+            example = self.raw_dataset[idx]
+            reference_summary = example["summary"]
+            
+            # Generate summary
+            generated_summary = generate_model_summary(
+                self.model,
+                self.tokenizer,
+                example["text"],
+                self.language
+            )
+            
+            if not generated_summary:
+                continue
+                
+            # Calculate ROUGE scores
+            scores = calculate_rouge_scores(reference_summary, generated_summary)
+            rouge_scores.append(scores)
+            
+            # Save a few examples for display
+            if len(examples) < 5:
+                examples.append({
+                    "text": example["text"][:300] + "...",  # Truncate for display
+                    "reference": reference_summary,
+                    "generated": generated_summary,
+                    "rouge-1": scores["rouge-1"],
+                    "rouge-2": scores["rouge-2"],
+                    "rouge-l": scores["rouge-l"]
+                })
+        
+        # Restore model's training mode
+        self.model.train(training)
+        
+        if not rouge_scores:
+            logger.warning("No valid ROUGE scores calculated.")
+            return
+            
+        # Calculate average scores
+        avg_scores = {
+            metric: np.mean([score[metric] for score in rouge_scores])
+            for metric in ["rouge-1", "rouge-2", "rouge-l"]
+        }
+        
+        # Log to wandb if available
+        if wandb.run is not None:
+            # Log average scores
+            wandb.log({
+                f"rouge/val_{metric}": score
+                for metric, score in avg_scores.items()
+            }, step=state.global_step)
+            
+            # Create and log a table of examples
+            if examples:
+                example_table = wandb.Table(
+                    columns=["text", "reference", "generated", "rouge-1", "rouge-2", "rouge-l"]
+                )
+                
+                for ex in examples:
+                    example_table.add_data(
+                        ex["text"], 
+                        ex["reference"], 
+                        ex["generated"],
+                        f"{ex['rouge-1']:.4f}",
+                        f"{ex['rouge-2']:.4f}",
+                        f"{ex['rouge-l']:.4f}"
+                    )
+                
+                wandb.log({"rouge/examples": example_table}, step=state.global_step)
+        
+        # Print summary of ROUGE scores
+        logger.info(f"ROUGE-1: {avg_scores['rouge-1']:.4f}")
+        logger.info(f"ROUGE-2: {avg_scores['rouge-2']:.4f}")
+        logger.info(f"ROUGE-L: {avg_scores['rouge-l']:.4f}")
+        
+        # Track best scores
+        improved = False
+        for metric in ["rouge-1", "rouge-2", "rouge-l"]:
+            if avg_scores[metric] > self.best_rouge[metric]:
+                self.best_rouge[metric] = avg_scores[metric]
+                improved = True
+        
+        if improved and wandb.run is not None:
+            wandb.log({
+                f"rouge/best_{metric}": score
+                for metric, score in self.best_rouge.items()
+            }, step=state.global_step)
+            
+            logger.info("New best ROUGE scores!")
+
+
 # Custom callback to log more data to W&B
 class WandbMetricsCallback(TrainerCallback):
     def on_evaluate(self, args, state, control, metrics=None, **kwargs):
@@ -222,6 +413,10 @@ def main():
                         help="Weights & Biases run name (default: None)")
     parser.add_argument("--wandb_entity", type=str, default=None,
                         help="Weights & Biases entity (default: None)")
+    parser.add_argument("--rouge_eval_samples", type=int, default=50,
+                        help="Number of samples to use for ROUGE evaluation (default: 50)")
+    parser.add_argument("--no_rouge", action="store_true",
+                        help="Disable ROUGE evaluation during training")
     
     args = parser.parse_args()
     
@@ -250,6 +445,8 @@ def main():
             "warmup_ratio": args.warmup_ratio,
             "weight_decay": args.weight_decay,
             "prompt_style": "simple_article_summary_format",  # Log that we're using the simple format
+            "rouge_evaluation": not args.no_rouge,
+            "rouge_eval_samples": args.rouge_eval_samples
         }
     )
     
@@ -338,7 +535,7 @@ def main():
     
     # Step 4: Preprocess dataset
     logger.info("Preprocessing datasets")
-    train_dataset = preprocess_dataset(
+    train_dataset_processed = preprocess_dataset(
         train_dataset, 
         tokenizer, 
         language=args.language,
@@ -346,7 +543,7 @@ def main():
         max_target_length=args.max_target_length
     )
     
-    val_dataset = preprocess_dataset(
+    val_dataset_processed = preprocess_dataset(
         val_dataset, 
         tokenizer, 
         language=args.language,
@@ -398,29 +595,43 @@ def main():
         run_name=run_name,
     )
     
-    # Step 7: Create trainer with WandB callback
+    # Step 7: Create trainer with callbacks
+    callbacks = [WandbMetricsCallback()]
+    
+    # Add ROUGE evaluation callback if not disabled
+    if not args.no_rouge and ROUGE_AVAILABLE:
+        logger.info(f"Adding ROUGE evaluation callback with {args.rouge_eval_samples} samples")
+        rouge_callback = RougeEvaluationCallback(
+            model=model,
+            tokenizer=tokenizer,
+            eval_dataset=val_dataset_processed,
+            raw_dataset=val_dataset,
+            language=args.language,
+            max_samples=args.rouge_eval_samples
+        )
+        callbacks.append(rouge_callback)
+    elif args.no_rouge:
+        logger.info("ROUGE evaluation disabled by user")
+    elif not ROUGE_AVAILABLE:
+        logger.warning("ROUGE package not available - skipping ROUGE evaluation")
+    
     trainer = Trainer(
         model=model,
         args=training_args,
-        train_dataset=train_dataset,
-        eval_dataset=val_dataset,
+        train_dataset=train_dataset_processed,
+        eval_dataset=val_dataset_processed,
         data_collator=data_collator,
-        callbacks=[WandbMetricsCallback()],
+        callbacks=callbacks,
     )
     
     # Log a sample prompt for reference
     try:
-        # Get a sample article and summary
-        sample_article = train_dataset[0]["input_ids"]
-        sample_article_text = tokenizer.decode(sample_article)
-        
         # Get the prompt format we're using
         sample_prompt = create_summary_prompt("SAMPLE_ARTICLE_TEXT", args.language)
         
         # Log to wandb
         wandb.config.update({
-            "sample_prompt_format": sample_prompt,
-            "sample_article_snippet": sample_article_text[:300] + "..."  # First 300 chars
+            "sample_prompt_format": sample_prompt
         })
     except Exception as e:
         logger.warning(f"Error logging sample prompt: {e}")
@@ -438,58 +649,86 @@ def main():
     model_size_mb = sum(p.numel() * p.element_size() for p in model.parameters()) / (1024 * 1024)
     wandb.log({"model_size_mb": model_size_mb})
     
-    # Save example predictions for the validation set
-    logger.info("Generating example predictions for logging")
-    try:
-        example_predictions = []
-        # Generate predictions for a few examples
-        for i in range(min(5, len(val_dataset))):
-            # Get example input and create a proper prompt
-            val_example = dataset["validation"][i]
+    # Perform final ROUGE evaluation if enabled
+    if not args.no_rouge and ROUGE_AVAILABLE:
+        logger.info("Running final ROUGE evaluation")
+        
+        # Create a table for final results
+        rouge_final_results = []
+        rouge_scores = []
+        
+        # Sample validation examples
+        sample_indices = np.random.choice(
+            range(len(val_dataset)), 
+            min(args.rouge_eval_samples, len(val_dataset)), 
+            replace=False
+        )
+        
+        for idx in tqdm(sample_indices, desc="Final ROUGE Evaluation"):
+            example = val_dataset[idx]
+            reference_summary = example["summary"]
             
-            # Create the prompt using our simple format
-            prompt = create_summary_prompt(val_example["text"], args.language)
+            # Generate summary
+            generated_summary = generate_model_summary(
+                model,
+                tokenizer,
+                example["text"],
+                args.language
+            )
             
-            # Tokenize
-            inputs = tokenizer(
-                prompt,
-                return_tensors="pt",
-                padding=True,
-                truncation=True,
-                max_length=args.max_length,
-            ).to(model.device)
-            
-            # Generate
-            with torch.no_grad():
-                outputs = model.generate(
-                    inputs.input_ids,
-                    max_new_tokens=args.max_target_length,
-                    do_sample=True,
-                    temperature=0.7,
-                    top_p=0.9,
-                    attention_mask=inputs.attention_mask
-                )
+            if not generated_summary:
+                continue
                 
-            # Decode the output - extract just the generated part
-            full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
-            generated_text = full_output[len(prompt):].strip()
+            # Calculate ROUGE scores
+            scores = calculate_rouge_scores(reference_summary, generated_summary)
+            rouge_scores.append(scores)
             
-            # Add to examples
-            example_predictions.append({
-                "input": val_example["text"][:300] + "...",  # Truncate for display
-                "generated": generated_text,
-                "expected": val_example["summary"]
+            # Save for display
+            rouge_final_results.append({
+                "text": example["text"][:300] + "...",  # Truncate for display
+                "reference": reference_summary,
+                "generated": generated_summary,
+                "rouge-1": scores["rouge-1"],
+                "rouge-2": scores["rouge-2"],
+                "rouge-l": scores["rouge-l"]
             })
         
-        # Log examples as a table in wandb
-        if example_predictions:
-            prediction_table = wandb.Table(columns=["input", "generated", "expected"])
-            for ex in example_predictions:
-                prediction_table.add_data(ex["input"], ex["generated"], ex["expected"])
-            wandb.log({"prediction_examples": prediction_table})
+        # Calculate average scores
+        if rouge_scores:
+            avg_scores = {
+                metric: np.mean([score[metric] for score in rouge_scores])
+                for metric in ["rouge-1", "rouge-2", "rouge-l"]
+            }
             
-    except Exception as e:
-        logger.warning(f"Error generating example predictions: {e}")
+            logger.info("Final ROUGE Scores:")
+            logger.info(f"ROUGE-1: {avg_scores['rouge-1']:.4f}")
+            logger.info(f"ROUGE-2: {avg_scores['rouge-2']:.4f}")
+            logger.info(f"ROUGE-L: {avg_scores['rouge-l']:.4f}")
+            
+            # Log to wandb
+            wandb.log({
+                "final_rouge/rouge-1": avg_scores["rouge-1"],
+                "final_rouge/rouge-2": avg_scores["rouge-2"],
+                "final_rouge/rouge-l": avg_scores["rouge-l"]
+            })
+            
+            # Create a table of examples
+            if rouge_final_results:
+                final_table = wandb.Table(
+                    columns=["text", "reference", "generated", "rouge-1", "rouge-2", "rouge-l"]
+                )
+                
+                for res in rouge_final_results[:10]:  # Log up to 10 examples
+                    final_table.add_data(
+                        res["text"], 
+                        res["reference"], 
+                        res["generated"],
+                        f"{res['rouge-1']:.4f}",
+                        f"{res['rouge-2']:.4f}",
+                        f"{res['rouge-l']:.4f}"
+                    )
+                
+                wandb.log({"final_rouge/examples": final_table})
     
     # Finish wandb run
     wandb.finish()
