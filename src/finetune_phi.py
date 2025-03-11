@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 finetune_phi4.py - Fine-tune Microsoft Phi-4-mini-instruct for multilingual summarization using LoRA
-with proper Phi-4 chat format, optimized parameters, and wandb logging
+with simple prompt format matching the generate_summaries.py approach, optimized parameters, and wandb logging
 """
 
 import os
@@ -28,56 +28,86 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def get_system_message(language="en"):
-    """Get the appropriate system message based on language"""
+def create_summary_prompt(text: str, language: str, summary: str = "") -> str:
+    """
+    Create a language-specific prompt for summarization matching generate_summaries.py approach
+    If summary is provided, it's appended for training examples
+    """
+    # Truncate input if needed (as in generate_summaries.py)
+    max_input_length = 4096
+    if len(text) > max_input_length:
+        text = text[:max_input_length]
+    
+    # Create appropriate prompt based on language (from generate_summaries.py)
     if language == "en":
-        return """You are an expert summarizer. Your task is to create concise, comprehensive summaries 
-that capture all key points and main arguments while avoiding unnecessary details. 
-Do not simply copy the first few sentences of the article. Create a summary that stands 
-on its own and covers the entire article's important content."""
+        prompt = f"""Please provide a concise summary of the following article in English. 
+        The summary should be comprehensive, capturing all key points and main arguments, 
+        but avoid unnecessary details. Output only the summary.
+
+        Article:
+        {text}
+
+        Summary:"""
+
     elif language == "fr":
-        return """Vous êtes un expert en résumé. Votre tâche est de créer des résumés concis et complets 
-qui capturent tous les points clés et les arguments principaux tout en évitant les détails inutiles. 
-Ne copiez pas simplement les premières phrases de l'article. Créez un résumé qui se tient 
-par lui-même et couvre tout le contenu important de l'article."""
+        prompt = f"""Veuillez fournir un résumé concis de l'article suivant en français. 
+        Le résumé doit être complet, capturant tous les points clés et les arguments principaux, 
+        mais évitant les détails inutiles. Ne produisez que le résumé.
+
+        Article:
+        {text}
+
+        Résumé:"""
+
     elif language == "de":
-        return """Sie sind ein Experte für Zusammenfassungen. Ihre Aufgabe ist es, prägnante, umfassende Zusammenfassungen 
-zu erstellen, die alle Schlüsselpunkte und Hauptargumente erfassen und dabei unnötige Details vermeiden. 
-Kopieren Sie nicht einfach die ersten Sätze des Artikels. Erstellen Sie eine Zusammenfassung, die 
-eigenständig ist und den gesamten wichtigen Inhalt des Artikels abdeckt."""
+        prompt = f"""Bitte erstellen Sie eine prägnante Zusammenfassung des folgenden Artikels auf Deutsch. 
+        Die Zusammenfassung sollte umfassend sein, alle Hauptpunkte und Hauptargumente erfassen, 
+        aber unnötige Details vermeiden. Geben Sie nur die Zusammenfassung aus.
+
+        Artikel:
+        {text}
+
+Zusammenfassung:"""
+        
     elif language == "ja":
-        return """あなたは要約の専門家です。あなたの仕事は、不必要な詳細を避けながら、すべての重要なポイントと主な議論を
-捉えた簡潔で包括的な要約を作成することです。記事の最初の文をそのままコピーしないでください。
-それ自体で成り立ち、記事の重要な内容全体をカバーする要約を作成してください。"""
+        prompt = f"""以下の記事を日本語で簡潔に要約してください。
+        要約は包括的であり、すべての重要なポイントと主な議論を捉える必要がありますが、
+        不必要な詳細は避けてください。要約のみを出力してください。
+
+        記事:
+        {text}
+
+        要約:"""
+
+    elif language == "ru":
+        prompt = f"""Пожалуйста, предоставьте краткое изложение следующей статьи на русском языке. 
+        Резюме должно быть всеобъемлющим, охватывающим все ключевые моменты и основные аргументы, 
+        но избегающим ненужных деталей. Выводите только резюме.
+
+        Статья:
+        {text}
+
+        Резюме:"""
+
     else:
         # Default for other languages
-        return f"""You are an expert summarizer. Your task is to create concise, comprehensive summaries 
-in {language} that capture all key points and main arguments while avoiding unnecessary details. 
-Do not simply copy the first few sentences of the article. Create a summary that stands 
-on its own and covers the entire article's important content."""
+        prompt = f"""Please provide a concise summary of the following article in {language}. 
+        The summary should be comprehensive, capturing all key points and main arguments, 
+        but avoid unnecessary details. Output only the summary.
 
+        Article:
+        {text}
 
-def create_prompt(text, language="en", summary=""):
-    """Create a language-specific prompt for summarization task using Phi-4 chat format"""
+        Summary:"""
     
-    # Get appropriate system message
-    system_message = get_system_message(language)
-    
-    # Create user message (the article to summarize)
-    user_message = f"Please summarize the following article: {text}"
-    
-    # Format using Phi-4's chat format
+    # For training examples, add the summary after the prompt
     if summary:
-        # For training examples with labels
-        prompt = f"<|system|>{system_message}<|end|><|user|>{user_message}<|end|><|assistant|>{summary}"
-    else:
-        # For inference
-        prompt = f"<|system|>{system_message}<|end|><|user|>{user_message}<|end|><|assistant|>"
+        prompt = prompt + summary
     
     return prompt
 
 
-def preprocess_dataset(dataset, tokenizer, language="en", max_length=3072, max_target_length=512):
+def preprocess_dataset(dataset, tokenizer, language="en", max_length=4096, max_target_length=512):
     """Preprocess dataset for training a causal language model with proper labels"""
     
     def process_examples(examples):
@@ -85,17 +115,11 @@ def preprocess_dataset(dataset, tokenizer, language="en", max_length=3072, max_t
         labels = []
         
         for text, summary in zip(examples["text"], examples["summary"]):
-            # Get system message for this language
-            system_message = get_system_message(language)
+            # Create prompt without summary to determine where labels start
+            prefix_prompt = create_summary_prompt(text, language)
             
-            # Create user message
-            user_message = f"Please summarize the following article: {text}"
-            
-            # Format the full prompt with summary (for input_ids)
-            full_prompt = f"<|system|>{system_message}<|end|><|user|>{user_message}<|end|><|assistant|>{summary}"
-            
-            # Format just the prefix (for creating labels with -100s)
-            prefix_prompt = f"<|system|>{system_message}<|end|><|user|>{user_message}<|end|><|assistant|>"
+            # Create full prompt with summary (for input_ids)
+            full_prompt = create_summary_prompt(text, language, summary)
             
             # Tokenize the full prompt
             tokenized_full = tokenizer(
@@ -154,8 +178,9 @@ class WandbMetricsCallback(TrainerCallback):
             wandb.log(metrics, step=state.global_step)
             
             # Log example count
-            wandb.log({"train/example_count": state.global_step * args.train_batch_size * args.gradient_accumulation_steps}, 
-                      step=state.global_step)
+            wandb.log({
+                "train/example_count": state.global_step * args.train_batch_size * args.gradient_accumulation_steps
+            }, step=state.global_step)
 
 
 def main():
@@ -171,20 +196,20 @@ def main():
                         help="Output directory for saving model")
     parser.add_argument("--train_batch_size", type=int, default=1,
                         help="Training batch size (default: 1)")
-    parser.add_argument("--gradient_accumulation_steps", type=int, default=8,
-                        help="Gradient accumulation steps (default: 8)")
-    parser.add_argument("--learning_rate", type=float, default=2e-4,
-                        help="Learning rate (default: 2e-4)")
-    parser.add_argument("--num_epochs", type=int, default=3,
-                        help="Number of training epochs (default: 3)")
-    parser.add_argument("--max_length", type=int, default=3072,
-                        help="Maximum input sequence length (default: 3072)")
+    parser.add_argument("--gradient_accumulation_steps", type=int, default=16,
+                        help="Gradient accumulation steps (default: 16)")
+    parser.add_argument("--learning_rate", type=float, default=5e-4,
+                        help="Learning rate (default: 5e-4)")
+    parser.add_argument("--num_epochs", type=int, default=5,
+                        help="Number of training epochs (default: 5)")
+    parser.add_argument("--max_length", type=int, default=4096,
+                        help="Maximum input sequence length (default: 4096)")
     parser.add_argument("--max_target_length", type=int, default=512,
                         help="Maximum target sequence length (default: 512)")
-    parser.add_argument("--lora_r", type=int, default=16,
-                        help="LoRA attention dimension (default: 16)")
-    parser.add_argument("--lora_alpha", type=int, default=32,
-                        help="LoRA alpha parameter (default: 32)")
+    parser.add_argument("--lora_r", type=int, default=32,
+                        help="LoRA attention dimension (default: 32)")
+    parser.add_argument("--lora_alpha", type=int, default=64,
+                        help="LoRA alpha parameter (default: 64)")
     parser.add_argument("--lora_dropout", type=float, default=0.05,
                         help="LoRA attention dropout (default: 0.05)")
     parser.add_argument("--warmup_ratio", type=float, default=0.1,
@@ -204,7 +229,7 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     
     # Initialize wandb for experiment tracking
-    run_name = args.wandb_run_name or f"phi4-{args.language}-r{args.lora_r}-lr{args.learning_rate}"
+    run_name = args.wandb_run_name or f"phi4-{args.language}-r{args.lora_r}-lr{args.learning_rate}-simple-prompt"
     wandb.init(
         project=args.wandb_project,
         name=run_name,
@@ -224,6 +249,7 @@ def main():
             "lora_dropout": args.lora_dropout,
             "warmup_ratio": args.warmup_ratio,
             "weight_decay": args.weight_decay,
+            "prompt_style": "simple_article_summary_format",  # Log that we're using the simple format
         }
     )
     
@@ -244,7 +270,7 @@ def main():
     # Load tokenizer with special tokens for Phi-4
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     
-    # Ensure the special tokens are properly set for Phi-4
+    # Ensure the special tokens are properly set
     special_tokens = {
         "pad_token": tokenizer.eos_token,
     }
@@ -383,9 +409,21 @@ def main():
     )
     
     # Log a sample prompt for reference
-    sample_text = train_dataset[0]["input_ids"]
-    sample_text_decoded = tokenizer.decode(sample_text)
-    wandb.config.update({"sample_prompt": sample_text_decoded[:500] + "..."})  # First 500 chars
+    try:
+        # Get a sample article and summary
+        sample_article = train_dataset[0]["input_ids"]
+        sample_article_text = tokenizer.decode(sample_article)
+        
+        # Get the prompt format we're using
+        sample_prompt = create_summary_prompt("SAMPLE_ARTICLE_TEXT", args.language)
+        
+        # Log to wandb
+        wandb.config.update({
+            "sample_prompt_format": sample_prompt,
+            "sample_article_snippet": sample_article_text[:300] + "..."  # First 300 chars
+        })
+    except Exception as e:
+        logger.warning(f"Error logging sample prompt: {e}")
     
     # Step 8: Train and save model
     logger.info("Starting training")
@@ -406,46 +444,42 @@ def main():
         example_predictions = []
         # Generate predictions for a few examples
         for i in range(min(5, len(val_dataset))):
-            # Get example input
-            example_input = val_dataset[i]["input_ids"]
-            # Find the assistant token position
-            assistant_start = None
-            for j, token_id in enumerate(example_input):
-                if tokenizer.decode([token_id]) == "<|assistant|>":
-                    assistant_start = j
-                    break
+            # Get example input and create a proper prompt
+            val_example = dataset["validation"][i]
             
-            if assistant_start:
-                # Create input for generation (just up to the assistant token)
-                gen_input = example_input[:assistant_start+1]
-                # Generate continuation
-                with torch.no_grad():
-                    # Move input to model device
-                    input_tensor = torch.tensor([gen_input]).to(model.device)
-                    outputs = model.generate(
-                        input_tensor,
-                        max_new_tokens=args.max_target_length,
-                        num_return_sequences=1,
-                        temperature=0.7,
-                        do_sample=True,
-                        top_p=0.9,
-                    )
-                    
-                # Decode the output
-                generated_text = tokenizer.decode(outputs[0][assistant_start+1:], skip_special_tokens=True)
+            # Create the prompt using our simple format
+            prompt = create_summary_prompt(val_example["text"], args.language)
+            
+            # Tokenize
+            inputs = tokenizer(
+                prompt,
+                return_tensors="pt",
+                padding=True,
+                truncation=True,
+                max_length=args.max_length,
+            ).to(model.device)
+            
+            # Generate
+            with torch.no_grad():
+                outputs = model.generate(
+                    inputs.input_ids,
+                    max_new_tokens=args.max_target_length,
+                    do_sample=True,
+                    temperature=0.7,
+                    top_p=0.9,
+                    attention_mask=inputs.attention_mask
+                )
                 
-                # Get the expected text (ground truth)
-                expected_text = ""
-                for j, token_id in enumerate(example_input[assistant_start+1:]):
-                    if token_id != -100:  # Skip masked tokens
-                        expected_text += tokenizer.decode([token_id])
-                
-                # Add to examples
-                example_predictions.append({
-                    "input": tokenizer.decode(example_input[:assistant_start]),
-                    "generated": generated_text,
-                    "expected": expected_text
-                })
+            # Decode the output - extract just the generated part
+            full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
+            generated_text = full_output[len(prompt):].strip()
+            
+            # Add to examples
+            example_predictions.append({
+                "input": val_example["text"][:300] + "...",  # Truncate for display
+                "generated": generated_text,
+                "expected": val_example["summary"]
+            })
         
         # Log examples as a table in wandb
         if example_predictions:

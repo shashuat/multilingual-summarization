@@ -47,8 +47,8 @@ CohereForAI/aya-23-35B
 python -m src.finetune_phi \
   --model_name microsoft/Phi-4-mini-instruct \
   --dataset_path /Data/shash/mul/hf_dataset \
-  --language fr \
-  --output_dir /Data/shash/mul/finetuned_models
+  --language ja \
+  --output_dir /Data/shash/mul/finetuned_models_ja4_phi_32_ep5
   --wandb_project mulsum-phi
 
 python finetune_phi4.py --dataset_path /Data/shash/mul/hf_dataset --language fr \
