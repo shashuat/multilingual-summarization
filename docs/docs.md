@@ -33,6 +33,12 @@ python -m src.generate_summaries \
   --model-name mistralai/Mistral-Small-24B-Instruct-2501 \
   --max-articles 6000
 
+python -m src.generate_summaries \
+  --raw-data-dir /Data/shash/mul/raw \
+  --summaries-dir /Data/shash/mul/summaries_test4 \
+  --languages fr \
+  --model-name microsoft/Phi-4-mini-instruct \
+  --max-articles 6000
   
 mistralai/Mistral-Small-24B-Instruct-2501
 CohereForAI/aya-23-35B
@@ -65,3 +71,11 @@ python -m src.compare_llama \
     --num_samples 5 \
     --output_file comparison_results.json
 
+python -m src.compare_phi \
+  --base_model "microsoft/Phi-4-mini-instruct" \
+  --finetuned_model "/Data/shash/mul/finetuned_models/checkpoint-1497" \
+  --dataset_path "/Data/shash/mul/hf_dataset" \
+  --language "fr" \
+  --num_samples 10 \
+  --subset "test" \
+  --output_file "comparison_results.json"

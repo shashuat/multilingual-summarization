@@ -1,0 +1,50 @@
+{
+  "os":  "Linux-5.14.0-503.26.1.el9_5.x86_64-x86_64-with-glibc2.34",
+  "python":  "CPython 3.11.11",
+  "startedAt":  "2025-03-10T15:17:50.082776Z",
+  "args":  [
+    "--model_name",
+    "microsoft/Phi-4-mini-instruct",
+    "--dataset_path",
+    "/Data/shash/mul/hf_dataset",
+    "--language",
+    "fr",
+    "--output_dir",
+    "/Data/shash/mul/finetuned_models"
+  ],
+  "program":  "<python with no main file>",
+  "git":  {
+    "remote":  "https://github.com/shashuat/multilingual-summarization.git",
+    "commit":  "fc290d1a7e742895b27daff98930ae207fb890b8"
+  },
+  "email":  "zshashwatz@gmail.com",
+  "root":  "/users/eleves-b/2024/shashwat.sharma/multilingual-summarization",
+  "host":  "quiscale.polytechnique.fr",
+  "executable":  "/Data/shash/miniconda3/envs/mul/bin/python",
+  "cpu_count":  8,
+  "cpu_count_logical":  16,
+  "gpu":  "NVIDIA RTX A5000",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "4284481536",
+      "used":  "1230254080"
+    }
+  },
+  "memory":  {
+    "total":  "66881703936"
+  },
+  "cpu":  {
+    "count":  8,
+    "countLogical":  16
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA RTX A5000",
+      "memoryTotal":  "25757220864",
+      "cudaCores":  8192,
+      "architecture":  "Ampere"
+    }
+  ],
+  "cudaVersion":  "12.8"
+}

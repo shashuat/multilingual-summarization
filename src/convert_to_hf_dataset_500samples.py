@@ -187,7 +187,7 @@ def create_hf_dataset(
     print("\nConversion complete!")
 
 def main():
-    """Main function to create a dataset with 500 samples for each language"""
+    """Main function to create a dataset with 5000 samples for each language"""
     # Hardcoded parameters
     raw_data_dir = "/Data/shash/mul/raw"
     summaries_dir = "/Data/shash/mul/summaries_test"
