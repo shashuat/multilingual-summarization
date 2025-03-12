@@ -66,7 +66,7 @@ def create_hf_dataset(
     summaries_dir: str,
     hf_dataset_dir: str, 
     languages: List[str],
-    samples_per_language: int = 500,
+    samples_per_language: int = 5000,
     train_size: float = 0.8,
     val_size: float = 0.1,
     test_size: float = 0.1,
@@ -191,7 +191,7 @@ def main():
     # Hardcoded parameters
     raw_data_dir = "/Data/shash/mul/raw"
     summaries_dir = "/Data/shash/mul/summaries_test"
-    hf_dataset_dir = "/Data/shash/mul/hf_dataset"
+    hf_dataset_dir = "/Data/shash/mul/hf_dataset2"
     languages = ["en", "fr", "de", "ja"]
     samples_per_language = 5000
     
@@ -215,22 +215,22 @@ def main():
     
     print("\nExample code to load the dataset for a specific language:")
     print(f"""
-from datasets import load_from_disk
+    from datasets import load_from_disk
 
-# Load French dataset
-fr_dataset = load_from_disk("{hf_dataset_dir}/fr")
+    # Load French dataset
+    fr_dataset = load_from_disk("{hf_dataset_dir}/fr")
 
-# Access train/validation/test splits
-train_data = fr_dataset["train"]
-val_data = fr_dataset["validation"]
-test_data = fr_dataset["test"]
+    # Access train/validation/test splits
+    train_data = fr_dataset["train"]
+    val_data = fr_dataset["validation"]
+    test_data = fr_dataset["test"]
 
-# Example of the first training item
-example = train_data[0]
-print(f"Title: {{example['title']}}")
-print(f"Text length: {{len(example['text'])}}")
-print(f"Summary: {{example['summary']}}")
-""")
+    # Example of the first training item
+    example = train_data[0]
+    print(f"Title: {{example['title']}}")
+    print(f"Text length: {{len(example['text'])}}")
+    print(f"Summary: {{example['summary']}}")
+    """)
 
 if __name__ == "__main__":
     main()

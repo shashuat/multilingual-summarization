@@ -76,7 +76,7 @@ def create_summary_prompt(text: str, language: str, summary: str = "") -> str:
         Artikel:
         {text}
 
-Zusammenfassung:"""
+        Zusammenfassung:"""
         
     elif language == "ja":
         prompt = f"""以下の記事を日本語で簡潔に要約してください。
@@ -116,7 +116,7 @@ Zusammenfassung:"""
     return prompt
 
 
-def preprocess_dataset(dataset, tokenizer, language="en", max_length=4096, max_target_length=512):
+def preprocess_dataset(dataset, tokenizer, language="en", max_length=4096, max_target_length=256):
     """Preprocess dataset for training a causal language model with proper labels"""
     
     def process_examples(examples):
@@ -202,7 +202,7 @@ def calculate_rouge_scores(reference, generated):
         }
 
 
-def generate_model_summary(model, tokenizer, text, language, max_length=4096, max_new_tokens=512):
+def generate_model_summary(model, tokenizer, text, language, max_length=4096, max_new_tokens=256):
     """Generate a summary using the model"""
     try:
         # Create prompt
@@ -398,8 +398,8 @@ def main():
                         help="Number of training epochs (default: 5)")
     parser.add_argument("--max_length", type=int, default=4096,
                         help="Maximum input sequence length (default: 4096)")
-    parser.add_argument("--max_target_length", type=int, default=512,
-                        help="Maximum target sequence length (default: 512)")
+    parser.add_argument("--max_target_length", type=int, default=256,
+                        help="Maximum target sequence length (default: 256)")
     parser.add_argument("--lora_r", type=int, default=32,
                         help="LoRA attention dimension (default: 32)")
     parser.add_argument("--lora_alpha", type=int, default=64,
@@ -574,7 +574,7 @@ def main():
         logging_steps=50,  # Log more frequently for better wandb plots
         eval_strategy="epoch",  
         save_strategy="epoch",
-        save_total_limit=2,
+        save_total_limit=5,
         bf16=True,
         load_best_model_at_end=True,
         report_to="wandb",  # Enable wandb reporting
@@ -653,86 +653,86 @@ def main():
     model_size_mb = sum(p.numel() * p.element_size() for p in model.parameters()) / (1024 * 1024)
     wandb.log({"model_size_mb": model_size_mb})
     
-    # Perform final ROUGE evaluation if enabled
-    if not args.no_rouge and ROUGE_AVAILABLE:
-        logger.info("Running final ROUGE evaluation")
+    # # Perform final ROUGE evaluation if enabled
+    # if not args.no_rouge and ROUGE_AVAILABLE:
+    #     logger.info("Running final ROUGE evaluation")
         
-        # Create a table for final results
-        rouge_final_results = []
-        rouge_scores = []
+    #     # Create a table for final results
+    #     rouge_final_results = []
+    #     rouge_scores = []
         
-        # Sample validation examples
-        sample_indices = np.random.choice(
-            range(len(val_dataset)), 
-            min(args.rouge_eval_samples, len(val_dataset)), 
-            replace=False
-        )
+    #     # Sample validation examples
+    #     sample_indices = np.random.choice(
+    #         range(len(val_dataset)), 
+    #         min(args.rouge_eval_samples, len(val_dataset)), 
+    #         replace=False
+    #     )
         
-        for idx in tqdm(sample_indices, desc="Final ROUGE Evaluation"):
-            example = val_dataset[idx]
-            reference_summary = example["summary"]
+    #     for idx in tqdm(sample_indices, desc="Final ROUGE Evaluation"):
+    #         example = val_dataset[idx]
+    #         reference_summary = example["summary"]
             
-            # Generate summary
-            generated_summary = generate_model_summary(
-                model,
-                tokenizer,
-                example["text"],
-                args.language
-            )
+    #         # Generate summary
+    #         generated_summary = generate_model_summary(
+    #             model,
+    #             tokenizer,
+    #             example["text"],
+    #             args.language
+    #         )
             
-            if not generated_summary:
-                continue
+    #         if not generated_summary:
+    #             continue
                 
-            # Calculate ROUGE scores
-            scores = calculate_rouge_scores(reference_summary, generated_summary)
-            rouge_scores.append(scores)
+    #         # Calculate ROUGE scores
+    #         scores = calculate_rouge_scores(reference_summary, generated_summary)
+    #         rouge_scores.append(scores)
             
-            # Save for display
-            rouge_final_results.append({
-                "text": example["text"][:300] + "...",  # Truncate for display
-                "reference": reference_summary,
-                "generated": generated_summary,
-                "rouge-1": scores["rouge-1"],
-                "rouge-2": scores["rouge-2"],
-                "rouge-l": scores["rouge-l"]
-            })
+    #         # Save for display
+    #         rouge_final_results.append({
+    #             "text": example["text"][:300] + "...",  # Truncate for display
+    #             "reference": reference_summary,
+    #             "generated": generated_summary,
+    #             "rouge-1": scores["rouge-1"],
+    #             "rouge-2": scores["rouge-2"],
+    #             "rouge-l": scores["rouge-l"]
+    #         })
         
-        # Calculate average scores
-        if rouge_scores:
-            avg_scores = {
-                metric: np.mean([score[metric] for score in rouge_scores])
-                for metric in ["rouge-1", "rouge-2", "rouge-l"]
-            }
+    #     # Calculate average scores
+    #     if rouge_scores:
+    #         avg_scores = {
+    #             metric: np.mean([score[metric] for score in rouge_scores])
+    #             for metric in ["rouge-1", "rouge-2", "rouge-l"]
+    #         }
             
-            logger.info("Final ROUGE Scores:")
-            logger.info(f"ROUGE-1: {avg_scores['rouge-1']:.4f}")
-            logger.info(f"ROUGE-2: {avg_scores['rouge-2']:.4f}")
-            logger.info(f"ROUGE-L: {avg_scores['rouge-l']:.4f}")
+    #         logger.info("Final ROUGE Scores:")
+    #         logger.info(f"ROUGE-1: {avg_scores['rouge-1']:.4f}")
+    #         logger.info(f"ROUGE-2: {avg_scores['rouge-2']:.4f}")
+    #         logger.info(f"ROUGE-L: {avg_scores['rouge-l']:.4f}")
             
-            # Log to wandb
-            wandb.log({
-                "final_rouge/rouge-1": avg_scores["rouge-1"],
-                "final_rouge/rouge-2": avg_scores["rouge-2"],
-                "final_rouge/rouge-l": avg_scores["rouge-l"]
-            })
+    #         # Log to wandb
+    #         wandb.log({
+    #             "final_rouge/rouge-1": avg_scores["rouge-1"],
+    #             "final_rouge/rouge-2": avg_scores["rouge-2"],
+    #             "final_rouge/rouge-l": avg_scores["rouge-l"]
+    #         })
             
-            # Create a table of examples
-            if rouge_final_results:
-                final_table = wandb.Table(
-                    columns=["text", "reference", "generated", "rouge-1", "rouge-2", "rouge-l"]
-                )
+    #         # Create a table of examples
+    #         if rouge_final_results:
+    #             final_table = wandb.Table(
+    #                 columns=["text", "reference", "generated", "rouge-1", "rouge-2", "rouge-l"]
+    #             )
                 
-                for res in rouge_final_results[:10]:  # Log up to 10 examples
-                    final_table.add_data(
-                        res["text"], 
-                        res["reference"], 
-                        res["generated"],
-                        f"{res['rouge-1']:.4f}",
-                        f"{res['rouge-2']:.4f}",
-                        f"{res['rouge-l']:.4f}"
-                    )
+    #             for res in rouge_final_results[:10]:  # Log up to 10 examples
+    #                 final_table.add_data(
+    #                     res["text"], 
+    #                     res["reference"], 
+    #                     res["generated"],
+    #                     f"{res['rouge-1']:.4f}",
+    #                     f"{res['rouge-2']:.4f}",
+    #                     f"{res['rouge-l']:.4f}"
+    #                 )
                 
-                wandb.log({"final_rouge/examples": final_table})
+    #             wandb.log({"final_rouge/examples": final_table})
     
     # Finish wandb run
     wandb.finish()

@@ -85,7 +85,7 @@ def main():
     
     parser.add_argument("--summaries-dir", required=True,
                         help="Input directory of summaries")
-    parser.add_argument("--languages", nargs="+", default=["en", "fr", "de", "ja", "ru"],
+    parser.add_argument("--languages", nargs="+", default=["en", "fr", "de", "ja"],
                         help="Languages to process (default: en fr de ja ru)")
     parser.add_argument("--save-data-dir", required=False,
                         help="Directory to save summary json. If it's not specified, the original json will be overwritten.")
