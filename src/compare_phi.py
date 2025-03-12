@@ -95,25 +95,7 @@ def create_summary_prompt(text: str, language: str) -> str:
     return prompt
 
 
-def remove_repetitions(text):
-    """Remove repetitive sections from the generated summary"""
-    # Break into sentences
-    sentences = re.split(r'(?<=[.!?])\s+', text)
-    if len(sentences) <= 1:
-        return text
-    
-    # Filter out repeated sentences
-    unique_sentences = []
-    for sentence in sentences:
-        if sentence and sentence not in unique_sentences:
-            unique_sentences.append(sentence)
-    
-    # Reconstruct text with unique sentences
-    cleaned_text = ' '.join(unique_sentences)
-    return cleaned_text
-
-
-def generate_summary(model, tokenizer, text, language="en", max_input_length=4096, max_new_tokens=512, debug=False):
+def generate_summary(model, tokenizer, text, language="en", max_input_length=4096, max_new_tokens=256, debug=False):
     """Generate a summary for a given text using the specified model - matching generate_summaries.py approach"""
     # Create prompt using the original format
     prompt = create_summary_prompt(text, language)
@@ -146,10 +128,6 @@ def generate_summary(model, tokenizer, text, language="en", max_input_length=409
     if debug:
         logger.info(f"Full output length: {len(full_output)} chars")
         logger.info(f"Extracted summary begins with: {summary[:100]}..." if summary else "Empty summary!")
-    
-    # Clean up repetitions
-    if summary:
-        summary = remove_repetitions(summary)
     
     return summary
 
@@ -226,9 +204,9 @@ def main():
                         help="Dataset subset to use")
     parser.add_argument("--seed", type=int, default=42,
                         help="Random seed for example selection")
-    parser.add_argument("--max_input_length", type=int, default=3072,
+    parser.add_argument("--max_input_length", type=int, default=4096,
                         help="Maximum input sequence length")
-    parser.add_argument("--max_output_length", type=int, default=512,
+    parser.add_argument("--max_output_length", type=int, default=256,
                         help="Maximum output sequence length")
     parser.add_argument("--debug", action="store_true",
                         help="Enable debug output")
@@ -414,7 +392,7 @@ def main():
             "index": sample_idx,
             "title": sample.get("title", ""),
             "text": truncate_text(text, 500),  # Save truncated text for display
-            "full_text": text,  # Save full text
+            # "full_text": text,  # Save full text
             "reference_summary": reference_summary,
             "base_model_summary": base_summary,
             "finetuned_model_summary": finetuned_summary,

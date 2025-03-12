@@ -142,9 +142,56 @@ python -m src.compare_phi \
 
 python -m src.compare_phi \
   --base_model "microsoft/Phi-4-mini-instruct" \
-  --finetuned_model "/Data/shash/mul/finetuned_models_de4_phi_32_ep5/checkpoint-1245" \
+  --finetuned_model "/Data/shash/mul/finetuned_models256_de4_phi_32_ep5/checkpoint-1245" \
   --dataset_path "/Data/shash/mul/hf_dataset2" \
-  --language "en" \
-  --num_samples 20 \
-  --subset "test" \
-  --output_file "comparison_results_de4_phi_32_ep5-1245-de-en.json"
+  --language "de" \
+  --num_samples 100 \
+  --subset "train" \
+  --output_file "comparison_results_256/comparison_results_de4_phi_32_ep5-1245-de-de.json"
+
+
+## Finetune Full SFT
+
+Qwen/Qwen2.5-0.5B-Instruct
+
+python -m src.finetune_qwen \
+    --dataset_path /Data/shash/mul/hf_dataset2 \
+    --language fr \
+    --output_dir /Data/shash/mul/finetuned_models/qwen_fr_sft_fullprec_ep5/ \
+    --wandb_project mulsum-qwen
+
+5/1245 [01:05<4:25:46, 12.86s/it]
+qwen-fr-full-finetune-ep5
+Memory Usage:  14076MiB 
+trainable params: 494,032,768 || all params: 494,032,768 || trainable%: 100.0000
+
+## LLAMA 3.2 -1b Instruct with advanced techniques
+python -m src.finetune_llama \
+  --model_name "meta-llama/Llama-3.2-1B-Instruct" \
+  --dataset_path "/Data/shash/mul/hf_dataset2" \
+  --language "fr" \
+  --output_dir "/Data/shash/mul/finetuned_llama3-2-1b/llama3_1b_fr_ep5/" \
+  --use_neftune \
+  --use_flash_attention
+
+wandb: Syncing run llama32-fr-r32-lr0.0005
+  Setting up LoRA with r=32, alpha=64
+INFO:__main__:Targeting all linear layers: ['k_proj', 'gate_proj', 'o_proj', 'up_proj', 'q_proj', 'v_proj', 'down_proj']
+INFO:__main__:trainable params: 22,544,384 || all params: 1,258,358,784 || trainable%: 1.7916
+
+7052MiB
+| 7/1245 [00:55<2:39:10,  7.71s/it]
+
+### de
+python -m src.finetune_llama \
+  --model_name "meta-llama/Llama-3.2-1B-Instruct" \
+  --dataset_path "/Data/shash/mul/hf_dataset2" \
+  --language "de" \
+  --output_dir "/Data/shash/mul/finetuned_llama3-2-1b/llama3_1b_de_ep5/" \
+  --use_neftune \
+  --use_flash_attention
+
+wandb: Syncing run llama32-de-r32-lr0.0005
+INFO:__main__:trainable params: 22,544,384 || all params: 1,258,358,784 || trainable%: 1.7916
+
+7164MiB

@@ -18,3 +18,4 @@ datasets
 peft
 evaluate
 rouge
+flash-attn
