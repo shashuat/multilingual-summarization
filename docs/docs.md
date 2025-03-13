@@ -42,7 +42,8 @@ python -m src.generate_summaries \
   
 mistralai/Mistral-Small-24B-Instruct-2501
 CohereForAI/aya-23-35B
-## finetune
+
+## finetune Phi
 
 ### japanese
 python -m src.finetune_phi \
@@ -62,6 +63,8 @@ INFO:__main__:Loaded 3999 training examples and 501 validation examples
 INFO:__main__:Preprocessing datasets
 INFO:__main__:Adding ROUGE evaluation callback with 10 samples
 INFO:__main__:Starting training
+
+/Data/shash/mul/finetuned_models_ja4_phi_32_ep5/checkpoint-1245
 
 ### french
 python -m src.finetune_phi \
@@ -124,12 +127,15 @@ python -m src.eval_llama \
 ## compare
 
 python -m src.compare_llama \
-    --base_model meta-llama/Llama-3.2-1B-Instruct \
-    --finetuned_model /Data/shash/mul/finetuned_models \
-    --dataset_path /Data/shash/mul/hf_dataset2 \
-    --language fr \
-    --num_samples 5 \
-    --output_file comparison_results.json
+  --base_model "meta-llama/Llama-3.2-1B-Instruct" \
+  --finetuned_model "/Data/shash/mul/finetuned_llama3-2-1b/llama3_1b_fr_ep5/checkpoint-1245" \
+  --dataset_path "/Data/shash/mul/hf_dataset2" \
+  --language "en" \
+  --num_samples 10 \
+  --subset "train" \
+  --output_file "comparison_results_256/comparison_results_fr4_llama_32_ep5-1245-fr-fr.json"
+  --use_4bit \
+  --flash_attention
 
 python -m src.compare_phi \
   --base_model "microsoft/Phi-4-mini-instruct" \
@@ -140,17 +146,18 @@ python -m src.compare_phi \
   --subset "test" \
   --output_file "comparison_results_fr4_phi_32_ep5-1245-fr-en.json"
 
+
 python -m src.compare_phi \
   --base_model "microsoft/Phi-4-mini-instruct" \
-  --finetuned_model "/Data/shash/mul/finetuned_models256_de4_phi_32_ep5/checkpoint-1245" \
+  --finetuned_model "/Data/shash/mul/finetuned_models_ja4_phi_32_ep5/checkpoint-1245" \
   --dataset_path "/Data/shash/mul/hf_dataset2" \
   --language "de" \
-  --num_samples 100 \
+  --num_samples 250 \
   --subset "train" \
-  --output_file "comparison_results_256/comparison_results_de4_phi_32_ep5-1245-de-de.json"
+  --output_file "comparison_results_256/phi4/comparison_results_ja4_phi_32_ep5-1245-ja-de.json"
 
 
-## Finetune Full SFT
+## Finetune Full SFT Qwen
 
 Qwen/Qwen2.5-0.5B-Instruct
 
@@ -159,8 +166,6 @@ python -m src.finetune_qwen \
     --language de \
     --output_dir /Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5/ \
     --wandb_project mulsum-qwen
-
-    
 
 5/1245 [01:05<4:25:46, 12.86s/it]
 qwen-fr-full-finetune-ep5
@@ -189,23 +194,77 @@ wandb:            train_runtime 14974.6135
 wandb: train_samples_per_second 1.335
 wandb:   train_steps_per_second 0.083
 
-python -m src.compare_qwen \
-  --base_model "Qwen/Qwen2.5-0.5B-Instruct" \
-  --finetuned_model "/Data/shash/mul/finetuned_models/qwen_fr_sft_fullprec_ep5/checkpoint-1245" \
-  --dataset_path "/Data/shash/mul/hf_dataset2" \
-  --language "fr" \
-  --num_samples 10 \
-  --subset "test" \
-  --output_file "comparison_results_256/comparison_results_fr4_qwen_sft_ep5-1245-fr-fr.json"
+
+### de
+
+13684MiB
+
+## compare
 
 python -m src.compare_qwen \
   --base_model "Qwen/Qwen2.5-0.5B-Instruct" \
   --finetuned_model "/Data/shash/mul/finetuned_models/qwen_fr_sft_fullprec_ep5/checkpoint-1245" \
   --dataset_path "/Data/shash/mul/hf_dataset2" \
   --language "en" \
-  --num_samples 100 \
+  --num_samples 250 \
   --subset "train" \
-  --output_file "comparison_results_256/comparison_results_fr4_qwen_sft_ep5-1245-fr-en-train.json"
+  --output_file "comparison_results_256/qwen/comparison_results_fr4_qwen_sft_ep5-1245-fr-en-train.json"
+
+1st fr-fr-test 2/500 [00:20<1:24:22, 10.17s/it]
+Average ROUGE Metrics                 
+┏━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┓
+┃ Model                 ┃ ROUGE-1 ┃ ROUGE-2 ┃ ROUGE-L ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━┩
+│ Base Qwen Model       │ 0.2654  │ 0.0896  │ 0.2444  │
+│ Fine-tuned Qwen Model │ 0.4800  │ 0.2704  │ 0.4518  │
+└───────────────────────┴─────────┴─────────┴─────────┘
+
+
+╭────────────────────────────────────────────── Fine-tuning Improvements ──────────────────────────────────────────────╮
+│ ROUGE-1 Improvement: 80.86%                                                                                          ││ ROUGE-2 Improvement: 201.96%                                                                                         │
+│ ROUGE-L Improvement: 84.81%  
+
+
+2nd fr-de-test 24/500 [04:21<1:29:31, 11.29s/it]
+
+3rd fr-en-test 6Model                 ┃ ROUGE-1 ┃ ROUGE-2 ┃ ROUGE-L ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━┩
+│ Base Qwen Model       │ 0.3146  │ 0.1178  │ 0.2872  │
+│ Fine-tuned Qwen Model │ 0.3987  │ 0.1872  │ 0.3698  │
+└───────────────────────┴─────────┴─────────┴─────────┘
+
+
+╭────────────────────────────────────────────── Fine-tuning Improvements ──────────────────────────────────────────────╮
+│ ROUGE-1 Improvement: 26.71%                                                                                          ││ ROUGE-2 Improvement: 58.99%                                                                                          │
+│ ROUGE-L Improvement: 28.78% 
+4th fr-fr-train 2/500 [00:24<1:39:00, 11.93s/it]
+                 Average ROUGE Metrics                 
+┏━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┓
+┃ Model                 ┃ ROUGE-1 ┃ ROUGE-2 ┃ ROUGE-L ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━┩
+│ Base Qwen Model       │ 0.2769  │ 0.0929  │ 0.2552  │
+│ Fine-tuned Qwen Model │ 0.7404  │ 0.6563  │ 0.7312  │
+└───────────────────────┴─────────┴─────────┴─────────┘
+
+
+╭────────────────────────────────────────────── Fine-tuning Improvements ──────────────────────────────────────────────╮
+│ ROUGE-1 Improvement: 167.40%                                                                                         ││ ROUGE-2 Improvement: 606.16%                                                                                         │
+│ ROUGE-L Improvement: 186.46%  
+5
+                 Average ROUGE Metrics                 
+┏━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┓
+┃ Model                 ┃ ROUGE-1 ┃ ROUGE-2 ┃ ROUGE-L ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━┩
+│ Base Qwen Model       │ 0.2464  │ 0.0652  │ 0.2292  │
+│ Fine-tuned Qwen Model │ 0.3205  │ 0.1174  │ 0.3022  │
+└───────────────────────┴─────────┴─────────┴─────────┘
+
+
+╭────────────────────────────────────────────── Fine-tuning Improvements ──────────────────────────────────────────────╮
+│ ROUGE-1 Improvement: 30.07%                                                                                          ││ ROUGE-2 Improvement: 79.85%                                                                                          │
+│ ROUGE-L Improvement: 31.85%
+6
+
 
 ## LLAMA 3.2 -1b Instruct with advanced techniques
 pip install flash-attn --no-build-isolation
