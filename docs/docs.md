@@ -142,10 +142,12 @@ python -m src.compare_phi \
   --finetuned_model "/Data/shash/mul/finetuned_models_fr4_phi_32_ep5/checkpoint-1245" \
   --dataset_path "/Data/shash/mul/hf_dataset2" \
   --language "en" \
-  --num_samples 20 \
-  --subset "test" \
-  --output_file "comparison_results_fr4_phi_32_ep5-1245-fr-en.json"
+  --num_samples 100 \
+  --subset "train" \
+  --output_file "comparison_results_256/phi4/comparison_results_fr4_phi_32_ep5-1245-fr-en-train.json"
 
+
+### /Data/shash/mul/finetuned_models_fr4_phi_32_ep5/checkpoint-1245
 
 python -m src.compare_phi \
   --base_model "microsoft/Phi-4-mini-instruct" \
