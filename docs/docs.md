@@ -163,8 +163,8 @@ Qwen/Qwen2.5-0.5B-Instruct
 
 python -m src.finetune_qwen \
     --dataset_path /Data/shash/mul/hf_dataset2 \
-    --language de \
-    --output_dir /Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5/ \
+    --language ja \
+    --output_dir /Data/shash/mul/finetuned_models/qwen_ja_sft_fullprec_ep5/ \
     --wandb_project mulsum-qwen
 
 5/1245 [01:05<4:25:46, 12.86s/it]
@@ -196,10 +196,21 @@ wandb:   train_steps_per_second 0.083
 
 
 ### de
-
+/Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5
 13684MiB
 
-## compare
+## compare de
+python -m src.compare_qwen \
+  --base_model "Qwen/Qwen2.5-0.5B-Instruct" \
+  --finetuned_model "/Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5/checkpoint-1245" \
+  --dataset_path "/Data/shash/mul/hf_dataset2" \
+  --language "en" \
+  --num_samples 500 \
+  --subset "test" \
+  --output_file "comparison_results_256/qwen/comparison_results_de4_qwen_sft_ep5-1245-de-en-test.json"
+
+
+## compare fr
 
 python -m src.compare_qwen \
   --base_model "Qwen/Qwen2.5-0.5B-Instruct" \
