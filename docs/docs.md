@@ -201,15 +201,19 @@ wandb:   train_steps_per_second 0.083
 /Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5
 13684MiB
 
+### ja
+/Data/shash/mul/finetuned_models/qwen_ja_sft_fullprec_ep5/checkpoint-1000
+
+conda activate mul
 ## compare de
 python -m src.compare_qwen \
   --base_model "Qwen/Qwen2.5-0.5B-Instruct" \
-  --finetuned_model "/Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5/checkpoint-1245" \
+  --finetuned_model "/Data/shash/mul/finetuned_models/qwen_ja_sft_fullprec_ep5/checkpoint-1000" \
   --dataset_path "/Data/shash/mul/hf_dataset2" \
   --language "en" \
   --num_samples 500 \
-  --subset "test" \
-  --output_file "comparison_results_256/qwen/comparison_results_de4_qwen_sft_ep5-1245-de-en-test.json"
+  --subset "train" \
+  --output_file "comparison_results_256/qwen/comparison_results_ja4_qwen_sft_ep4-1000-ja-en-train.json"
 
 
 ## compare fr
