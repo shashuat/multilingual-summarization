@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_fr_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "fr",
+    "subset": "test",
+    "num_samples": 500
+  },
+  "evaluation_results": [
+    {
+      "index": 164,
+      "title": "Rhume",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 383,
+      "title": "Danton (cuirassé)",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is significantly flawed. It includes irrelevant information about 'avionnel' and 'Danteau', which are not related to the Danton battleship. It also contains confusing phrasing and doesn't present a clear, coherent overview. The information about partial abandonment and reconstruction is not clearly contextualized. \n\nSummary B is much better. It accurately reflects the key information from the reference text: construction date, class, sinking by U-64, key specifications (displacement, armaments, turbines), and discovery of the wreck. It's relatively concise and readable, although stating it was a ship of the 'seconde Guerre mondiale' is inaccurate (it served in WWI). Despite this minor error, it's a strong summary overall.",
+      "improvement": 2
+    },
+    {
+      "index": 45,
+      "title": "Astral Weeks",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains some inaccuracies (stating it was Morrison's first solo album when it was his second) and is less focused than Summary B. It includes some unnecessary details like mentioning 'several albums conceptuels' without context and the odd 'quotidiens en direct'. The formatting with '== Notes et' is also strange. However, it does capture the album's stylistic blend and eventual critical acclaim. Summary B is much closer to the reference text. It accurately states it's the second album, highlights the stylistic shift, and mentions the recording location and label. It also touches on the artistic freedom Morrison experienced. It's more concise and readable than Summary A, though it could benefit from mentioning the 2008 performance at Hollywood Bowl as the reference does.",
+      "improvement": 1
+    },
+    {
+      "index": 156,
+      "title": "Winfield Scott Hancock",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is extremely meta-commentary on what a summary *should* be, rather than *being* a summary. It discusses the article's structure and potential content without actually summarizing it. It's largely unhelpful and doesn't convey information about Hancock himself. Summary B, however, provides a good overview of Hancock's life and career. It includes key dates, important battles (Gettysburg, Petersburg), his post-war roles, and his presidential run. While it could be slightly more concise, it is factually accurate, relatively complete, and readable. It's a solid summary of the reference text.",
+      "improvement": 2
+    },
+    {
+      "index": 53,
+      "title": "Supernova",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 72,
+      "title": "Vol Flying Tiger Line 739",
+      "base_score": 4,
+      "finetuned_score": 2,
+      "explanation": "Summary A is a very good summary. It utilizes an infobox format which is effective for presenting key facts concisely. The information is accurate and covers the essential details of the incident (date, location, casualties, type of aircraft). While it lacks narrative flow, the structured format makes it highly informative. Summary B, however, contains several inaccuracies and is poorly written. The mention of 'saigonisation' is unclear and seems irrelevant. The phrasing is awkward ('éclaté en vol', 'souks-vietnamiens', 'foundé'). It also introduces information not present in the reference text. The overall clarity is low, and it feels less reliable than Summary A.",
+      "improvement": -2
+    },
+    {
+      "index": 315,
+      "title": "Dinosauria",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 209,
+      "title": "Augustin de Cantorbéry",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is repetitive and lacks crucial information about Augustin's mission. It focuses heavily on his title as the first Archbishop without detailing *why* he is significant. The phrasing is also awkward ('venu à la première place'). Summary B, however, is much more accurate and complete. It correctly identifies his monastic order, his mission to convert the Anglo-Saxons, his authorization by Æthelberht, and the establishment of dioceses and schools. It also mentions Bède the Venerable as a source and the dates of his feast days. While slightly verbose, it provides a good overview of Augustin's life and work, closely mirroring the reference summary. Therefore, Summary B is significantly better than Summary A.",
+      "improvement": 2
+    },
+    {
+      "index": 74,
+      "title": "Bataille du réservoir de Chosin",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies. It incorrectly states the South Korean army opposed the UN forces, and claims a UN victory when the reference indicates a Pyrrhic victory for China. The inclusion of a bulleted list feels disjointed and includes irrelevant information like flag files. It lacks detail regarding the significant Chinese involvement. Summary B is much more accurate, correctly identifying the opposing forces (Chinese vs. UN), acknowledging the battle's name (Changjin), and accurately representing the high Chinese casualties. It also correctly frames the battle as a Chinese victory, though it could benefit from mentioning the UN forces' successful withdrawal despite the losses. While it includes some detail about Chinese divisions, it's not overly verbose and maintains good readability. Therefore, Summary B is significantly better than Summary A.",
+      "improvement": 2
+    },
+    {
+      "index": 333,
+      "title": "Jack Hobbs (football)",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 403,
+      "title": "Title (album)",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is extremely minimal and lacks almost all detail. While factually correct in stating the album title, artist, and label, it provides almost no useful information. It's essentially just the first sentence of the reference summary. Summary B, on the other hand, is much more comprehensive. It accurately lists the singles, mentions chart performance, and includes details about the production and video director. It's well-written and provides a good overview of the album. The only minor issue with Summary B is some slight redundancy in mentioning single order multiple times, but it doesn't significantly detract from its quality.",
+      "improvement": 2
+    },
+    {
+      "index": 415,
+      "title": "Vespro della Beata Vergine",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 92,
+      "title": "Rigel",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 215,
+      "title": "Sarah Fisher",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies. It states Fisher participates in NASCAR West and Formula 1, which is not mentioned in the reference and is incorrect. The information about her founding an 'écurie de pilotes individuelles' is vague and doesn't accurately reflect 'Sarah Fisher Racing'. The additional 'Lire aussi' section and associated data appear to be extraneous and unrelated. Summary B, however, is much more accurate and closely follows the reference text. It correctly highlights her key achievements like the pole position in 2002 and her initial career in karting and midget racing. While it has some minor phrasing issues ('werent probables'), it's significantly more complete and reliable than Summary A. It is also more concise and readable.",
+      "improvement": 2
+    },
+    {
+      "index": 479,
+      "title": "Evangelion: 1.0 You Are (Not) Alone",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains some inaccuracies and irrelevant details. While it correctly identifies the directors and the remake aspect, it includes information like the FIA conference presentation which isn't central to a summary of the *film itself*. The phrasing is also a bit awkward. Summary B is much stronger. It accurately reflects the key information from the reference text – the remake nature, the length, the inclusion of new scenes and effects, the financial success, and awards. It's also more concise and readable. The mention of distribution in France is a minor addition that doesn't detract from the overall quality. It's not *perfect* as it could be slightly more concise, but it's a very good summary.",
+      "improvement": 2
+    },
+    {
+      "index": 59,
+      "title": "Cyclotron",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 368,
+      "title": "2001",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is almost entirely unhelpful. It consists of template code and meta-information about the Wikipedia article itself, rather than a summary of the year 2001. It fails to provide any actual information about the events of the year. Summary B, while not perfect, is a reasonable attempt. It correctly identifies the 9/11 attacks and the Afghanistan war as key events, and mentions other significant occurrences like the launch of Wikipedia and the Forum Social Mondial. It's a bit rambling and includes the irrelevant mention of the fall of the Berlin Wall (which occurred in 1989, not 2001), and the phrasing is awkward in places, but it conveys the core information. It's also unnecessarily conversational ('However').",
+      "improvement": 2
+    },
+    {
+      "index": 163,
+      "title": "Eusocialité",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 210,
+      "title": "Grand Prix automobile de France 1906",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies and irrelevant details. It incorrectly states the race was held in Paris and that René de Knyff won, and misattributes the win to Brasier. It's also overly verbose and includes unnecessary template tags. Summary B is much more accurate, covering key details like the distance, Szisz's win with Renault, and the context of replacing the Gordon Bennett Cup. It's also more concise and readable, though it ends abruptly. While not perfect, Summary B is a significantly better representation of the reference text than Summary A.",
+      "improvement": 2
+    },
+    {
+      "index": 251,
+      "title": "Russule verdoyante",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies and odd phrasing. The claim of it being 'cultivé' (cultivated) is misleading as it's a wild mushroom. The description of its growth location is vague ('en arrosage des arbres ou de la plaine'). The statement about 'pureté alimentaire' is unsubstantiated and sounds like a generalization. It also includes a disclaimer about information accuracy which suggests the generator itself is unsure. Summary B, however, is much more accurate and closely follows the reference text. It accurately describes the mushroom's appearance, habitat, and potential confusion with the deadly amanita phalloïde. It's more complete and readable, though slightly verbose. While it could be more concise, it's a strong summary overall.",
+      "improvement": 2
+    }
+  ],
+  "statistics": {
+    "average_base_score": 2.05,
+    "average_finetuned_score": 3.7,
+    "average_improvement": 1.65,
+    "win_rate": 0.95,
+    "tie_rate": 0.0,
+    "loss_rate": 0.05,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}

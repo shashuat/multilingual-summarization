@@ -400,7 +400,7 @@ class NEFTuneCallback(TrainerCallback):
     Implements NEFTune technique (Noisy Embedding Fine-Tuning)
     Paper: https://arxiv.org/abs/2310.05914
     """
-    def __init__(self, noise_alpha=5.0):
+    def __init__(self, noise_alpha=0.05):
         self.noise_alpha = noise_alpha
         
     def on_step_begin(self, args, state, control, **kwargs):

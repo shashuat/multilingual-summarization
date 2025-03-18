@@ -12,9 +12,8 @@ The codebase is organized into modular components:
 - `convert_to_hf_dataset.py` - Create HuggingFace datasets from raw data and summaries
 
 ### Model Training and Evaluation
-- `finetune_model.py` - Fine-tune a model on the summarization task
-- `evaluate_model.py` - Evaluate model performance
-- `compare_baselines.py` - Compare multiple models
+- `finetune_model_*.py` - Fine-tune a model on the summarization task
+- `compare_model_*.py` - Compare the finetuned model with the base model
 
 ### Utility Modules
 - `model_utils.py` - Model loading/saving utilities
@@ -164,9 +163,7 @@ Models that work well on Google Colab (16GB GPU):
 
 Models are evaluated using:
 - ROUGE scores (ROUGE-1, ROUGE-2, ROUGE-L)
-- BERTScore (precision, recall, F1)
-- Length statistics and correlation
-- Visualizations of performance patterns
+- LLM (Gemma3-27b)
 
 ## Project Structure
 

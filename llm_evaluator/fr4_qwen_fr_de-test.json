@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_fr_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "de",
+    "subset": "test",
+    "num_samples": 500
+  },
+  "evaluation_results": [
+    {
+      "index": 164,
+      "title": "Biotin",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 383,
+      "title": "Midilli (Schiff)",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A contains several inaccuracies and is poorly written. It incorrectly states the ship operated during WWII, and the phrasing is awkward and confusing (e.g., \"Osmanische Marinebevölkerungen gefangen genommen\"). It also introduces irrelevant details. Summary B, while not perfect, is more accurate and provides more relevant details from the original text, such as the building location and dates. It's still somewhat verbose and abruptly ends mid-sentence, but it's a clearer and more faithful representation of the source material than Summary A. Therefore, Summary B receives a higher score.",
+      "improvement": 1
+    },
+    {
+      "index": 45,
+      "title": "Atlantic Avenue–Barclays Center",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A contains several inaccuracies and awkward phrasing. It incorrectly states the complex has four stations (it connects three) and repeats 'BMT Brighton Line'. The dates of opening are also wrong (2000 and 2010 instead of 1967 and 1978). The writing is clunky and includes unnecessary details like mentioning the MTA as the 'Verwaltungsführer'. Summary B is better. It accurately identifies the three connected lines and provides correct opening dates. However, it includes irrelevant information about 'Laser-Vermessung' and 'dreieinhalb Dimensionale Schichtenmodellen' which are not mentioned in the reference text. It's also slightly verbose. While not perfect, it's a more faithful and understandable summary than A.",
+      "improvement": 1
+    },
+    {
+      "index": 156,
+      "title": "Winfield Scott Hancock",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is significantly flawed. It contains numerous inaccuracies and is poorly written, making it difficult to understand. The phrasing is awkward ('Krieg übernahm', 'Kandidatforst'), and it misrepresents events (e.g., Hancock 'im Krieg' in 1880). The inclusion of '2023 veröffentlichte das Denkmal...' is irrelevant and feels like added noise. Summary B is better, though still imperfect. It accurately captures key biographical details like birth and death dates and his West Point education. However, it includes some odd phrasing ('Denial of Government Service in the Civil War') and lists experiences in a somewhat disjointed manner. It's more complete than A, but lacks conciseness and clarity. Both summaries suffer from readability issues, but A is far worse.",
+      "improvement": 1
+    },
+    {
+      "index": 53,
+      "title": "4. Sinfonie (Mahler)",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 72,
+      "title": "The Dark Knight Rises",
+      "base_score": 1,
+      "finetuned_score": 2,
+      "explanation": "Summary A is almost entirely nonsensical and appears to be a garbled collection of phrases, including some in Chinese. It contains inaccurate details and is largely unreadable. It receives a score of 1. Summary B is slightly better, identifying some key characters and plot points (Bane, Selina Kyle, Dr. Pavel) and correctly stating it's the final film in the trilogy. However, it's poorly written, contains grammatical errors, and includes irrelevant information (like mentioning YouTube and film categories). It's also repetitive and doesn't flow well. Therefore, it receives a score of 2.",
+      "improvement": 1
+    },
+    {
+      "index": 315,
+      "title": "Dinosaurier",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 209,
+      "title": "Augustinus von Canterbury",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 74,
+      "title": "Pierre Gustave Toutant Beauregard",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 333,
+      "title": "FN Five-Seven",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is largely nonsensical and contains numerous inaccuracies. It mentions 'Fünfte Scharführer' and references the Bundeswehr and Bundeskanzlei in a way that doesn't align with the reference text, and includes irrelevant numerical data (lengths, weights) presented without context. It's poorly written and difficult to understand. Summary B, while not perfect, is significantly better. It accurately identifies the manufacturer and caliber, mentions the recoil operation and distinguishes it from other pistols, and touches on the different versions. It's still somewhat rambling and includes awkward phrasing ('eigenschreibweise', 'Hartkerngeschoss geeitet'), but it conveys more correct information from the reference text than Summary A. It's not concise, but it's understandable.",
+      "improvement": 2
+    },
+    {
+      "index": 403,
+      "title": "Tool (Band)",
+      "base_score": 4,
+      "finetuned_score": 2,
+      "explanation": "Summary A is a well-structured infobox providing a concise and accurate overview of Tool. It includes key information like band members, formation year, genre, and website. While lacking narrative flow, it's highly informative. Summary B, however, is poorly written with numerous grammatical errors and awkward phrasing. It contains some correct information but presents it in a confusing and often inaccurate manner (e.g., 'Bandgangster Rage Against the Machine', 'Tool's klingelige Melodiecomposition'). It also includes irrelevant details and repetitions. Therefore, Summary A is significantly better in terms of clarity, accuracy, and conciseness.",
+      "improvement": -2
+    },
+    {
+      "index": 415,
+      "title": "Việt Nam Quốc dân Đảng",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 92,
+      "title": "Nikolai Andrejewitsch Rimski-Korsakow",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 215,
+      "title": "Zyklon",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is largely irrelevant to a general understanding of 'Zyklon' as a weather phenomenon. It focuses on the etymology of the word and its historical usage, which isn't the core information someone would seek when asking about Zyklons. It also contains awkward phrasing and unclear statements. Summary B, however, closely aligns with the reference summary. It accurately describes Zyklons as tropical cyclones, their locations (Indian Ocean, South Pacific), the time of year they occur, and highlights the significant danger they pose, including mentioning the devastating 1970 cyclone. It's reasonably concise and readable, though it has some minor grammatical errors. While not perfect, it's a much more informative and useful summary than A.",
+      "improvement": 2
+    },
+    {
+      "index": 479,
+      "title": "Konstanze (Antiochia)",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is largely inaccurate and confusing. It misstates Konstanze's parentage (claiming Balduin II as her father), introduces irrelevant figures like Joscelin I, and fabricates details about her life in Latakia and Mosul. It's a jumbled collection of incorrect information. Summary B, while not perfect, is significantly better. It correctly identifies her parents, mentions key events like her father's death and her mother's displacement, and touches upon the political maneuvering surrounding her succession. It contains some inaccuracies (e.g., mentioning Bernhard's verwalter) and is a bit rambling, but it's far more grounded in the reference text than Summary A. Therefore, Summary A receives a score of 1, and Summary B receives a score of 3.",
+      "improvement": 2
+    },
+    {
+      "index": 59,
+      "title": "Kahlhechte",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Summary A presents information in a taxonomic table format, which is factually accurate but not a typical summary. It lists the classification of Kahlhechte, which is good, but doesn't offer a narrative description of the fish itself. It's concise but lacks readability for someone wanting a quick overview. Summary B is significantly worse. It contains numerous grammatical errors and awkward phrasing ('lookt', 'Reifenflosse', 'Schwinneist'). While it attempts to describe the fish's characteristics and behavior, the poor writing quality and errors make it difficult to understand and less reliable. It also includes some redundant information (length mentioned twice). Therefore, A is better as it is factually correct, even if not ideal as a summary, while B is riddled with issues.",
+      "improvement": -1
+    },
+    {
+      "index": 368,
+      "title": "Großer Preis von San Marino 2001",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 163,
+      "title": "Connecticut-Klasse",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A contains several inaccuracies and irrelevant details. It incorrectly characterizes the Connecticut class as anti-aircraft/submarine vessels (they were pre-dreadnought battleships), and the technical details provided (crew size of 6, specific dimensions) seem fabricated or highly inaccurate. It also abruptly ends mid-sentence. Summary B, while poorly written with grammatical errors and awkward phrasing (likely due to machine translation), captures more of the core information from the reference text – their construction period, role in WWI (training and troop transport), and eventual scrapping due to the Washington Naval Treaty. It's incomplete and hard to read, but it's closer to the truth than Summary A. Therefore, Summary B receives a slightly higher score.",
+      "improvement": 1
+    },
+    {
+      "index": 210,
+      "title": "Großer Preis von Frankreich 1906",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A contains several inaccuracies and is poorly written. It incorrectly states Szisz finished second, and the repeated, unfinished sentences about race dates are confusing. It also feels very fragmented. Summary B, while verbose and somewhat rambling, captures more of the key information from the reference text – the context of the race within the broader history of French motorsports, the ACF's role, and the attempt to establish a standardized format. It's not concise, and the writing style is awkward, but it's more factually accurate and complete than Summary A. Therefore, Summary B receives a higher score.",
+      "improvement": 1
+    },
+    {
+      "index": 251,
+      "title": "Babe Ruth",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A contains several inaccuracies and is poorly written. The career duration is incorrect (ending in 1974 instead of 1935), it incorrectly references the NBA, and the phrasing is awkward. It also introduces irrelevant information about a 'Statistikssort'. Summary B is better, though still flawed. It correctly identifies key teams and the 714 home run record, but has some inaccuracies regarding dates (e.g., playing for the Braves until 1950) and includes irrelevant details about his ancestor's occupation. It's also somewhat rambling and less concise than it could be. Both summaries fall short of the reference's quality, but B is closer to a reasonable summary than A.",
+      "improvement": 1
+    }
+  ],
+  "statistics": {
+    "average_base_score": 1.95,
+    "average_finetuned_score": 3.0,
+    "average_improvement": 1.05,
+    "win_rate": 0.9,
+    "tie_rate": 0.0,
+    "loss_rate": 0.1,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}

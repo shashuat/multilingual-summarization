@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_fr_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "en",
+    "subset": "test",
+    "num_samples": 500
+  },
+  "evaluation_results": [
+    {
+      "index": 164,
+      "title": "Bikini",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is reasonably accurate but lacks detail and reads somewhat repetitively (e.g., repeatedly stating it's a two-piece swimsuit). It mentions the origin and popularization but doesn't convey the initial controversy or the range of styles as well as it could. The bullet points provided alongside the summary seem to be expanding on information *not* present in the summary itself, which is misleading. Summary B is more comprehensive, accurately reflecting the reference summary's details about the controversy, celebrity influence, and variety of styles (monokini, tankini). It also includes information about bikini briefs and underwear, adding to its completeness. While slightly more verbose than ideal, it's clearer and more informative than Summary A.",
+      "improvement": 1
+    },
+    {
+      "index": 383,
+      "title": "Bramble shark",
+      "base_score": 1,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 3
+    },
+    {
+      "index": 45,
+      "title": "Astral Weeks",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains inaccuracies (released under Bang Records is incorrect - it was a dispute *with* Bang Records) and includes irrelevant details (mention of 'Blown Your Mind!' cover art). It's also less focused on the album's significance and impact. Summary B is much more accurate, covering the key points of the album's creation, initial reception, later acclaim, and the live performance. It also includes the important context of the contract dispute with Bang Records and Bert Berns' death. While slightly lengthy, it provides a more complete and nuanced overview than Summary A. Summary B is also clearer and more readable.",
+      "improvement": 2
+    },
+    {
+      "index": 156,
+      "title": "Winfield Scott Hancock",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is a decent summary, accurately capturing key aspects of Hancock's life – his military service, the Gettysburg campaign, and his role in Grant's funeral. However, it feels slightly incomplete and the added commentary about what the 'article' does or doesn't include is unnecessary for a summary. It also doesn't mention his birth or death location. Summary B is stronger. It includes more crucial biographical details (birth and death locations/dates) and provides a more comprehensive overview of his post-Civil War activities (Reconstruction, Native American conflicts). While it includes a minor detail about his family, it doesn't detract from the overall quality. It's more concise and reads more like a standalone summary than A, which feels like it's referencing the source material too much.",
+      "improvement": 1
+    },
+    {
+      "index": 53,
+      "title": "Supernova",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is somewhat vague and repetitive, relying heavily on stating the article 'discusses' or 'mentions' rather than directly presenting information. It includes SN 1994D which isn't mentioned in the reference text, introducing an inaccuracy. The phrasing is also a bit clunky and less concise. Summary B, however, is much more directly informative and accurately reflects the key details of the reference text – the causes, effects, luminosity, and historical context (mentioning Baade and Zwicky and SN 1987A). It's also more concise and readable. While it could be slightly more succinct, it provides a strong, accurate overview. Therefore, Summary B is significantly better than Summary A.",
+      "improvement": 1
+    },
+    {
+      "index": 72,
+      "title": "Dallas Buyers Club",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A includes extraneous details like box office gross and production companies which, while related to the film, aren't central to a summary of the *story* itself. It also repeats information about the 1992 profile unnecessarily. It's factually accurate but feels cluttered. Summary B is more focused on the core narrative – Ron Woodroof's story, the creation of the club, and the film's emotional impact. It's concise, clear, and accurately reflects the reference summary's emphasis. While it does have a slight repetition at the end, it's less distracting than the extra details in Summary A. Therefore, Summary B is a better, more effective summary.",
+      "improvement": 1
+    },
+    {
+      "index": 315,
+      "title": "Dinosaur",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 209,
+      "title": "Augustine of Canterbury",
+      "base_score": 5,
+      "finetuned_score": 5,
+      "explanation": "Extracted from text",
+      "improvement": 0
+    },
+    {
+      "index": 74,
+      "title": "Pauline Baynes",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 333,
+      "title": "Flame & Citron",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Summary A is decent. It captures the core information – the film's genre, director, stars, and general themes. However, stating the film is 'about the Holocaust' is a slight misrepresentation; it's *set during* WWII and features resistance fighters, but the Holocaust isn't the central focus. The self-assessment section is also oddly formatted and adds little value. Summary B is significantly weaker. While it includes more details (production companies, runtime), it's poorly written, contains untranslated Chinese text, and feels like a data dump rather than a coherent summary. It also uses phrasing like 'complex战争体验' which is not helpful for an English-language summary. Summary A is more readable and accurate, despite its minor flaw, making it the better of the two.",
+      "improvement": -1
+    },
+    {
+      "index": 403,
+      "title": "Title (album)",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 415,
+      "title": "Vespro della Beata Vergine",
+      "base_score": 1,
+      "finetuned_score": 1,
+      "explanation": "Extracted from text",
+      "improvement": 0
+    },
+    {
+      "index": 92,
+      "title": "Rigel",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Extracted from text",
+      "improvement": 1
+    },
+    {
+      "index": 215,
+      "title": "Crystal Palace F.C.",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Extracted numeric values",
+      "improvement": -1
+    },
+    {
+      "index": 479,
+      "title": "The Concert for Bangladesh (album)",
+      "base_score": 4,
+      "finetuned_score": 3,
+      "explanation": "Summary A is a strong summary. It accurately captures the key artists involved, the album's release date, its pioneering nature as a benefit concert, and its connection to the Bangladesh Liberation War and subsequent benefit concerts. It's well-written and relatively concise. However, it doesn't mention Phil Spector's involvement or the Grammy win. Summary B, while also accurate, is overly detailed and includes less relevant information like the album's duration, DVD contents, and delays in release. It feels more like a collection of facts than a cohesive summary. It also repeats information (e.g., release date) unnecessarily. Therefore, A is more effective as a concise and informative summary.",
+      "improvement": -1
+    },
+    {
+      "index": 59,
+      "title": "Boston Massacre",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 368,
+      "title": "2001",
+      "base_score": 1,
+      "finetuned_score": 4,
+      "explanation": "Summary A is extremely poor. It lists a ridiculous number of 'wars,' many of which either didn't happen in 2001 or are misnamed/repeated (e.g., 'Second World War'). The inclusion of events like 'Second Crimean War' is completely inaccurate and detracts from any potential value. It also makes broad, unsubstantiated claims about technology. Summary B, however, is quite good. It accurately reflects the key events of 2001, including the September 11 attacks, the war on terror, and other conflicts. It also touches on scientific, space exploration, economic, and cultural aspects. While it could be more concise, it is factually sound and provides a reasonably comprehensive overview. It is well-written and readable.",
+      "improvement": 3
+    },
+    {
+      "index": 163,
+      "title": "Commutative property",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is somewhat verbose and repetitive, stating the commutativity of addition and multiplication multiple times. It also introduces concepts like groups, rings, and fields which are beyond a basic definition of the commutative property. While factually correct, it's not concise. Summary B is much closer to the reference summary in terms of clarity and conciseness. It accurately defines commutativity, provides examples (addition, subtraction, division, exponentiation), and mentions its relevance to binary relations. It also includes the mathematical notation (x+y = y+x) which is helpful. It's a more focused and effective summary of the core concept. While it could be slightly more concise, it's a strong summary overall.",
+      "improvement": 1
+    },
+    {
+      "index": 210,
+      "title": "1906 French Grand Prix",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but lacks some key details present in the reference. It correctly identifies the winner and the challenging conditions, but it incorrectly states Szisz was the fastest lap (Baras was initially). It's also less specific about the race distance and the impact of Michelin's rims. Summary B is much stronger. It accurately reflects the reference text, including the race distance, the number of laps, the close finish between Szisz and Nazzaro, and the significance of Michelin's rims. It also correctly mentions the race replaced the Gordon Bennett races. While slightly longer than A, it provides a more complete and accurate picture of the event. The '213 results so far' and 'Would you like me to help with anything else?' are extraneous and detract slightly, but the core summary is very good.",
+      "improvement": 1
+    },
+    {
+      "index": 251,
+      "title": "Russula virescens",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A includes some accurate details like the cap description and distribution, but it adds unnecessary information (e.g., specific cap measurements, mentioning Spain and China without context) and feels slightly rambling. The concluding statement is also a bit repetitive. Summary B is more concise and accurately captures the key information from the reference text – the common names, physical characteristics, edibility, historical classification, distribution, ecological role, and unique enzymes. It maintains a good balance between completeness and conciseness, and the phrasing is clearer. While it could be slightly more polished, it's a stronger summary overall.",
+      "improvement": 1
+    }
+  ],
+  "statistics": {
+    "average_base_score": 2.7,
+    "average_finetuned_score": 3.55,
+    "average_improvement": 0.85,
+    "win_rate": 0.75,
+    "tie_rate": 0.1,
+    "loss_rate": 0.15,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}

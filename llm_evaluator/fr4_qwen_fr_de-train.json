@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_fr_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "de",
+    "subset": "train",
+    "num_samples": 250
+  },
+  "evaluation_results": [
+    {
+      "index": 1823,
+      "title": "Tim im Lande der Sowjets",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 228,
+      "title": "Mysore (Staat)",
+      "base_score": 1,
+      "finetuned_score": 1,
+      "explanation": "Extracted from text",
+      "improvement": 0
+    },
+    {
+      "index": 3045,
+      "title": "Feuerball (Roman)",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Extracted numeric values",
+      "improvement": -1
+    },
+    {
+      "index": 3201,
+      "title": "Bengalische Sprachbewegung",
+      "base_score": 2,
+      "finetuned_score": 1,
+      "explanation": "Summary A is somewhat understandable but contains several inaccuracies and odd phrasing. It mentions 'Erziehen der Sprache' which isn't a clear concept, and the discussion of the monument feels disjointed. It also makes unclear statements about languages being 'mentioned' as state languages. Summary B is significantly worse. It's riddled with grammatical errors, awkward phrasing ('nationallargeden Verwirrung', '新生国家真正wertvoll'), and nonsensical statements about 'Muslimle' and 'Western Influences'. It's difficult to follow and contains information that doesn't align with the reference text. Both summaries fail to capture the core narrative of the movement and its significance, but Summary A is marginally better due to slightly more coherent phrasing, despite its inaccuracies. Neither is concise or well-written.",
+      "improvement": -1
+    },
+    {
+      "index": 2729,
+      "title": "Ruth Bader Ginsburg",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is quite poor. It contains odd phrasing ('überzeugt, dass die Geschlechterfreiheit… ein wesentlicher Grund zur Gesetzgebung ist'), includes unnecessary wiki-style markup ([[...]]), and the information feels disjointed. The mention of 13 years is misleading as she served for 27 years. Summary B is better. It includes key biographical details like her birthdate and family background, and mentions her education. However, it's also somewhat awkwardly phrased and contains errors ('Law Firmung down in Fort Sill', 'berterd an der Harvard Law School'). It's more complete than A, but still needs significant editing for clarity and accuracy. The reference summary is much clearer and more concise.",
+      "improvement": 1
+    },
+    {
+      "index": 2784,
+      "title": "Rotschwanz-Rabenkakadu",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 2937,
+      "title": "Manchester United",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is quite repetitive (repeating the founding dates) and contains some awkward phrasing and grammatical errors. It also includes a strange sentence about being a 'culture company' and its connection to the 'Manchester United Foundation' which feels out of place and isn't elaborated on. It attempts to cover key achievements but does so in a slightly disorganized manner. Summary B, while also having some grammatical issues and awkward phrasing ('hat einen Hauch der FA-Cup', 'Internationalkleidungsweise'), is more coherent and covers a broader range of information from the reference text, including current leadership positions. It's still not perfect, but it's a more complete and understandable summary than A. Therefore, B receives a higher score.",
+      "improvement": 1
+    },
+    {
+      "index": 3102,
+      "title": "Schlacht bei Tassafaronga",
+      "base_score": 2,
+      "finetuned_score": 1,
+      "explanation": "Summary A contains several inaccuracies and is poorly written. It mentions 'langsame, langfristige Frachtschiffe in der Luft', which doesn't make sense in the context of a naval battle. The narrative is confusing and doesn't clearly explain the outcome. It also repeats information unnecessarily. Summary B is even worse; it's riddled with typos ('US-NJ', 'JPN', 'Misstrummt'), uses unclear phrasing ('USA-Mannigfaltigkeit', 'USA-Kommandantoren'), and is largely incomprehensible. It also incorrectly states the battle was the 'letzte Monatekollege des Pazifikkriegs'. Both summaries fail to accurately and concisely represent the key information from the reference text, but Summary B is significantly more flawed.",
+      "improvement": -1
+    },
+    {
+      "index": 3520,
+      "title": "Abdullah II. bin al-Hussein",
+      "base_score": 1,
+      "finetuned_score": 2,
+      "explanation": "Summary A is largely nonsensical and contains numerous errors. The opening sentence is inaccurate regarding his accession to the throne. The extended discussion of the name 'Abdullah' is irrelevant and poorly written, and the summary abruptly ends mid-sentence. It's difficult to discern any coherent information about the subject. Summary B is slightly better, providing some accurate information about his education and military career, and mentioning his marriage to Rania. However, it's poorly written with grammatical errors and awkward phrasing ('ducpel', 'behert'). It also includes irrelevant details (Second Gulf War background of Rania) and abruptly ends. Neither summary is particularly concise or clear, but Summary A is significantly worse due to its factual inaccuracies and lack of coherence.",
+      "improvement": 1
+    },
+    {
+      "index": 2798,
+      "title": "Weißstorch",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is largely nonsensical and appears to be attempting to construct a historical narrative about the naming of the stork, but does so in a very confused and inaccurate way. It contains many grammatical errors and doesn't convey useful information about the Weißstorch. It's almost entirely irrelevant to the reference text. Summary B, while flawed, is much better. It accurately identifies key characteristics like size, diet, and communication method. It contains some errors (e.g., 'Messing klein', 'Nustigkeitserwartungstechnologie') and is not perfectly clear, but it does convey a reasonable amount of information from the reference text. It's also more concise than the reference, which is a positive trait for a summary.",
+      "improvement": 2
+    },
+    {
+      "index": 2588,
+      "title": "Großer Emu",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is almost entirely nonsensical and appears to be a garbled collection of unrelated phrases. It contains information about 'Schneeflockenblätter des Menkes' and 'Hohengrauen', which are completely irrelevant to the topic of Emus. It's largely incomprehensible and inaccurate. Summary B, while not perfect, is significantly better. It accurately identifies the Emu as Australia's largest bird and the second largest of the ratites. It includes information about their nomadic lifestyle, speed, and the origin of their name. However, it's somewhat repetitive and lacks the conciseness of a truly good summary. It also contains some awkward phrasing ('langweilen und vorsichtig sind, um gut zu sein').",
+      "improvement": 2
+    },
+    {
+      "index": 2476,
+      "title": "Nordamerikanischer Ochsenfrosch",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is significantly worse than Summary B. It contains several inaccuracies and strange phrasing (e.g., 'verstrickt ist', 'Haardruckfahne'). The information about its presence in Europe and other continents feels poorly explained and potentially inaccurate. It also includes irrelevant information like 'Shaws Systematik' and file names. Summary B, while not perfect, is much closer to the reference text. It accurately identifies the frog, its habitat, and some aspects of its behavior and appearance. It's a bit rambling and could be more concise, and the writing style is somewhat awkward, but it conveys the core information correctly. It also contains some minor errors (e.g., 'kürzersten Echten Frösearten') but is overall more reliable than A.",
+      "improvement": 1
+    },
+    {
+      "index": 3114,
+      "title": "Albany (New York)",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 2950,
+      "title": "Chlor",
+      "base_score": 1,
+      "finetuned_score": 2,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 1198,
+      "title": "Englische Küche",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is significantly flawed. While it identifies some core aspects of English cuisine, it contains numerous inaccuracies and irrelevant details (macarons, chocolate mousse, lobster rolls, sauerkraut pancakes are not traditional English dishes). It also mixes British and English terms imprecisely and includes odd phrasing. It's overly long and rambling for the information it conveys. Summary B, while poorly written and formatted (bullet points abruptly end, strange translations like 'Würstendosen'), is closer to the reference text. It correctly identifies key ingredients and dishes, even if the presentation is awkward. It's more concise than A, and the errors are mostly stylistic/translation issues rather than factual inaccuracies. Therefore, B is better, though still far from a good summary.",
+      "improvement": 1
+    },
+    {
+      "index": 1136,
+      "title": "Ian Thorpe",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is very poor. It contains numerous errors (e.g., '76. Meister des Schwimms', incorrect event details, rambling sentence structure) and is largely incoherent. It feels like a collection of disconnected facts rather than a coherent summary. Summary B is better, though not perfect. It accurately identifies Thorpe's nickname and specialization, and mentions his Olympic wins. However, it includes inaccuracies (e.g., 'Hongkong Olympics' instead of specific locations, claiming disqualification from the Commonwealth Games which isn't stated in the reference) and is somewhat repetitive. It's readable but could be more concise and factually precise. It's a passable summary but falls short of being truly good.",
+      "improvement": 2
+    },
+    {
+      "index": 1596,
+      "title": "Wayne Gretzky",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 3853,
+      "title": "Wilhelm I. (England)",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is largely incomprehensible and contains numerous errors and irrelevant details (e.g., mentioning Fulbert and Doda's observation, and a confusing account of Wilhelm's parentage). It reads like a fragmented and poorly translated collection of notes, failing to provide a coherent overview of Wilhelm I's life. It's almost entirely unusable as a summary. Summary B, while not perfect, is significantly better. It correctly identifies Wilhelm as William the Conqueror, mentions his rule in both Normandy and England with dates, and acknowledges his Scandinavian heritage and the Domesday Book. It contains some awkward phrasing and unnecessary details (like the mention of a pilgrimage), but it conveys the core information accurately and is generally readable. It's incomplete but demonstrates a basic understanding of the topic.",
+      "improvement": 2
+    },
+    {
+      "index": 2812,
+      "title": "Say Say Say",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is quite poor. It contains repetitive information (mentioning release dates for both artists), awkward phrasing ('Neun-Singleversicherung'), and generally reads as a collection of loosely connected facts rather than a coherent summary. It attempts to provide detail but does so in a confusing and unorganized manner. Summary B is better. It captures key information like the collaboration origin, the music video's concept, and the chart success. However, it includes irrelevant details like time lengths of versions and references to source materials within the summary itself, which disrupts readability. It's also slightly less clear and concise than it could be, but it's significantly more accurate and informative than Summary A.",
+      "improvement": 1
+    },
+    {
+      "index": 2142,
+      "title": "Großer Preis von Italien 2008",
+      "base_score": 1,
+      "finetuned_score": 2,
+      "explanation": "Extracted from text",
+      "improvement": 1
+    }
+  ],
+  "statistics": {
+    "average_base_score": 1.55,
+    "average_finetuned_score": 2.6,
+    "average_improvement": 1.05,
+    "win_rate": 0.8,
+    "tie_rate": 0.05,
+    "loss_rate": 0.15,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}

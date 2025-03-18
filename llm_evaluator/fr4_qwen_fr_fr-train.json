@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_fr_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "fr",
+    "subset": "train",
+    "num_samples": 500
+  },
+  "evaluation_results": [
+    {
+      "index": 1823,
+      "title": "HMS Tiger (1913)",
+      "base_score": 2,
+      "finetuned_score": 5,
+      "explanation": "Summary A is quite poor. It focuses almost entirely on dimensions and includes some strange phrasing ('214 mètres d'épaisseur'). It mentions some armament but lacks context and overall historical significance. It feels like a collection of data points rather than a summary. Summary B, on the other hand, is almost identical to the reference summary. It accurately conveys the ship's history, participation in key battles, and technical details regarding its speed and design. It is complete, clear, and concise, making it a very strong summary.",
+      "improvement": 3
+    },
+    {
+      "index": 228,
+      "title": "Royaume de Mysore",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains inaccuracies and is less clear. The mention of 'sévérité de la bataille de Talikota' is vague and doesn't clearly explain the independence of Mysore. The focus on specific rulers (Chamaraja Wodeyar I & IV) feels misplaced and doesn't contribute to a broader understanding of the kingdom's history. The phrasing is also awkward in places. Summary B, however, closely follows the reference text, accurately presenting the key events and figures (Haidar Ali, Tipu Sultan, the British). While it has minor phrasing issues ('se retrouvent derrière les barreaux' is a strange way to phrase Haidar Ali's rise), it is much more factually accurate, complete, and readable than Summary A. It successfully condenses the information while retaining the core historical narrative.",
+      "improvement": 2
+    },
+    {
+      "index": 3045,
+      "title": "Pur-sang",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies and irrelevant statements. The claim about damaging dogs during training is completely unfounded and detracts from the summary's credibility. It also introduces information about protection of the race and animal welfare that isn't present in the reference text. While it touches on the breed's origins and uses, it's disorganized and less focused. Summary B, on the other hand, is much closer to the reference text. It accurately reflects the origin, characteristics, uses, and health concerns of the Pur-sang. It's well-written, clear, and concise, covering the key points effectively. It's not *perfect* as it's slightly verbose, but it's a strong summary overall.",
+      "improvement": 2
+    },
+    {
+      "index": 3201,
+      "title": "Mouvement pour la Langue",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies and irrelevant details. It incorrectly states the Language Movement day is a national holiday in France and Afghanistan, and misrepresents the outcome of the law. It also has awkward phrasing. Summary B, however, is much more accurate and closely follows the reference text. It captures the key events, the timeline, and the significance of the movement, including the Shaheed Minar. While it could be slightly more concise, it is a strong and reliable summary. It does have a minor error stating the Shaheed Minar was built in 1952 (it was built later), but it's less damaging than the errors in Summary A.",
+      "improvement": 2
+    },
+    {
+      "index": 2729,
+      "title": "Révolution nationale indonésienne",
+      "base_score": 1,
+      "finetuned_score": 5,
+      "explanation": "Summary A is almost entirely inaccurate. It incorrectly states France was involved, and the details are nonsensical. It appears to be a machine translation error or a fabrication. It's largely irrelevant to the topic. Summary B, on the other hand, is identical to the reference summary, making it a perfect summary – accurate, complete, clear, and concise. It effectively captures the key aspects of the Indonesian National Revolution.",
+      "improvement": 4
+    },
+    {
+      "index": 2784,
+      "title": "Phaéton à bec rouge",
+      "base_score": 2,
+      "finetuned_score": 5,
+      "explanation": "Summary A is quite poor. It repeats 'bec rouge' unnecessarily and includes a lot of irrelevant information about classification (with strange formatting and links) that doesn't contribute to a summary of the bird itself. It also incorrectly states there are only two subspecies. Summary B, on the other hand, is almost a direct copy of the reference text, making it a perfect summary in terms of accuracy, completeness, and clarity. It is slightly long, but it doesn't introduce any errors or irrelevant details. It is a very comprehensive and accurate summary.",
+      "improvement": 3
+    },
+    {
+      "index": 2937,
+      "title": "Manchester United Football Club",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies. It incorrectly states Manchester United is part of Manchester City Football Club and refers to Rúben Amorim as 'the brother of Manchester City'. It also mischaracterizes Old Trafford as an 'hotel'. The list format is awkward and includes redundant information. Summary B, while not perfect, is much more accurate and closely reflects the information in the reference text. It correctly identifies key facts like the founding year, stadium, and some of the club's achievements. It's reasonably concise and readable, though the inclusion of the website link feels slightly out of place in a summary. The statement about 'English owner and British company' is vague but not incorrect. It does miss some of the specific trophy counts from the reference, but overall it's a significantly better summary than A.",
+      "improvement": 2
+    },
+    {
+      "index": 3102,
+      "title": "Bataille de Tassafaronga",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is riddled with inaccuracies. It incorrectly states Guadalcanal is the capital of the US, places the battle in Guadalupe and Indochina, and misrepresents the battle's events. The language is also vague and unhelpful. Summary B, while not perfect, is significantly better. It accurately identifies the opposing forces, the date and location, and the outcome. It does contain a minor error stating Wright commanded the Japanese forces (it was Tanaka), and the phrasing regarding armaments is slightly awkward, but overall it captures the core information from the reference text. It's reasonably clear and concise, though could be improved with more specific loss details.",
+      "improvement": 2
+    },
+    {
+      "index": 3520,
+      "title": "Autoroute A1 (Croatie)",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains inaccuracies and is less informative. It incorrectly states the A1 will 'terminate in Italy' and mentions 'the province of Adriatici' which is not a standard geographical reference. The connection to Kalamata is also presented confusingly. It's concise but sacrifices accuracy. Summary B, on the other hand, closely mirrors the reference summary in terms of factual accuracy and completeness. It includes key details like the length, cities connected, ongoing construction, and even mentions the counties the route traverses. It's slightly longer but provides a much more comprehensive and reliable overview of the A1 autoroute. While it could be more concise, its accuracy and detail earn it a higher score.",
+      "improvement": 2
+    },
+    {
+      "index": 2798,
+      "title": "Assemblée de Westminster",
+      "base_score": 2,
+      "finetuned_score": 5,
+      "explanation": "Summary A contains a significant factual error by stating the assembly was 'catholique' (Catholic). The Westminster Assembly was a Puritan/Reformed assembly, not Catholic. It also includes extraneous information about a painting and the UK as a 'country of free rights' which is irrelevant to the core topic. The repetition of information from the 'origin' section adds to the lack of conciseness. Summary B, on the other hand, is almost identical to the reference summary, demonstrating excellent factual accuracy, completeness, clarity, and conciseness. The added information about its evolution and dissolution/re-establishment is a valuable addition, though slightly beyond the core request, it doesn't detract from the quality. It is well-written and directly addresses the topic.",
+      "improvement": 3
+    },
+    {
+      "index": 2588,
+      "title": "Émeu d'Australie",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is quite poor. It's filled with unnecessary bracketed terms (likely from a wiki markup) that disrupt readability and don't add substantive information. The phrasing is awkward ('colonisations et navigatements ont eu une influence positive'), and the statement about increased residence space is vague and unsupported. It feels like a collection of keywords rather than a coherent summary. Summary B, on the other hand, is a very good summary. It accurately reflects the key information from the reference text, including the scientific name, family, habitat, diet, subspecies, and historical context. It's well-written, clear, and concise, though it cuts off abruptly at the end. It maintains a good level of detail without being overly verbose. The use of italics for scientific names is also appropriate.",
+      "improvement": 2
+    },
+    {
+      "index": 2476,
+      "title": "Amenemhat IV",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is significantly flawed. It contains numerous inaccuracies regarding familial relationships (e.g., claiming his father was his spouse, misidentifying successors). It also repeats information unnecessarily and includes irrelevant commentary about the historian Royer and the text's potential incompleteness. The writing is confusing and lacks clarity. Summary B, while not perfect, is much more accurate and closely follows the information presented in the reference text. It correctly identifies his predecessors and successors, probable parentage, and mentions his burial site. It also acknowledges the uncertainty surrounding his lineage. It is reasonably concise and readable, though it could be slightly more streamlined. The mention of administrative difficulties is a good addition, showing a slightly broader understanding than just listing facts.",
+      "improvement": 2
+    },
+    {
+      "index": 3114,
+      "title": "Talaba Sport Club",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies. It incorrectly states the club is Iranian, overemphasizes the women's teams (not mentioned in the reference), and lists an excessive and partially incorrect roster of players. It also repeats information about the 2024-2025 championship as both a recent recognition and a current participation. Summary B is much more accurate, closely following the information in the reference text. It correctly identifies the club as Iraqi, mentions key achievements, and lists notable figures. While it adds some details not explicitly in the reference (stadium size, colors), these are reasonable additions and don't detract from the accuracy. It is well-written and relatively concise. The only minor issue is the slightly awkward phrasing 'tailleable' regarding the stadium size.",
+      "improvement": 2
+    },
+    {
+      "index": 2950,
+      "title": "Jesse Eisenberg",
+      "base_score": 3,
+      "finetuned_score": 5,
+      "explanation": "Summary A contains several inaccuracies and redundancies. It incorrectly states Eisenberg plays Marcel Marceau in 'Batman v Superman' (he plays Lex Luthor) and repeats 'Insaisissables' multiple times. It also lists 'Insaisissables' as a series of films when it's a single film series. The phrasing is a bit clunky. Summary B, on the other hand, is almost identical to the reference summary, demonstrating excellent factual accuracy, completeness, clarity, and conciseness. The added information about TCM.com and his reaction to nationality controversies is a minor addition that doesn't detract from the overall quality. Therefore, Summary B is a much stronger representation of the source material.",
+      "improvement": 2
+    },
+    {
+      "index": 1198,
+      "title": "Virgil Grissom",
+      "base_score": 2,
+      "finetuned_score": 5,
+      "explanation": "Summary A contains several inaccuracies and redundancies. It incorrectly states Grissom as the *first* American in space, then contradicts itself by saying he was the *second*. The bullet point format is disjointed and doesn't flow well. The 'Histoires importantes' section appears to be unrelated and nonsensical. Summary B, on the other hand, is a direct copy of the reference text, making it perfectly accurate, complete, clear, and concise. It receives a score of 5 because it faithfully represents the original information.",
+      "improvement": 3
+    },
+    {
+      "index": 1136,
+      "title": "Thomas le Slave",
+      "base_score": 2,
+      "finetuned_score": 5,
+      "explanation": "Summary A contains several inaccuracies. It places Thomas in the 10th century when he lived in the 8th and 9th, misidentifies Michel II as 'Michel II l'Arménien' (he was not Armenian), and includes a fragmented, unfinished sentence at the end. It also introduces confusing phrasing about 'slaves' rebelling against Byzantine domination. Summary B, on the other hand, is almost identical to the reference summary, demonstrating excellent factual accuracy, completeness, clarity, and conciseness. It accurately captures the key events of Thomas's life and rebellion. Therefore, Summary B receives a score of 5, while Summary A receives a score of 2.",
+      "improvement": 3
+    },
+    {
+      "index": 1596,
+      "title": "Wayne Gretzky",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is largely an infobox template and doesn't provide a coherent summary of Wayne Gretzky's career. It's more of a data structure than a readable summary. It includes image references and template code, making it unhelpful as a standalone summary. Summary B, however, closely mirrors the reference summary in terms of factual accuracy and completeness. It covers his birthdate, reputation, key stats (points, goals), teams played for, and nicknames. It's well-written and concise, though the final sentence about the Coyotes is slightly awkwardly phrased ('entice' instead of 'with'). It's a very good summary overall.",
+      "improvement": 2
+    },
+    {
+      "index": 3853,
+      "title": "Wilco",
+      "base_score": 2,
+      "finetuned_score": 5,
+      "explanation": "Summary A is quite poor. It's riddled with formatting issues (wiki-style markup), mentions 'failures' without context, and includes a nonsensical 'Conclusion' section about fidelity to Jeff Tweedy. It's also repetitive and doesn't flow well. Summary B, on the other hand, is almost identical to the reference summary, making it a perfect reproduction. It is accurate, complete, clear, and concise. It effectively captures the key information about Wilco's history, members, albums, and critical reception.",
+      "improvement": 3
+    },
+    {
+      "index": 2812,
+      "title": "Saturne (planète)",
+      "base_score": 1,
+      "finetuned_score": 4,
+      "explanation": "Summary A is extremely poor. It presents information in a disorganized, list-like format with many inaccuracies and irrelevant data points (e.g., 'Océan: 510,6 km', 'Surface: 2.64 mètres de diamètre'). The units are also inconsistently applied. It doesn't read as a coherent summary at all. Summary B, on the other hand, is a very good summary. It accurately reflects the key information from the reference text, covering size, mass, orbital characteristics, rings, moons, density, and magnetic field. It's well-written, relatively concise, and easy to understand. While it could be slightly more concise, it's a strong representation of the original text.",
+      "improvement": 3
+    },
+    {
+      "index": 2142,
+      "title": "Grand Prix automobile de Bahreïn 2008",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies and irrelevant details. The claim about Robert Kubica being the first Dutch driver is false (he is Polish). The ranking information is also incorrect and confusing. The excessive repetition of characters at the end is a major flaw. Summary B, on the other hand, is very close to the reference summary. It accurately reports the winner, pole position holder, fastest lap, and mentions key performers in practice. It is well-written, clear, and concise, only slightly lacking in brevity compared to a perfect score. It does include Lewis Hamilton which isn't in the reference, but isn't incorrect information.",
+      "improvement": 2
+    }
+  ],
+  "statistics": {
+    "average_base_score": 1.9,
+    "average_finetuned_score": 4.35,
+    "average_improvement": 2.45,
+    "win_rate": 1.0,
+    "tie_rate": 0.0,
+    "loss_rate": 0.0,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "de",
+    "subset": "train",
+    "num_samples": 100
+  },
+  "evaluation_results": [
+    {
+      "index": 1823,
+      "title": "Tim im Lande der Sowjets",
+      "base_score": 1,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 3
+    },
+    {
+      "index": 228,
+      "title": "Mysore (Staat)",
+      "base_score": 1,
+      "finetuned_score": 1,
+      "explanation": "Extracted from text",
+      "improvement": 0
+    },
+    {
+      "index": 3045,
+      "title": "Feuerball (Roman)",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains some inaccuracies (Largo is not Bond's friend) and is slightly less clear in its phrasing. It also includes redundant information about the transatlantic route. Summary B is much closer to the reference summary in terms of accuracy and completeness. It correctly identifies key characters and the central conflict (SPECTRE's blackmail attempt). While it includes some extraneous details (like the translation title and the 1965 date), it's overall a more solid and informative summary than A. Both summaries could be more concise, but B is better in that regard as well.",
+      "improvement": 1
+    },
+    {
+      "index": 3201,
+      "title": "Bengalische Sprachbewegung",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is largely nonsensical and drifts into irrelevant tangents about German language law and competition between languages. It doesn't accurately represent the Bengalische Sprachbewegung and contains many inaccuracies. It's almost entirely unhelpful. Summary B, while not perfect, captures the core issue of the movement – the fight for Bengali as an official language in the face of Urdu being favored – and correctly places it in the context of Pakistan's founding. It's somewhat rambling and includes some awkward phrasing ('einstufung', 'institutes Sprachkomitee'), and the detail about alternative languages is slightly misleading as Bengali wasn't *initially* designated as the sole official language, but rather Urdu was favored. However, it's far more accurate and relevant than Summary A, making it an average summary.",
+      "improvement": 2
+    },
+    {
+      "index": 2729,
+      "title": "Ruth Bader Ginsburg",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 2784,
+      "title": "Rotschwanz-Rabenkakadu",
+      "base_score": 1,
+      "finetuned_score": 4,
+      "explanation": "Summary A is largely nonsensical and contains fabricated information (e.g., 'Art-Casulata', 'Paketfossen'). It appears to be attempting to categorize the bird based on irrelevant and invented criteria. It's almost entirely unfaithful to the reference text. Summary B, however, is very close to the reference text, accurately conveying key information about the Rotschwanz-Rabenkakadu's appearance, habitat, naming history, and subspecies. It is a bit verbose, repeating information about the drawings, but it is factually correct and understandable. It loses one point for not being as concise as it could be.",
+      "improvement": 3
+    },
+    {
+      "index": 2937,
+      "title": "Manchester United",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies and awkward phrasing. The statement about playing in Clayton and then being 'enclosed' in Old Trafford is confusing and doesn't accurately reflect the history. The claim of 'two record championships' in the UEFA cup is vague and potentially incorrect. The writing style is also clunky and less readable. Summary B, on the other hand, is much closer to the reference text. It accurately conveys key information about the club's founding, stadium, major titles, current leadership (Amorim and Berrada), and recent performance. While it could be slightly more concise, it's a well-written and informative summary. It also correctly identifies the club's colors as red.",
+      "improvement": 2
+    },
+    {
+      "index": 3102,
+      "title": "Schlacht bei Tassafaronga",
+      "base_score": 1,
+      "finetuned_score": 4,
+      "explanation": "Summary A is extremely poor. It contains nonsensical phrases ('japanischen Kriegen fanden sich aufgrund ihrer gezielten Missverständnisse'), irrelevant information about the USS Fletcher and USS Periscope, and misrepresents the outcome of the battle. It's largely incoherent and doesn't accurately reflect the reference text. Summary B, on the other hand, is very close to the reference summary. It accurately conveys the key facts – date, location, opposing forces, outcome, and the overall context of the battle. It is complete, clear, and concise, though slightly verbose (as noted in the text itself). It only loses a point for not being *perfectly* concise.",
+      "improvement": 3
+    },
+    {
+      "index": 3520,
+      "title": "Abdullah II. bin al-Hussein",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 2798,
+      "title": "Weißstorch",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is significantly flawed. It contains several nonsensical phrases ('artig artige Störche', 'kleines Kniebrett', 'Reiseradrierer actuarieren') and inaccurate statements. The bullet point format is unhelpful given the quality of the content. It feels like a machine translation gone wrong. Summary B is better; it accurately reflects information from the reference text, though it's not perfectly concise. It includes key details like size, diet, and communication method. However, it also contains some awkward phrasing ('fossilen oft in Sumpfland', 'ausgemauete Krabben') and the last sentence is unclear. While not ideal, it's a more reasonable attempt at summarizing the information than Summary A.",
+      "improvement": 1
+    },
+    {
+      "index": 2588,
+      "title": "Großer Emu",
+      "base_score": 1,
+      "finetuned_score": 4,
+      "explanation": "Summary A is largely nonsensical and contains numerous inaccuracies. It introduces irrelevant information about Portugal, 'Big Bird', and claims the Emu is extinct due to plant materials – all demonstrably false. The writing is also very poor and difficult to follow. Summary B, on the other hand, is a strong summary. It accurately reflects the information in the reference text, covering key aspects like size, habitat, naming origin, and physical characteristics. It is clear, concise, and well-written, though it could be slightly more concise. It does have a minor issue with phrasing ('Größenbestehlung') but overall is a very good summary.",
+      "improvement": 3
+    },
+    {
+      "index": 2476,
+      "title": "Nordamerikanischer Ochsenfrosch",
+      "base_score": 1,
+      "finetuned_score": 4,
+      "explanation": "Summary A is extremely poor. It contains numerous errors and nonsensical phrases (e.g., 'unterhält' used repeatedly in relation to other frog species, 'Braucht' as a descriptor). It also includes irrelevant bracketed terms that appear to be search terms or tags rather than coherent information. It's largely incomprehensible and inaccurate. Summary B, on the other hand, is a very good summary. It accurately reflects the information in the reference text, covering key aspects like size, appearance, reproduction, habitat, and diet. It is clear, concise, and well-written, though it ends abruptly. It loses a point for the incomplete sentence at the end.",
+      "improvement": 3
+    },
+    {
+      "index": 3114,
+      "title": "Albany (New York)",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is quite poor. It contains nonsensical statements (e.g., 'sich an einem Millimeter pro Tag auf dem Boden befindet', '176 politische Positionen') and appears to be a confused attempt to describe the article rather than summarize its content. It also includes irrelevant information about events like university founding and city reform. Summary B, however, is a good summary. It accurately reflects the key information from the reference text – population, location, Capital District affiliation, climate, and historical significance – in a clear and concise manner. It is slightly repetitive with the final sentence being a direct copy of the first, but overall it's a strong and faithful summary.",
+      "improvement": 2
+    },
+    {
+      "index": 2950,
+      "title": "Chlor",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 1198,
+      "title": "Englische Küche",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but feels somewhat repetitive and includes some odd phrasing (e.g., 'breakfast cereal at teatime'). It covers some key aspects like meat focus and traditional dishes but lacks the nuance of the reference. It also introduces information not present in the reference (e.g., 'British version of \"à l'anglaise\"'). Summary B, while containing some minor grammatical errors and a strange phrase ('essbedeutende Wissenschaften'), is much closer to the reference in terms of content and tone. It accurately reflects the emphasis on quality ingredients, traditional meal structures (breakfast & teatime), and historical context. It also includes specific examples of ingredients and condiments mentioned in the reference. Therefore, B is a better summary overall.",
+      "improvement": 1
+    },
+    {
+      "index": 1136,
+      "title": "Ian Thorpe",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 1596,
+      "title": "Wayne Gretzky",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 3853,
+      "title": "Wilhelm I. (England)",
+      "base_score": 1,
+      "finetuned_score": 4,
+      "explanation": "Summary A is almost entirely irrelevant and nonsensical. It focuses on the history of how 'Wilhelm' was spelled in school magazines, which is completely unrelated to Wilhelm I's life and reign. It's factually bizarre and doesn't summarize the reference text at all. Summary B, on the other hand, closely mirrors the reference text. It accurately presents key facts about Wilhelm I (the Conqueror), including his origins, family, ascension to the throne, and the significance of the Domesday Book. While it does include some slightly repetitive phrasing and a few minor inaccuracies (e.g., stating he became king in 1035 when it was 1066), it is overwhelmingly a good and informative summary. It is more complete and readable than Summary A.",
+      "improvement": 3
+    },
+    {
+      "index": 2812,
+      "title": "Say Say Say",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains some inaccuracies (calling it a 'british song' is odd phrasing, and stating it appeared on a 'Beatles album' is misleading as 'Pipes of Peace' is a Paul McCartney solo album). It also includes extraneous information like repeated infobox references and a file name, making it less concise and readable. Summary B is much closer to the reference summary in terms of accuracy and completeness. It correctly identifies the song as a duet, mentions its chart success, and details the songwriting process and music video. While it could be slightly more concise, it's a well-written and informative summary. The self-referential comment at the end of Summary B is also a bit odd and detracts slightly.",
+      "improvement": 1
+    },
+    {
+      "index": 2142,
+      "title": "Großer Preis von Italien 2008",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    }
+  ],
+  "statistics": {
+    "average_base_score": 1.65,
+    "average_finetuned_score": 3.65,
+    "average_improvement": 2.0,
+    "win_rate": 0.95,
+    "tie_rate": 0.05,
+    "loss_rate": 0.0,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}

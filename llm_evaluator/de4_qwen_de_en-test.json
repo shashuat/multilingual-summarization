@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "en",
+    "subset": "test",
+    "num_samples": 500
+  },
+  "evaluation_results": [
+    {
+      "index": 164,
+      "title": "Bikini",
+      "base_score": 1,
+      "finetuned_score": 1,
+      "explanation": "Extracted from text",
+      "improvement": 0
+    },
+    {
+      "index": 383,
+      "title": "Bramble shark",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is quite verbose and includes some irrelevant information (e.g., conversions of measurements, mentioning overpopulation leading to declines – it's overfishing that's the primary issue). It also contains a contradiction stating the shark is native to the Pacific while also being found 'in other parts of the world's oceans', which is not precise. It also ends abruptly with incomplete sentences. Summary B is more focused and accurate. It includes key details like the scientific name, physical characteristics, and the impact of overfishing. While it also includes some less crucial details (like the history of the taxonomic name and past misidentification), it's more concise and readable than A. B is closer to the reference summary in terms of core information and clarity.",
+      "improvement": 1
+    },
+    {
+      "index": 45,
+      "title": "Astral Weeks",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but contains a slightly misleading statement about immediate positive reception (it initially failed commercially). It also includes a self-assessment section *within* the summary itself, which is unusual and detracts from its quality. It's reasonably concise and accurate overall, but lacks depth. Summary B is much stronger. It's more factually accurate, including details about the recording dates and location, and the initial Warner Bros. resistance. It also touches on the album's lyrical style (impressionism, modernism) and Morrison's later live performances. While it does include some less crucial details (runtime, cover description), it's more comprehensive and provides a better overview of the album's context and significance than Summary A. It's also more clearly written and reads more like a standard summary.",
+      "improvement": 1
+    },
+    {
+      "index": 156,
+      "title": "Winfield Scott Hancock",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Extracted numeric values",
+      "improvement": -1
+    },
+    {
+      "index": 53,
+      "title": "Supernova",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is somewhat meta – it *describes* what the article covers rather than *presenting* the information itself. While it correctly identifies key areas, it feels like an outline of a summary rather than a summary itself. It lacks specific details from the reference text. Summary B, however, provides more concrete information about supernovae – mentioning Kepler's supernova, SN 1987A, the elements created, and the triggering mechanisms – directly reflecting the reference text. It's more informative and reads more like a genuine summary. Both are reasonably clear, but B is more concise in its actual content despite being slightly longer overall. B also touches on the impact of supernova study on stellar evolution and cosmology, which A misses.",
+      "improvement": 1
+    },
+    {
+      "index": 72,
+      "title": "Dallas Buyers Club",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but somewhat repetitive and lacks specific details present in the reference. It mentions the cast but doesn't highlight the core conflict with the FDA or the significance of the 'club' itself beyond distribution. The self-assessment at the end is unnecessary for a summary. Summary B is much stronger. It accurately reflects the key plot points – Woodroof’s diagnosis, the FDA opposition, the establishment of the club, and the film’s impact. It includes important details like the mention of Matthew McConaughey as Woodroof and the runtime. While it includes a slightly inaccurate statement about 'interviews with Woodroof' and 'documentary' status, it's overall more comprehensive and closer to the reference summary than A. The final sentence in B is a bit abrupt, but doesn't detract significantly from the quality.",
+      "improvement": 1
+    },
+    {
+      "index": 315,
+      "title": "Dinosaur",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Extracted numeric values",
+      "improvement": -1
+    },
+    {
+      "index": 209,
+      "title": "Augustine of Canterbury",
+      "base_score": 4,
+      "finetuned_score": 3,
+      "explanation": "Summary A is a strong summary. It accurately reflects the key information from the reference text – Augustine’s role in converting Kent, his position as Archbishop, and his overall contribution to the spread of Christianity in England. It's concise and readable. However, it lacks specific dates like his death date. Summary B, while also generally accurate, is more verbose and includes less essential details (like the Abbey's current name or the Roman province mention). It also feels slightly repetitive. The inclusion of varying feast day dates is good, but the overall presentation is less polished than Summary A. Therefore, A is more effective as a concise and informative overview.",
+      "improvement": -1
+    },
+    {
+      "index": 74,
+      "title": "Pauline Baynes",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 333,
+      "title": "Flame & Citron",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but includes some less important details (listing several actors beyond the leads) and feels slightly disjointed. It mentions the controversy around historical inaccuracies but doesn't elaborate on the film's moral complexity as the reference does. Summary B is stronger. It accurately captures the core themes of the film – the nuanced portrayal of war, the characters' internal conflicts, and the historical context. It also includes details about the film's reception (box office, critical acclaim, awards, and criticism) and its adaptation into other media, making it more complete. While both are readable, B is more concise and focuses on the most important aspects of the film as presented in the reference summary.",
+      "improvement": 1
+    },
+    {
+      "index": 403,
+      "title": "Title (album)",
+      "base_score": 2,
+      "finetuned_score": 1,
+      "explanation": "Extracted from text",
+      "improvement": -1
+    },
+    {
+      "index": 415,
+      "title": "Vespro della Beata Vergine",
+      "base_score": 4,
+      "finetuned_score": 3,
+      "explanation": "Summary A is a strong summary, accurately reflecting the key details of the reference text. It covers the composition's context, structure, instrumentation, and historical reception in a clear and concise manner. It's well-written and doesn't include extraneous information. Summary B, while also accurate, is less polished. The inclusion of the Chinese phrase and the somewhat awkward phrasing (\"sprawling evening mass\", \"圣母子\") detract from its readability and conciseness. It also feels slightly less focused than Summary A, and the mention of a 'brief excerpt' is vague and doesn't add significant value. Therefore, Summary A is superior in terms of clarity and overall quality.",
+      "improvement": -1
+    },
+    {
+      "index": 92,
+      "title": "Rigel",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted from text",
+      "improvement": 1
+    },
+    {
+      "index": 215,
+      "title": "Crystal Palace F.C.",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 479,
+      "title": "The Concert for Bangladesh (album)",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but repetitive (mentioning the Grammy twice) and includes a minor detail about the box set that isn't central to the core information. It also includes the detail about Harrison and Starr's prior performance which is less important. Summary B is stronger. It accurately captures the historical context (Bangladesh Liberation War, human rights), highlights the album's influence on future benefit concerts (Live Aid), and mentions the production challenges. It's more comprehensive and reads more smoothly than A, though it also suffers from some repetition at the end. B is more focused on the *significance* of the concert, while A is more a list of facts.",
+      "improvement": 1
+    },
+    {
+      "index": 59,
+      "title": "Boston Massacre",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is repetitive and contains inaccuracies. It states seven soldiers were captured, while the reference states branding/manslaughter convictions for some, not capture. It also incorrectly links the event to the American Civil War. The bullet point format is clunky and adds to the redundancy. Summary B is better. It accurately reflects the number of deaths and mentions the trial outcome, though it incorrectly states 'four British civilians' were convicted (it was soldiers, and branding was the punishment). It's more concise than A and provides a reasonable overview, though it also suffers from some repetition at the end. B is more readable and closer to the reference summary in terms of factual accuracy and completeness, despite its flaws.",
+      "improvement": 1
+    },
+    {
+      "index": 368,
+      "title": "2001",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but lacks the depth and significance of key events like 9/11. It focuses heavily on pop culture and technology, somewhat neglecting the major political and geopolitical shifts. It's readable but not comprehensive. Summary B is much stronger. It accurately highlights the September 11 attacks and the subsequent war on terror, along with other significant conflicts and political events. It also touches upon economic and cultural developments, making it a more complete and informative summary. While it could be more concise, it provides a better overall representation of the year 2001 than Summary A.",
+      "improvement": 1
+    },
+    {
+      "index": 163,
+      "title": "Commutative property",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 210,
+      "title": "1906 French Grand Prix",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is presented as an infobox, but contains numerous inaccuracies. The date is completely wrong (June 2020-2023), the track length is incorrect (64.11 km vs 103.18 km), and the first flag suffix is irrelevant. It attempts to be comprehensive in its data presentation but fails due to factual errors. Summary B, while not perfect, is significantly more accurate and provides a good overview of the race. It correctly identifies the key players, the challenging conditions, and the impact of the race. It does contain a minor error stating Szisz finished second, but overall it's a well-written and informative summary. It is more readable than the infobox format of Summary A.",
+      "improvement": 2
+    },
+    {
+      "index": 251,
+      "title": "Russula virescens",
+      "base_score": 4,
+      "finetuned_score": 3,
+      "explanation": "Extracted from text",
+      "improvement": -1
+    }
+  ],
+  "statistics": {
+    "average_base_score": 2.7,
+    "average_finetuned_score": 3.25,
+    "average_improvement": 0.55,
+    "win_rate": 0.65,
+    "tie_rate": 0.05,
+    "loss_rate": 0.3,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}

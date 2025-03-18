@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "fr",
+    "subset": "train",
+    "num_samples": 500
+  },
+  "evaluation_results": [
+    {
+      "index": 1823,
+      "title": "HMS Tiger (1913)",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Summary A is a decent attempt, accurately stating the ship's launch year, type, and involvement in WWI battles. However, it lacks detail regarding its later service (reactivation, final decommissioning, and demolition). It's concise but feels incomplete. Summary B is significantly worse. It contains inaccuracies (e.g., 'démoli en 1918' is incorrect, and the phrasing is generally awkward and unclear). It introduces irrelevant information ('vacances') and mixes up timelines. The mention of speed in km/h is also odd given the reference uses knots. While it attempts to cover some of the same ground as A, it does so poorly and with errors. Therefore, A is better, but both fall short of a comprehensive summary.",
+      "improvement": -1
+    },
+    {
+      "index": 228,
+      "title": "Royaume de Mysore",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A contains inaccuracies. It states Mysore was independent throughout the 19th century, which is false as it came under British control after several wars. The phrasing is also awkward and unclear in places ('supprimé' regarding the Muslim chief). It lacks key details like the role of Haidar Ali and Tipu Sultan. Summary B, while a bit rambling and containing some odd phrasing ('rabbins Vijaya and Krishna'), is closer to the reference text. It correctly identifies the timeframe, the initial vassalage to Vijayanagara, and the eventual integration into India. It also attempts to list some rulers, showing a greater effort to be comprehensive, even if executed poorly. B is more factually accurate and complete, despite readability issues, than A.",
+      "improvement": 1
+    },
+    {
+      "index": 3045,
+      "title": "Pur-sang",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Extracted numeric values",
+      "improvement": -1
+    },
+    {
+      "index": 3201,
+      "title": "Mouvement pour la Langue",
+      "base_score": 1,
+      "finetuned_score": 1,
+      "explanation": "Extracted from text",
+      "improvement": 0
+    },
+    {
+      "index": 2729,
+      "title": "Révolution nationale indonésienne",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is almost entirely irrelevant and contains factual errors (Pierre Laval, Jean Bocquillon, François Mitterrand, Saint-Pierre-et-Miquelon, and 'terrorisme judéo-chrétien' have no connection to the Indonesian National Revolution). It appears to be a random collection of unrelated information. Summary B, while not perfect, demonstrates a basic understanding of the topic. It correctly identifies the proclamation of independence in 1945, the conflict with the Netherlands, and the formation of the Dutch-Indonesian Union. However, it's somewhat repetitive, uses awkward phrasing ('colonialisme nuancié'), and ends abruptly with incomplete sentences. It's also not very concise. It's a passable summary but lacks the clarity and precision of a good one.",
+      "improvement": 2
+    },
+    {
+      "index": 2784,
+      "title": "Phaéton à bec rouge",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 2937,
+      "title": "Manchester United Football Club",
+      "base_score": 2,
+      "finetuned_score": 1,
+      "explanation": "Summary A is slightly better than Summary B, but both are flawed. Summary A contains inaccuracies (Avram Glazer directing the club for 75 years is incorrect, and the 25% ownership detail is misleading without context). It also includes irrelevant 'State', 'Date', and 'Price' entries. The writing is repetitive. Summary B is significantly worse; it contains numerous errors ('berbère' is incorrect, the 1885 claim is wrong, the hectare claim is nonsensical, and the role assignments to Amorim are inaccurate). It also mixes French and English and asks irrelevant questions. Both summaries fail to comprehensively cover the reference text and lack clarity. Summary A at least attempts a coherent narrative, while Summary B is largely incoherent.",
+      "improvement": -1
+    },
+    {
+      "index": 3102,
+      "title": "Bataille de Tassafaronga",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 3520,
+      "title": "Autoroute A1 (Croatie)",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 2798,
+      "title": "Assemblée de Westminster",
+      "base_score": 1,
+      "finetuned_score": 2,
+      "explanation": "Extracted from text",
+      "improvement": 1
+    },
+    {
+      "index": 2588,
+      "title": "Émeu d'Australie",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 2476,
+      "title": "Amenemhat IV",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 3114,
+      "title": "Talaba Sport Club",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Extracted numeric values",
+      "improvement": -1
+    },
+    {
+      "index": 2950,
+      "title": "Jesse Eisenberg",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 1198,
+      "title": "Virgil Grissom",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is essentially unreadable and appears to be a list of placeholders or incomplete sentence starters. It provides no coherent information about Virgil Grissom and is therefore a very poor summary. Summary B, while not perfect, is a reasonably good summary. It accurately conveys key facts about Grissom's life and career, including his participation in the Mercury, Gemini, and Apollo programs, and his tragic death during the Apollo 1 mission. It's a bit verbose and includes some slightly awkward phrasing ('missel de sa jeunesse', 'espaceshows'), but it's understandable and provides a good overview. It's not as concise as it could be, and the final sentence is cut off, preventing a perfect score.",
+      "improvement": 2
+    },
+    {
+      "index": 1136,
+      "title": "Thomas le Slave",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Extracted from text",
+      "improvement": -1
+    },
+    {
+      "index": 1596,
+      "title": "Wayne Gretzky",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is poorly structured and reads like a collection of notes rather than a coherent summary. The initial quote is oddly placed and doesn't contribute to a summary of Gretzky's life. The bullet points are fragmented and lack context. It mentions his position and league entry but doesn't convey his overall impact. Summary B is better. It includes key facts like his birthdate, records (points and goals), and Hall of Fame induction. However, it contains inaccuracies (claiming US nationality) and awkward phrasing ('points d'avantage du playoff', 'biographeuse'). It's more complete than A but still needs refinement for clarity and accuracy. Therefore, A receives a lower score due to its disorganization and lack of narrative, while B receives a moderate score for capturing some essential information despite its flaws.",
+      "improvement": 1
+    },
+    {
+      "index": 3853,
+      "title": "Wilco",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 2812,
+      "title": "Saturne (planète)",
+      "base_score": 1,
+      "finetuned_score": 2,
+      "explanation": "Summary A is essentially useless. It states it contains key points but provides *only* categories and a vague statement. It doesn't actually summarize the text at all. It's a list of tags, not a summary. Summary B is slightly better as it does attempt to convey information from the reference text, but it contains several inaccuracies (Saturn is the *sixth*, not seventh planet, misidentifies Titan as an asteroid, and has grammatical errors and repetitive phrasing like 'Seulement en préhistoire'). It also introduces concepts not present in the reference text ('Terrestrial Surface'). While it tries to be concise, the errors and awkward phrasing significantly detract from its quality.",
+      "improvement": 1
+    },
+    {
+      "index": 2142,
+      "title": "Grand Prix automobile de Bahreïn 2008",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A contains several inaccuracies. It incorrectly states the race was in Saudi Arabia, gives an incorrect date range (April 6-9), and misrepresents race results (Kubica winning the first lap, Massa the third). The timing information is also confusing and doesn't clearly relate to qualifying or race times. It's poorly structured and includes irrelevant details like spectator count without context. Summary B is better, though still flawed. It correctly identifies the race date and location, and mentions key drivers and the pole position winner. However, it introduces irrelevant information about other Grand Prix (Malaysia, Spain, Germany) and makes confusing statements about titles and records. It also has some readability issues. While neither is perfect, Summary B is more accurate and closer to the reference than Summary A.",
+      "improvement": 1
+    }
+  ],
+  "statistics": {
+    "average_base_score": 1.95,
+    "average_finetuned_score": 2.6,
+    "average_improvement": 0.65,
+    "win_rate": 0.7,
+    "tie_rate": 0.05,
+    "loss_rate": 0.25,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}

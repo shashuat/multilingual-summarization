@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-finetune_mbart.py - Fine-tune Microsoft "facebook/mbart-large-50" for multilingual summarization using LoRA
+finetune_mbart.py - Fine-tune "facebook/mbart-large-50" for multilingual summarization using LoRA
 with simple prompt format matching the generate_summaries.py approach, optimized parameters, and wandb logging
 """
 

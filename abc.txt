@@ -1,0 +1,23 @@
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/phi_train_loss.png}
+        \label{fig:train_loss}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/phi_valid.png}
+        \label{fig:valid}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{figs/phi_train_gradnorm.png}
+        \label{fig:grad_norm}
+    \end{subfigure}
+    
+    \caption{Training and Validation Metrics phi}
+    \label{fig:training_metrics}
+\end{figure}

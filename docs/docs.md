@@ -366,3 +366,32 @@ python -m src.finetune_llama \
 
 9720MiB
 2/1245 [00:27<4:45:26, 13.78s/it]
+
+
+### LLM Evaluation
+
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_de4_qwen_sft_ep5-1245-de-de-train.json --samples 20 --output llm_evaluator/de4_qwen_de_de-train.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_de4_qwen_sft_ep5-1245-de-fr-train.json --samples 20 --output llm_evaluator/de4_qwen_de_fr-train.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_de4_qwen_sft_ep5-1245-de-en-train.json --samples 20 --output llm_evaluator/de4_qwen_de_en-train.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_de4_qwen_sft_ep5-1245-de-de-test.json --samples 20 --output llm_evaluator/de4_qwen_de_de-test.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_de4_qwen_sft_ep5-1245-de-fr-test.json --samples 20 --output llm_evaluator/de4_qwen_de_fr-test.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_de4_qwen_sft_ep5-1245-de-en-test.json --samples 20 --output llm_evaluator/de4_qwen_de_en-test.json
+
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_fr4_qwen_sft_ep5-1245-fr-de-train.json --samples 20 --output llm_evaluator/de4_qwen_fr_de-train.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_fr4_qwen_sft_ep5-1245-fr-fr-train.json --samples 20 --output llm_evaluator/de4_qwen_fr_fr-train.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_fr4_qwen_sft_ep5-1245-fr-en-train.json --samples 20 --output llm_evaluator/de4_qwen_fr_en-train.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_fr4_qwen_sft_ep5-1245-fr-de-test.json --samples 20 --output llm_evaluator/de4_qwen_fr_de-test.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_fr4_qwen_sft_ep5-1245-fr-fr-test.json --samples 20 --output llm_evaluator/de4_qwen_fr_fr-test.json
+
+python -m src.llm_evaluator comparison_results_256/qwen/comparison_results_fr4_qwen_sft_ep5-1245-fr-en-test.json --samples 20 --output llm_evaluator/de4_qwen_fr_en-test.json

@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "en",
+    "subset": "train",
+    "num_samples": 500
+  },
+  "evaluation_results": [
+    {
+      "index": 1823,
+      "title": "HMS Tiger (1913)",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 228,
+      "title": "Kingdom of Mysore",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 3045,
+      "title": "Thoroughbred",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains several inaccuracies and odd statements. The claim that Thoroughbreds don't suffer the same risk as other breeds due to exertion is incorrect – they are *more* prone to certain injuries due to this. The statement about size being 'more common' is vague and doesn't add value. The geographic limitation to mainland England is also inaccurate. The bullet point format is disjointed and feels like a list of facts rather than a cohesive summary. Summary B, however, is much more accurate and comprehensive. It correctly identifies the origin, global presence, uses, and health concerns. It maintains a good flow and provides a solid overview of the breed. While it could be slightly more concise, it's a strong summary overall.",
+      "improvement": 2
+    },
+    {
+      "index": 3201,
+      "title": "Bengali language movement",
+      "base_score": 1,
+      "finetuned_score": 1,
+      "explanation": "Extracted from text",
+      "improvement": 0
+    },
+    {
+      "index": 2729,
+      "title": "Giant Schnauzer",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is a very generic and high-level overview *of* the article, rather than a summary *of the content*. It states what the article does (e.g., 'The article starts by introducing...') which isn't useful. It's accurate but doesn't convey much specific information. Summary B, however, provides more concrete details from the reference text – origins, historical roles, color variations, coat type, and even mentions lifespan and breeder organizations. While it's a bit lengthy and includes some detail not explicitly in the reference (AKC recognition), it's significantly more informative and reads more like a condensed version of the original information. Therefore, B is a better summary.",
+      "improvement": 1
+    },
+    {
+      "index": 2784,
+      "title": "Red-billed tropicbird",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but lacks detail and includes the slightly odd descriptor 'troglobite' which isn't a primary characteristic. It covers habitat, appearance, and diet but misses conservation threats beyond a general mention. Summary B is more comprehensive, accurately reflecting the reference text's details on subspecies, breeding behavior (both parents caring for the egg), threats (rats, cats), and conservation status (least concern with regional declines). It also includes the historical naming context. While B is a bit verbose, it provides a more complete and accurate overview than A. The taxonomic information in B is excessive for a short summary, but doesn't detract significantly from its overall quality.",
+      "improvement": 1
+    },
+    {
+      "index": 2937,
+      "title": "Manchester United F.C.",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Extracted numeric values",
+      "improvement": -1
+    },
+    {
+      "index": 3102,
+      "title": "Battle of Tassafaronga",
+      "base_score": 4,
+      "finetuned_score": 2,
+      "explanation": "Summary A is a strong summary. It is largely factually accurate, though the location is incorrectly stated as Tonga (it was off the coast of Guadalcanal). It covers the key aspects of the battle – the combatants, date, outcome, and casualties – in a clear and concise manner. The 'Key Points' section is a helpful addition. Summary B, however, contains several inaccuracies. It incorrectly states the forces involved as battleships instead of cruisers and destroyers, exaggerates the size of the Japanese fleet, and includes speculative statements about radar and rescue opportunities that aren't supported by the reference text. It also introduces casualty numbers not present in the reference. While it mentions the battle's historical significance, the inaccuracies significantly detract from its quality.",
+      "improvement": -2
+    },
+    {
+      "index": 3520,
+      "title": "A1 (Croatia)",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but suffers from some redundancy and slightly hyperbolic language (e.g., 'essential for economic growth, social development, and cultural preservation'). It repeats the importance of the motorway several times without adding new information. The final sentence about national identity feels out of place and unsupported by the reference text. Summary B is much stronger. It is more concise, accurately reflects the key details from the reference text (length, connectivity, construction history, economic impact, and usage statistics), and maintains a neutral tone. While the mention of 'breakneck economic reforms' is a slight embellishment, it doesn't detract significantly from the overall accuracy. The inclusion of vehicle numbers and job support adds valuable information. The final sentence in Summary B is a bit awkwardly phrased, but less so than the concluding statement in Summary A.",
+      "improvement": 1
+    },
+    {
+      "index": 2798,
+      "title": "Westminster Assembly",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is a decent attempt but contains some inaccuracies and is less focused. It states the assembly 'appointed delegates from different Protestant denominations' which isn't quite right – the Parliament *included* delegates *from* those denominations. The mention of the 1685 constitution is a bit out of place and confusing as it postdates the Assembly's main period. It also feels slightly repetitive. Summary B is much stronger. It accurately reflects the key aspects of the reference summary – the Parliament’s role, the inclusion of Scots, the documents produced, the context of the Civil War, the Presbyterian shift, and the eventual reversal. It also highlights the lasting influence on American Protestantism. While it repeats the opening sentence, it's a minor flaw. It is more concise and clearly presents the information.",
+      "improvement": 1
+    },
+    {
+      "index": 2588,
+      "title": "Emu",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A contains a factual inaccuracy – it states efforts are being made to conserve the species despite no extant populations, which is misleading. It also repeats information (e.g., 'importance as an endangered species' after already mentioning conservation efforts) and is slightly verbose. Summary B is more accurate, concisely covering the key aspects of the emu's classification, history, habitat, and conservation status. It correctly states the IUCN status and provides a reasonable timeframe for the fossil record. While it could be slightly more concise, it's a stronger, more reliable summary overall.",
+      "improvement": 1
+    },
+    {
+      "index": 2476,
+      "title": "Amenemhat IV",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 3114,
+      "title": "Al-Talaba SC",
+      "base_score": 4,
+      "finetuned_score": 3,
+      "explanation": "Summary A is a strong summary. It accurately captures key information from the reference text, including founding year, league, achievements, and historical significance. The bullet point format makes it very readable and concise. It does miss some details like the original name 'Al-Jamiea' and the continental achievements, but overall it's a very good overview. Summary B, while also accurate, is more verbose and includes some less crucial details (like the coach's name and the 1961 youth team). It also contains some slightly awkward phrasing ('joined into the Ministry') and repeats information about the club's name changes. It's a decent summary, but not as polished or concise as Summary A.",
+      "improvement": -1
+    },
+    {
+      "index": 2950,
+      "title": "Chicken",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is somewhat repetitive and includes irrelevant details like descriptions of physical appearance (wingspan, feather color) that aren't central to the reference text. It also introduces information not present in the original (legal issues regarding pet ownership). While it touches on key points like domestication and uses, it's not concise. Summary B is much more focused and accurately reflects the information in the reference text. It includes the key statistic about the global chicken population and mentions the different terms for chicken life stages. It's also more concise and avoids unnecessary details. While it has a slight repetition at the beginning, it's overall a stronger and more accurate summary than A.",
+      "improvement": 1
+    },
+    {
+      "index": 1198,
+      "title": "Emotions (Mariah Carey album)",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is more detailed than the reference summary, which isn't necessarily bad, but it includes some repetitive phrasing ('commercial failure' then 'commercial disappointment') and a concluding statement that feels unsupported ('considered her best work overall'). It also trails off mid-sentence at the end. Summary B is more concise and accurately reflects the information in the reference summary. It covers the key points – creative control, genre influences, singles, commercial success, and critical reception – without getting bogged down in unnecessary detail. While both have minor issues, B is a stronger, more polished summary overall.",
+      "improvement": 1
+    },
+    {
+      "index": 1136,
+      "title": "Thomas the Slav",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but contains inaccuracies and lacks detail. It states Thomas gained control of Constantinople, which isn't fully accurate – he besieged it. It also doesn't mention his Slavic origin or the Bulgarian Khan's involvement. It's concise but sacrifices accuracy. Summary B is much better. It accurately reflects Thomas's background, the revolt's timeline, his alliance with the Abbasids, and the eventual outcome. It also touches upon the multiple interpretations of his motivations. While it could be slightly more concise, it prioritizes accuracy and completeness, making it a stronger summary overall. The mention of diplomatic repercussions with Bulgaria is a good addition.",
+      "improvement": 1
+    },
+    {
+      "index": 1596,
+      "title": "Wayne Gretzky",
+      "base_score": 3,
+      "finetuned_score": 4,
+      "explanation": "Summary A is decent but lacks detail and makes a slight error – stating Gretzky played for the Arizona Coyotes throughout his career is misleading as he also played extensively for the Edmonton Oilers. It's concise but sacrifices completeness. Summary B is much better. It accurately reflects Gretzky's achievements, including his record-breaking stats and coaching role. While it initially includes some overly enthusiastic phrasing ('led the Phoenix Coyotes to three Stanley Cups' is incorrect), the second, more concise summary provided within the text corrects this and focuses on his scoring abilities and overall impact. It's more comprehensive and reads well, though it could be slightly more concise.",
+      "improvement": 1
+    },
+    {
+      "index": 3853,
+      "title": "Wilco",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Summary A is essentially a data dump of infobox information. It provides very little in the way of a narrative summary and reads like a list of tags and parameters. It doesn't convey *what* Wilco is beyond basic categorization. Summary B, however, provides a much more coherent and informative overview. It accurately reflects key details from the reference text – the band's formation, lineup changes, album releases, stylistic evolution, and the 'Yankee Hotel Foxtrot' controversy. While it could be slightly more concise, it's a well-written and comprehensive summary. It's also more readable and provides context, unlike Summary A.",
+      "improvement": 2
+    },
+    {
+      "index": 2812,
+      "title": "Saturn",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A contains several inaccuracies and redundancies. The orbital period is wildly incorrect (29.4475 days to 378.09 days is not Saturn's orbital period), and the repeated mention of the golden crescent moon symbol is unnecessary. It also ends abruptly. Summary B is better; it correctly identifies Saturn as the sixth planet and mentions its rings and numerous moons. While it includes some inaccurate numbers (distance from the sun and orbital period), it's closer to the reference text than Summary A. It's also more coherent and readable, though still somewhat verbose. Both summaries lack the precision and conciseness of a truly good summary, but B is significantly more accurate and informative than A.",
+      "improvement": 1
+    },
+    {
+      "index": 2142,
+      "title": "2008 Bahrain Grand Prix",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    }
+  ],
+  "statistics": {
+    "average_base_score": 2.7,
+    "average_finetuned_score": 3.45,
+    "average_improvement": 0.75,
+    "win_rate": 0.8,
+    "tie_rate": 0.05,
+    "loss_rate": 0.15,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}

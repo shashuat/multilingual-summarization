@@ -1,0 +1,183 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "config": {
+    "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "finetuned_model": "/Data/shash/mul/finetuned_models/qwen_de_sft_fullprec_ep5/checkpoint-1245",
+    "dataset_path": "/Data/shash/mul/hf_dataset2",
+    "language": "fr",
+    "subset": "test",
+    "num_samples": 500
+  },
+  "evaluation_results": [
+    {
+      "index": 164,
+      "title": "Rhume",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Summary A starts well with an infobox, attempting a structured presentation. However, it abruptly cuts off mid-sentence, making it incomplete. The information presented *is* accurate, but the lack of completion significantly hurts its quality. Summary B is significantly worse. It contains numerous spelling errors ('toxosissime', 'toûses', 'maillages', 'hormanièrene', 'symptôtique') and awkward phrasing, making it difficult to read and understand. While it attempts to cover some of the same points as the reference (treatment regulations, etymology), the errors and poor writing render it less useful. A is better because it *starts* with accurate information, even if unfinished, while B is riddled with inaccuracies due to poor language.",
+      "improvement": -1
+    },
+    {
+      "index": 383,
+      "title": "Danton (cuirassé)",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is quite disorganized and contains several inaccuracies. The date of sinking is wrong (March 1st vs. March 19th), and the bullet point format is a bit chaotic, mixing commands with facts. It also introduces irrelevant information about the 'Lucifer' and 'Courbet' classes without proper context. Summary B is better. It accurately states key facts like the turbine usage, length, and sinking by U-64. However, it's not perfectly concise and includes some awkward phrasing ('puissance d'essai', 'Deuxies fois identifié'). It's also slightly less readable than it could be. While neither is perfect, B is significantly more accurate and informative than A.",
+      "improvement": 1
+    },
+    {
+      "index": 45,
+      "title": "Astral Weeks",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 156,
+      "title": "Winfield Scott Hancock",
+      "base_score": 3,
+      "finetuned_score": 2,
+      "explanation": "Summary A is somewhat better than Summary B. A accurately identifies Hancock's military career and presidential candidacy. However, it's presented as a collection of facts and data points (date, place) rather than a cohesive summary, and the latter part devolves into a list of military engagements without much narrative flow. It also includes some awkward phrasing. Summary B is significantly weaker. It contains several errors ('demokratique', 'meanings', 'бирейский выбор'), poor grammar, and strange phrasing ('dominer sa trouille'). While it touches on key aspects like his military service and presidential run, the writing is unclear and the inaccuracies detract from its value. Both summaries lack the nuance of the reference summary regarding his nickname and reputation for leadership, but A is more factually sound.",
+      "improvement": -1
+    },
+    {
+      "index": 53,
+      "title": "Supernova",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 72,
+      "title": "Vol Flying Tiger Line 739",
+      "base_score": 1,
+      "finetuned_score": 2,
+      "explanation": "Extracted from text",
+      "improvement": 1
+    },
+    {
+      "index": 315,
+      "title": "Dinosauria",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 209,
+      "title": "Augustin de Cantorbéry",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 74,
+      "title": "Bataille du réservoir de Chosin",
+      "base_score": 1,
+      "finetuned_score": 2,
+      "explanation": "Summary A is almost entirely incorrect. It misidentifies the combatants, the timeframe, and the outcome, and introduces completely fabricated events (North Korean insurrection, European Union coup, etc.). It bears almost no resemblance to the actual Battle of Chosin Reservoir. Summary B is slightly better, as it correctly identifies the battle and mentions key players like MacArthur and Mao Zedong. However, it contains significant inaccuracies (MacArthur leading the Chinese army, total destruction of North Korea) and is poorly written and rambling. It's also repetitive. While not as wildly inaccurate as A, it still demonstrates a poor understanding of the event. Therefore, A receives the lowest score and B a slightly higher, but still low, score.",
+      "improvement": 1
+    },
+    {
+      "index": 333,
+      "title": "Jack Hobbs (football)",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 403,
+      "title": "Title (album)",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 415,
+      "title": "Vespro della Beata Vergine",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Summary A is quite repetitive and contains some odd phrasing ('conservées en bénédiction'). It states the work had a 'positive impact' without specifying how, and the final sentence about needing 'une analyse approfondie' feels tacked on and unhelpful. It doesn't clearly convey the debate surrounding the work's purpose. Summary B, while containing some awkward phrasing and a strange claim about 'relations humaines posthumaines', is closer to the reference text. It correctly identifies the SV numbers, mentions the connection to biblical texts and archaic structure, and touches on the debate about the composition's inspiration and performance locations. It's more informative than A, even if not perfectly clear. Therefore, B receives a higher score.",
+      "improvement": 1
+    },
+    {
+      "index": 92,
+      "title": "Rigel",
+      "base_score": 2,
+      "finetuned_score": 3,
+      "explanation": "Extracted numeric values",
+      "improvement": 1
+    },
+    {
+      "index": 215,
+      "title": "Sarah Fisher",
+      "base_score": 5,
+      "finetuned_score": 2,
+      "explanation": "Extracted from text",
+      "improvement": -3
+    },
+    {
+      "index": 479,
+      "title": "Evangelion: 1.0 You Are (Not) Alone",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is essentially a list of keywords and categories related to film production, lacking any coherent narrative or actual summary of the film's content. It's unusable as a summary. Summary B, while not perfect, provides a reasonable overview of the film. It correctly identifies the film as a remake of the original series, mentions key production details (Khara, Dybex), and touches upon the film's success and Hideaki Anno's intentions. It's a bit repetitive with the 'explosion' mention, and the phrasing is sometimes awkward, but it conveys the core information. It is more readable and informative than Summary A.",
+      "improvement": 2
+    },
+    {
+      "index": 59,
+      "title": "Cyclotron",
+      "base_score": 2,
+      "finetuned_score": 4,
+      "explanation": "Extracted numeric values",
+      "improvement": 2
+    },
+    {
+      "index": 368,
+      "title": "2001",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is almost entirely irrelevant and nonsensical. It focuses on French sports and calendar discrepancies, seemingly unrelated to the year 2001 itself, and contains repetitive, confusing statements. It fails to capture any of the significant events of the year. Summary B, while not perfect, is a much better attempt. It accurately identifies key events like 9/11 and the Afghan war, and mentions other happenings like the G8 summit and the launch of Wikipedia. However, it's somewhat rambling and includes some oddly phrased or irrelevant details (like the 'Month of Zayd' and the shift to the Muslim calendar being presented as a definitive change). It lacks the conciseness of a truly good summary, but it's factually grounded and attempts to cover important aspects of the year.",
+      "improvement": 2
+    },
+    {
+      "index": 163,
+      "title": "Eusocialité",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is almost entirely irrelevant to the topic of eusociality. It lists broad categories of zoology and animal types without any connection to the specific concept. It's essentially a random list of animal classifications. Summary B, while poorly written with numerous spelling and grammatical errors, *attempts* to address the core concept of eusociality – division of labor, caste systems, and the creation of a 'superorganism'. It also touches upon the complexities of defining cooperation and its application in computer science, mirroring points from the reference summary. Although flawed, it demonstrates some understanding of the original text, making it significantly better than Summary A.",
+      "improvement": 2
+    },
+    {
+      "index": 210,
+      "title": "Grand Prix automobile de France 1906",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is largely inaccurate and nonsensical. It misattributes the organization to James Gordon Bennett Jr. and Brasier, conflates automobile racing with aviation, and contains numerous factual errors. It's poorly written and difficult to follow. Summary B, while not perfect, is significantly better. It correctly identifies the organizer (ACF), the location (Sarthe circuit), and the winner (Szisz). It includes details about the course length and Michelin's innovation. However, it has some minor inaccuracies (Szisz was not from the US, and the 'pole position' concept didn't exist then) and is a bit verbose. It also includes irrelevant date information. Therefore, Summary A receives a 1, and Summary B receives a 3.",
+      "improvement": 2
+    },
+    {
+      "index": 251,
+      "title": "Russule verdoyante",
+      "base_score": 1,
+      "finetuned_score": 3,
+      "explanation": "Summary A is essentially nonsensical; it repeats the name 'Russula virescens' and 'Russule Verdoyante' multiple times without forming coherent sentences or conveying any useful information. It's a clear failure as a summary. Summary B, while not perfect, is a reasonable attempt. It accurately identifies the mushroom, describes its key characteristics (color, habitat, edibility), and mentions potential look-alikes. However, it contains some awkward phrasing ('peau verticale', 'moderniser!') and introduces irrelevant information about human creation of the mushroom, lowering its score. It's also slightly less concise than it could be. It's a passable summary but has room for improvement.",
+      "improvement": 2
+    }
+  ],
+  "statistics": {
+    "average_base_score": 1.85,
+    "average_finetuned_score": 2.9,
+    "average_improvement": 1.05,
+    "win_rate": 0.85,
+    "tie_rate": 0.0,
+    "loss_rate": 0.15,
+    "valid_evaluations": 20,
+    "total_evaluations": 20
+  }
+}
